@@ -1,5 +1,6 @@
 import { useRoutes } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
+import MainLayout from './layouts/MainLayout'
 
 const NotFound = lazy(() => import('./pages/NotFound'))
 
@@ -14,9 +15,9 @@ export default function useRouteElement() {
       )
     },
     {
-      path: '/',
+      path: '',
       index: true,
-      element: <div>hello</div>
+      element: <MainLayout />
     }
   ])
   return routeElements
