@@ -23,6 +23,11 @@ module.exports = {
           marginRight: 'auto',
           paddingLeft: '10px',
           paddingRight: '10px'
+        },
+        '.centered': {
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center'
         }
       })
     })
