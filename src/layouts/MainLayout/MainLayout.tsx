@@ -9,7 +9,7 @@ interface Props {
 const MainLayoutInner = ({ children }: Props) => {
   console.log('Main Layout')
   return (
-    <div>
+    <div className='relative'>
       <Header />
       {children}
       <Outlet />
