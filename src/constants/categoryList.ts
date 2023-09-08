@@ -1,4 +1,4 @@
-export const productsType = [
+export const categoryList = [
   {
     id: 1,
     name: 'Điện thoại',
