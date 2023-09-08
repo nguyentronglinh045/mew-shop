@@ -9,7 +9,7 @@ interface Props {
 const MainLayoutInner = ({ children }: Props) => {
   console.log('Main Layout')
   return (
-    <div className='relative'>
+    <div className='relative overflow-hidden'>
       <Header />
       {children}
       <Outlet />
