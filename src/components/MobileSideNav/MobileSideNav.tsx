@@ -1,5 +1,6 @@
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import Logo from 'src/assets/images/logo.webp'
+import path from 'src/constants/path'
 import Button from '../Button'
 interface MobileSideNavProps {
   isOpenSideNav: boolean
@@ -53,18 +54,12 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
 
         <div className='flex flex-col justify-between gap-4'>
           <div className='flex gap-2'>
-            <Button
-              className='w-1/2 rounded-md bg-white px-1 py-2 hover:bg-[#E6C2AE]'
-              classNameText='text-black font-bold'
-            >
-              Đăng nhập
-            </Button>
-            <Button
-              className='w-1/2 rounded-md bg-white px-1 py-2 hover:bg-[#E6C2AE]'
-              classNameText='text-black font-bold'
-            >
-              Đăng ký
-            </Button>
+            <Link to={path.login} className='w-1/2 rounded-md bg-white px-1 py-2 hover:bg-[#E6C2AE]'>
+              <p className='text-center font-bold text-black'>Đăng nhập</p>
+            </Link>
+            <Link to={path.register} className='w-1/2 rounded-md bg-white px-1 py-2 hover:bg-[#E6C2AE]'>
+              <p className='text-center font-bold text-black'>Đăng ký</p>
+            </Link>
           </div>
           <div className='flex w-full flex-row items-center gap-2'>
             <div className='h-auto w-6 shrink-0'>
