@@ -6,11 +6,14 @@ interface Props {
   children?: React.ReactNode
 }
 
+import Slider from 'src/components/Slider'
+
 const MainLayoutInner = ({ children }: Props) => {
   console.log('Main Layout')
   return (
     <div className='relative overflow-hidden'>
       <Header />
+      <Slider />
       {children}
       <Outlet />
       <Footer />
