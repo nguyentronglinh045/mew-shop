@@ -1,10 +1,11 @@
 import { useRoutes } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
 import MainLayout from './layouts/MainLayout'
-import Login from './pages/Login'
 import path from './constants/path.ts'
 
 const NotFound = lazy(() => import('./pages/NotFound'))
+const Login = lazy(() => import('./pages/Login'))
+const Register = lazy(() => import('./pages/Register'))
 
 export default function useRouteElement() {
   const routeElements = useRoutes([
@@ -26,6 +27,14 @@ export default function useRouteElement() {
       element: (
         <Suspense>
           <Login />
+        </Suspense>
+      )
+    },
+    {
+      path: path.register,
+      element: (
+        <Suspense>
+          <Register />
         </Suspense>
       )
     }
