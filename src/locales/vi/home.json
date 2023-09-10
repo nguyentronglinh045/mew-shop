@@ -1,0 +1,14 @@
+{
+  "Authentication": {
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận Mật khẩu",
+    "forgotPassword": "Quên mật khẩu?",
+    "orloginVia": "Hoặc đăng nhập qua",
+    "createAccount": "Tạo tài khoản",
+    "reasonForCreatingAccounto": "Tạo tài khoản để quản lý đơn hàng và các thông tin thanh toán, gửi hàng một cách đơn giản hơn.",
+    "backToHome": "Về trang chủ"
+  }
+}

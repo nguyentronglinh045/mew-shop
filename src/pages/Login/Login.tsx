@@ -1,4 +1,5 @@
 import { Helmet } from 'react-helmet-async'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import FacebookBtn from 'src/assets/icons/fb-btn.svg'
 import GoogleBtn from 'src/assets/icons/google-btn.svg'
@@ -7,10 +8,11 @@ import Input from 'src/components/Input'
 import path from 'src/constants/path'
 
 export default function Login() {
+  const { t } = useTranslation(['home'])
   return (
     <div className='relative flex h-screen w-screen justify-end'>
       <Helmet>
-        <title>Đăng nhập </title>
+        <title>{t('Authentication.login')}</title>
         <meta name='description' content='Đăng nhập vào dự án' />
       </Helmet>
       <div className='absolute inset-0'>
@@ -22,12 +24,12 @@ export default function Login() {
       </div>
       <div className='z-10 flex w-full flex-col gap-4 overflow-auto bg-black/80 px-6 pb-6 pt-8 sm:w-3/4 md:w-[500px] lg:px-12 lg:pb-6 lg:pt-9 '>
         <form noValidate>
-          <h2 className='mb-4 text-center  text-3xl font-bold text-white'>Đăng nhập</h2>
+          <h2 className='mb-4 text-center text-3xl font-bold text-white'>{t('Authentication.login')}</h2>
           <div className='flex flex-col gap-1'>
-            <Input name='username' placeholder='Tài khoản' className='text-base font-semibold' />
+            <Input name='username' placeholder={t('Authentication.email')} className='text-base font-semibold' />
             <Input
               name='password'
-              placeholder='Mật khẩu'
+              placeholder={t('Authentication.password')}
               type='password'
               className='text-base font-semibold'
               classNameEye='absolute top-1/3 right-3 -translate-y-1/2 h5 w-6'
@@ -37,10 +39,10 @@ export default function Login() {
                 classNameText='font-semibold text-white'
                 className='rounded-full bg-main-color px-5 py-3 duration-300 hover:bg-slate-700 active:bg-blue-500'
               >
-                Đăng nhập
+                {t('Authentication.login')}
               </Button>
               <Button classNameText='font-semibold text-white underline hover:text-yellow-400 duration-100 active:text-main-color'>
-                Quên mật khẩu?
+                {t('Authentication.forgotPassword')}
               </Button>
             </div>
           </div>
@@ -48,33 +50,33 @@ export default function Login() {
         <div className='relative text-center'>
           <div className='absolute top-[40%] z-20 w-full translate-y-1/2 border-[1px] border-t border-gray-100'></div>
           <div className='relative z-50 inline rounded-full bg-white px-3 py-1 '>
-            <span className='text-base font-medium text-main-color'>Hoặc đăng nhập qua</span>
+            <span className='text-base font-medium text-main-color'>{t('Authentication.orloginVia')}</span>
           </div>
         </div>
         <div className='flex flex-row justify-around'>
           <div className='h-[37px] cursor-pointer'>
-            <img src={FacebookBtn} alt='' className='h-[37px] object-cover' />
+            <img src={FacebookBtn} alt='fb' className='h-[37px] object-cover' />
           </div>
           <div className='h-[37px] cursor-pointer'>
-            <img src={GoogleBtn} alt='' className='h-[37px] object-cover' />
+            <img src={GoogleBtn} alt='gg' className='h-[37px] object-cover' />
           </div>
         </div>
         <div className='flex flex-col gap-3'>
-          <h2 className='text-center  text-3xl font-bold text-white'>Đăng ký</h2>
+          <h2 className='text-center text-3xl font-bold text-white'>{t('Authentication.login')}</h2>
           <div className='rounded border-[1px] border-white px-2 py-1 text-center text-white duration-150 hover:border-yellow-400 hover:text-yellow-400'>
-            <span>Tạo tài khoản để quản lý đơn hàng, và các thông tin thanh toán, gửi hàng một cách đơn giản hơn.</span>
+            <span>{t('Authentication.reasonForCreatingAccounto')}</span>
           </div>
           <Link
             to={path.register}
             className='w-full rounded-full bg-gray-600 py-3 text-center font-semibold text-white hover:bg-main-color active:bg-blue-500'
           >
-            <span>Tạo tài khoản</span>
+            <span>{t('Authentication.register')}</span>
           </Link>
           <Link
             to={path.home}
             className='w-full rounded-full bg-gray-600 py-3 text-center font-semibold text-white hover:bg-main-color active:bg-blue-500'
           >
-            <span>Quay về trang chủ</span>
+            <span>{t('Authentication.backToHome')}</span>
           </Link>
         </div>
       </div>

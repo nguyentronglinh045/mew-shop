@@ -1,0 +1,14 @@
+{
+  "Authentication": {
+    "login": "Login",
+    "register": "Register",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "orloginVia": "Or log in via",
+    "createAccount": "Create Account",
+    "reasonForCreatingAccounto": "Create an account to manage orders, payment and shipping information more simply.",
+    "backToHome": "Back to Home"
+  }
+}
