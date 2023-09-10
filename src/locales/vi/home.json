@@ -10,5 +10,11 @@
     "createAccount": "Tạo tài khoản",
     "reasonForCreatingAccounto": "Tạo tài khoản để quản lý đơn hàng và các thông tin thanh toán, gửi hàng một cách đơn giản hơn.",
     "backToHome": "Về trang chủ"
+  },
+  "Policy": {
+    "safe": "Sản phẩm an toàn",
+    "quality": "Chất lượng cam kết",
+    "service": "Dịch vụ vượt trội",
+    "delivery": "Giao hàng nhanh chóng"
   }
 }

@@ -10,5 +10,11 @@
     "createAccount": "Create Account",
     "reasonForCreatingAccounto": "Create an account to manage orders, payment and shipping information more simply.",
     "backToHome": "Back to Home"
+  },
+  "Policy": {
+    "safe": "Safe products",
+    "quality": "Committed quality",
+    "service": "Outstanding service",
+    "delivery": "Fast delivery"
   }
 }
