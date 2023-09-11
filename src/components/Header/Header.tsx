@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
@@ -7,7 +8,7 @@ import path from 'src/constants/path'
 import { locales } from 'src/i18n/i18n'
 import MobileSideNav from '../MobileSideNav'
 import Popover from '../Popover'
-import classNames from 'classnames'
+import PortalComponent from '../PortalComponent'
 
 export default function Header() {
   const { i18n, t } = useTranslation()
@@ -250,13 +251,15 @@ export default function Header() {
       </div>
       <MobileSideNav isOpenSideNav={openSideNav} setOpenSideNav={() => setOpenSideNav(false)} />
       {openSideNav && (
-        <div
-          className='absolute inset-0 h-screen w-screen bg-black/50 lg:hidden'
-          onClick={() => setOpenSideNav(false)}
-          tabIndex={0}
-          role='button'
-          aria-hidden='true'
-        ></div>
+        <PortalComponent>
+          <div
+            className='absolute inset-0 z-10 h-screen w-screen bg-black/50 lg:hidden'
+            onClick={() => setOpenSideNav(false)}
+            tabIndex={0}
+            role='button'
+            aria-hidden='true'
+          ></div>
+        </PortalComponent>
       )}
     </div>
   )
