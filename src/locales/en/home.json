@@ -10,5 +10,12 @@
     "createAccount": "Create Account",
     "reasonForCreatingAccounto": "Create an account to manage orders, payment and shipping information more simply.",
     "backToHome": "Back to Home"
+  },
+  "Header": {
+    "shopSystem": "Shop System",
+    "keyWord": "Key word",
+    "callToBuy": "Call",
+    "cart": "Cart",
+    "brachs": "Brachs"
   }
 }

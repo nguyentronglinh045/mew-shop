@@ -1,14 +1,24 @@
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import Logo from 'src/assets/images/logo.webp'
 import MobiLogo from 'src/assets/images/logo_mobi.webp'
 import path from 'src/constants/path'
+import { locales } from 'src/i18n/i18n'
 import MobileSideNav from '../MobileSideNav'
-import { useState } from 'react'
+import Popover from '../Popover'
+import classNames from 'classnames'
 
 export default function Header() {
+  const { i18n, t } = useTranslation()
+  const currentLanguage = locales[i18n.language as keyof typeof locales]
   const [openSideNav, setOpenSideNav] = useState(false)
+
+  const changeLanguage = (language: 'vi' | 'en') => {
+    i18n.changeLanguage(language)
+  }
   return (
-    <div className='relative z-40 bg-gradient-to-r from-red-800 to-red-600 px-2 py-2 text-white lg:px-8 lg:py-1'>
+    <div className='relative bg-gradient-to-r from-red-800 to-main-color px-2 py-2 text-white lg:px-8 lg:py-1'>
       <div className='container flex gap-2 py-1 max-sm:px-0 lg:flex-col lg:gap-3'>
         <div className='flex grow flex-row items-center gap-2 lg:gap-3'>
           <Link to={'/'} className='flex'>
@@ -20,21 +30,21 @@ export default function Header() {
               title='Meo Mobile'
             />
           </Link>
-          <div className='hidden rounded-[10px] bg-white/20 p-2 text-white lg:flex'>
+          <div className='hidden rounded-[10px] bg-white/20 p-2 text-white xl:flex'>
             <Link
               to={'/'}
               className='text-white transition-colors duration-100 hover:text-yellow-400'
-              title='Chi nhánh'
+              title={t('Header.shopSystem')}
             >
-              <p className='font-normal'>Hệ thống cửa hàng</p>
-              <span className='font-bold'>(45 chi nhánh)</span>
+              <p className='font-normal'>{t('Header.shopSystem')}</p>
+              <span className='font-bold'>(45 {t('Header.brachs')})</span>
             </Link>
           </div>
           <form className='relative flex flex-grow'>
             <input
               type='text'
               className='w-full rounded-l-md px-3 py-2 text-black outline-none'
-              placeholder='Từ khóa'
+              placeholder={t('Header.keyWord')}
             />
             <button className='inline-flex cursor-pointer items-center rounded-r-md bg-white stroke-[#474747] px-3 py-2 hover:stroke-yellow-400'>
               <svg
@@ -53,37 +63,6 @@ export default function Header() {
               </svg>
             </button>
           </form>
-          <Link
-            to={'/'}
-            className='hidden flex-row items-center gap-2 text-white duration-100 hover:text-yellow-400 lg:flex'
-          >
-            <div className='flex-1 animate-bounce'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width={24}
-                height={24}
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='white'
-                strokeWidth={2}
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                className='lucide lucide-phone-call'
-              >
-                <path d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z' />
-                <path d='M14.05 2a9 9 0 0 1 8 7.94' />
-                <path d='M14.05 6A5 5 0 0 1 18 10' />
-              </svg>
-            </div>
-            <div className='flex flex-col'>
-              <div className='inline-block font-normal'>
-                <span className=''>Gọi mua hàng</span>
-              </div>
-              <div className='inline-block font-bold'>
-                <span>1234 5667</span>
-              </div>
-            </div>
-          </Link>
           <div className='hidden flex-row items-center gap-2 lg:flex'>
             <div className='inline-block flex-1'>
               <svg
@@ -104,16 +83,118 @@ export default function Header() {
               </svg>
             </div>
             <div className='flex flex-col'>
-              <Link to={path.login} className='font-bold text-white duration-100 hover:text-yellow-400'>
-                <span>Đăng Nhập</span>
+              <Link
+                to={path.login}
+                title={t('Authentication.login')}
+                className='font-bold text-white duration-100 hover:text-yellow-400'
+              >
+                <span>{t('Authentication.login')}</span>
               </Link>
-              <Link to={path.login} className='font-bold text-white duration-100 hover:text-yellow-400'>
-                <span>Đăng Kí</span>
+              <Link
+                to={path.login}
+                title={t('Authentication.register')}
+                className='font-bold text-white duration-100 hover:text-yellow-400'
+              >
+                <span>{t('Authentication.register')}</span>
               </Link>
             </div>
           </div>
+          <Popover
+            as={'div'}
+            renderPopover={
+              <div className='relative rounded-sm border border-gray-200 bg-white shadow-md'>
+                <div className='flex w-40 flex-col py-2'>
+                  <button
+                    className={classNames(
+                      'flex w-full items-center justify-between px-3 py-2 text-left hover:bg-slate-300 hover:text-main-color',
+                      {
+                        'bg-cyan-100 font-bold text-main-color': currentLanguage === 'VI',
+                        'bg-white text-black': currentLanguage !== 'VI'
+                      }
+                    )}
+                    onClick={() => changeLanguage('vi')}
+                  >
+                    Tiếng Việt
+                    {currentLanguage === 'VI' && (
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        width={24}
+                        height={24}
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='currentColor'
+                        strokeWidth={2}
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        className='lucide lucide-check'
+                      >
+                        <polyline points='20 6 9 17 4 12' />
+                      </svg>
+                    )}
+                  </button>
+                  <button
+                    className={classNames(
+                      'mt-2 flex w-full items-center justify-between px-3 py-2 text-left hover:bg-slate-300 hover:text-main-color',
+                      {
+                        'bg-cyan-100 font-bold text-main-color': currentLanguage === 'EN',
+                        'bg-white text-black': currentLanguage !== 'EN'
+                      }
+                    )}
+                    onClick={() => changeLanguage('en')}
+                  >
+                    English
+                    {currentLanguage === 'EN' && (
+                      <svg
+                        xmlns='http://www.w3.org/2000/svg'
+                        width={24}
+                        height={24}
+                        viewBox='0 0 24 24'
+                        fill='none'
+                        stroke='currentColor'
+                        strokeWidth={2}
+                        strokeLinecap='round'
+                        strokeLinejoin='round'
+                        className='lucide lucide-check'
+                      >
+                        <polyline points='20 6 9 17 4 12' />
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              </div>
+            }
+          >
+            <div className='hidden gap-1 lg:flex'>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='h-5 w-5'
+              >
+                <path
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  d='M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418'
+                />
+              </svg>
+              <span className='font-bold'>{currentLanguage}</span>
+              <svg
+                xmlns='http://www.w3.org/2000/svg'
+                fill='none'
+                viewBox='0 0 24 24'
+                strokeWidth={1.5}
+                stroke='currentColor'
+                className='h-5 w-5'
+              >
+                <path strokeLinecap='round' strokeLinejoin='round' d='M19.5 8.25l-7.5 7.5-7.5-7.5' />
+              </svg>
+            </div>
+          </Popover>
           <Link
             to={path.cart}
+            title={t('Header.cart')}
             className='hidden flex-row items-center gap-2 rounded-[10px] bg-white/20 p-2 text-white hover:text-yellow-400 lg:flex '
           >
             <div className='self-center'>
@@ -138,7 +219,7 @@ export default function Header() {
                 <path d='m15 11-1 9' />
               </svg>
             </div>
-            <span className='font-semibold'>Giỏ hàng</span>
+            <span className='font-semibold'>{t('Header.cart')}</span>
           </Link>
         </div>
         <div className='hidden flex-row lg:flex'>
@@ -170,7 +251,7 @@ export default function Header() {
       <MobileSideNav isOpenSideNav={openSideNav} setOpenSideNav={() => setOpenSideNav(false)} />
       {openSideNav && (
         <div
-          className='absolute inset-0 z-[49] h-screen w-screen bg-black/50 lg:hidden'
+          className='absolute inset-0 h-screen w-screen bg-black/50 lg:hidden'
           onClick={() => setOpenSideNav(false)}
           tabIndex={0}
           role='button'

@@ -4,8 +4,8 @@ import HOME_EN from 'src/locales/en/home.json'
 import HOME_VI from 'src/locales/vi/home.json'
 
 export const locales = {
-  en: 'English',
-  vi: 'Vietnamese'
+  en: 'EN',
+  vi: 'VI'
 }
 
 const resources = {

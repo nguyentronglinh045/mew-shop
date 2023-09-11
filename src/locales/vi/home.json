@@ -10,5 +10,12 @@
     "createAccount": "Tạo tài khoản",
     "reasonForCreatingAccounto": "Tạo tài khoản để quản lý đơn hàng và các thông tin thanh toán, gửi hàng một cách đơn giản hơn.",
     "backToHome": "Về trang chủ"
+  },
+  "Header": {
+    "shopSystem": "Hệ thống cửa hàng",
+    "keyWord": "Từ khóa",
+    "callToBuy": "Gọi mua hàng",
+    "cart": "Giỏ hàng",
+    "brachs": "Chi nhánh"
   }
 }

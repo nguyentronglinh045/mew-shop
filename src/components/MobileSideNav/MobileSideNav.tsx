@@ -2,6 +2,7 @@ import { Link, NavLink } from 'react-router-dom'
 import Logo from 'src/assets/images/logo.webp'
 import path from 'src/constants/path'
 import Button from '../Button'
+import SelectLaguage from '../SelectLaguage'
 interface MobileSideNavProps {
   isOpenSideNav: boolean
   setOpenSideNav: () => void
@@ -50,7 +51,7 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
             <span>Sản phẩm</span>
           </NavLink>
         </div>
-        <div className='border-t border-gray-500'></div>
+        <div className='border-t border-white'></div>
 
         <div className='flex flex-col justify-between gap-4'>
           <div className='flex gap-2'>
@@ -89,6 +90,7 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
             Đăng xuất
           </Button>
         </div>
+        <SelectLaguage />
       </div>
 
       <button className='absolute right-4 top-4 cursor-pointer text-white' onClick={setOpenSideNav}>
