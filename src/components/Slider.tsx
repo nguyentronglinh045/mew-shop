@@ -1,6 +1,10 @@
 import Carousel from 'react-multi-carousel'
 import { useTranslation } from 'react-i18next'
 
+interface CustomArrowProps {
+  onClick?: () => void
+}
+
 const Slider = () => {
   const { t } = useTranslation(['home'])
 
@@ -19,48 +23,50 @@ const Slider = () => {
     }
   }
 
-  const CustomNextArrow = ({ onClick, ...rest }) => {
+  // eslint-disable-next-line react/prop-types
+  const CustomNextArrow: React.FC<CustomArrowProps> = ({ onClick }) => {
     return (
       <button
-        className='absolute flex justify-center items-center right-2 max-sm:right-0 h-[60px] w-[30px] rounded-[30px_0_0_30px] 
-        bg-white/50 group'
-        onClick={() => onClick()}
+        className='group absolute right-2 flex h-[60px] w-[30px] items-center justify-center rounded-[30px_0_0_30px] 
+        bg-white/50 max-sm:right-0'
+        onClick={onClick}
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
-          width='24'
-          height='24'
+          width={24}
+          height={24}
           viewBox='0 0 24 24'
           fill='none'
           stroke='currentColor'
-          stroke-width='2'
-          stroke-linecap='round'
-          stroke-linejoin='round'
-          class='lucide lucide-chevron-right group-hover:stroke-red-500'
+          strokeWidth={2}
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          className='lucide lucide-chevron-right group-hover:stroke-red-500'
         >
           <path d='m9 18 6-6-6-6' />
         </svg>
       </button>
     )
   }
-  const CustomPrevArrow = ({ onClick, ...rest }) => {
+  // eslint-disable-next-line react/prop-types
+  const CustomPrevArrow: React.FC<CustomArrowProps> = ({ onClick }) => {
     return (
       <button
-        className='absolute flex justify-center items-center left-2 max-sm:left-0 h-[60px] w-[30px] rounded-[0_30px_30px_0] 
-        bg-white/50 group'
-        onClick={() => onClick()}
+        className='group absolute left-2 flex h-[60px] w-[30px] items-center justify-center rounded-[0_30px_30px_0] 
+        bg-white/50 max-sm:left-0'
+        onClick={onClick}
       >
         <svg
           xmlns='http://www.w3.org/2000/svg'
-          width='24'
-          height='24'
+          width={24}
+          height={24}
           viewBox='0 0 24 24'
           fill='none'
           stroke='currentColor'
-          stroke-width='2'
-          stroke-linecap='round'
-          stroke-linejoin='round'
-          class='lucide lucide-chevron-left group-hover:stroke-red-500'
+          strokeWidth={2}
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          className='lucide lucide-chevron-left group-hover:stroke-red-500'
         >
           <path d='m15 18-6-6 6-6' />
         </svg>
