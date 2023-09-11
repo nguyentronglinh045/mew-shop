@@ -17,5 +17,11 @@
     "callToBuy": "Call",
     "cart": "Cart",
     "brachs": "Brachs"
+  },
+  "Policy": {
+    "safe": "Safe products",
+    "quality": "Committed quality",
+    "service": "Outstanding service",
+    "delivery": "Fast delivery"
   }
 }

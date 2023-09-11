@@ -17,5 +17,11 @@
     "callToBuy": "Gọi mua hàng",
     "cart": "Giỏ hàng",
     "brachs": "Chi nhánh"
+  },
+  "Policy": {
+    "safe": "Sản phẩm an toàn",
+    "quality": "Chất lượng cam kết",
+    "service": "Dịch vụ vượt trội",
+    "delivery": "Giao hàng nhanh chóng"
   }
 }
