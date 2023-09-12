@@ -7,6 +7,7 @@ interface Props {
 }
 
 import Slider from 'src/components/Slider'
+import FeaturedCategories from 'src/components/FeaturedCategories'
 
 const MainLayoutInner = ({ children }: Props) => {
   console.log('Main Layout')
@@ -14,6 +15,7 @@ const MainLayoutInner = ({ children }: Props) => {
     <div className='relative overflow-hidden'>
       <Header />
       <Slider />
+      <FeaturedCategories />
       {children}
       <Outlet />
       <Footer />
