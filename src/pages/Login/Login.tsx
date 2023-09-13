@@ -62,7 +62,7 @@ export default function Login() {
           </div>
         </div>
         <div className='flex flex-col gap-3'>
-          <h2 className='text-center text-3xl font-bold text-white'>{t('Authentication.login')}</h2>
+          <h2 className='text-center text-3xl font-bold text-white'>{t('Authentication.register')}</h2>
           <div className='rounded border-[1px] border-white px-2 py-1 text-center text-white duration-150 hover:border-yellow-400 hover:text-yellow-400'>
             <span>{t('Authentication.reasonForCreatingAccounto')}</span>
           </div>

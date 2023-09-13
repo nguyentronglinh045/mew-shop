@@ -92,7 +92,7 @@ export default function Header() {
                 <span>{t('Authentication.login')}</span>
               </Link>
               <Link
-                to={path.login}
+                to={path.register}
                 title={t('Authentication.register')}
                 className='font-bold text-white duration-100 hover:text-yellow-400'
               >

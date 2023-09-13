@@ -9,7 +9,13 @@
     "orloginVia": "Hoặc đăng nhập qua",
     "createAccount": "Tạo tài khoản",
     "reasonForCreatingAccounto": "Tạo tài khoản để quản lý đơn hàng và các thông tin thanh toán, gửi hàng một cách đơn giản hơn.",
-    "backToHome": "Về trang chủ"
+    "backToHome": "Về trang chủ",
+    "requiredEmail": "Email là bắt buộc",
+    "emailInvalidate": "Email không đúng định dạng",
+    "requiredPassword": "Mật khẩu là bắt buộc",
+    "requiredConfirmPassword": "Nhập lại mật khẩu là bắt buộc",
+    "lengthRequired": "Độ dài từ 6-160 ký tự",
+    "passwordMismatch": "Mật khẩu nhập lại không khớp"
   },
   "Header": {
     "shopSystem": "Hệ thống cửa hàng",
