@@ -1,14 +1,20 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from '@tanstack/react-query'
+import omit from 'lodash/omit'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import { registerAccount } from 'src/apis/auth.api'
 import FacebookBtn from 'src/assets/icons/fb-btn.svg'
 import GoogleBtn from 'src/assets/icons/google-btn.svg'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import path from 'src/constants/path'
+import { ErrorResponseApi } from 'src/types/utils.type'
 import { schema, Schema } from 'src/utils/rules'
+import { isAxiosUnprocessableEntityError } from 'src/utils/utils'
+
 type FormData = Schema
 
 export default function Register() {
@@ -16,15 +22,33 @@ export default function Register() {
   const {
     handleSubmit,
     register,
-    watch,
+    setError,
     formState: { errors }
   } = useForm<FormData>({ resolver: yupResolver(schema) })
-
-  const onSubmit = handleSubmit((data) => {
-    console.log(data)
+  const registerAccountMutation = useMutation({
+    mutationFn: (body: Omit<FormData, 'confirm_password'>) => registerAccount(body)
   })
-  const value = watch()
-  console.log(value)
+  const onSubmit = handleSubmit((data) => {
+    const body = omit(data, ['confirm_password'])
+    registerAccountMutation.mutate(body, {
+      onSuccess: (data) => {
+        console.log(data)
+      },
+      onError: (error) => {
+        if (isAxiosUnprocessableEntityError<ErrorResponseApi<Omit<FormData, 'confirm_password'>>>(error)) {
+          const formError = error.response?.data.data
+          if (formError) {
+            Object.keys(formError).forEach((key) => {
+              setError(key as keyof Omit<FormData, 'confirm_password'>, {
+                message: formError[key as keyof Omit<FormData, 'confirm_password'>],
+                type: 'Server'
+              })
+            })
+          }
+        }
+      }
+    })
+  })
 
   return (
     <div className='relative flex h-screen w-screen justify-end'>
