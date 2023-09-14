@@ -5,6 +5,7 @@ import MainLayout from './layouts/MainLayout/MainLayout.tsx'
 import RegisterLayout from './layouts/RegisterLayout/RegisterLayout.tsx'
 
 const Home = lazy(() => import('./pages/Home'))
+const LoadingScreen = lazy(() => import('./pages/LoadingScreen'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 const Login = lazy(() => import('./pages/Login'))
 const Register = lazy(() => import('./pages/Register'))
@@ -23,16 +24,16 @@ export default function useRouteElement() {
     {
       path: '*',
       element: (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingScreen />}>
           <NotFound />
         </Suspense>
       )
     },
     {
-      path: '',
+      path: '/',
       index: true,
       element: (
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<LoadingScreen />}>
           <MainLayout>
             <Home />
           </MainLayout>
@@ -50,7 +51,7 @@ export default function useRouteElement() {
             {
               path: path.login,
               element: (
-                <Suspense>
+                <Suspense fallback={<LoadingScreen />}>
                   <Login />
                 </Suspense>
               )
@@ -58,7 +59,7 @@ export default function useRouteElement() {
             {
               path: path.register,
               element: (
-                <Suspense>
+                <Suspense fallback={<LoadingScreen />}>
                   <Register />
                 </Suspense>
               )
@@ -78,7 +79,7 @@ export default function useRouteElement() {
             {
               path: path.profile,
               element: (
-                <Suspense>
+                <Suspense fallback={<LoadingScreen />}>
                   <Profile />
                 </Suspense>
               )
