@@ -92,7 +92,7 @@ export default function Header() {
                 <span>{t('Authentication.login')}</span>
               </Link>
               <Link
-                to={path.login}
+                to={path.register}
                 title={t('Authentication.register')}
                 className='font-bold text-white duration-100 hover:text-yellow-400'
               >
@@ -109,7 +109,7 @@ export default function Header() {
                     className={classNames(
                       'flex w-full items-center justify-between px-3 py-2 text-left hover:bg-slate-300 hover:text-main-color',
                       {
-                        'bg-cyan-100 font-bold text-main-color': currentLanguage === 'VI',
+                        'cursor-not-allowed bg-cyan-100 font-bold text-main-color': currentLanguage === 'VI',
                         'bg-white text-black': currentLanguage !== 'VI'
                       }
                     )}
@@ -137,7 +137,7 @@ export default function Header() {
                     className={classNames(
                       'mt-2 flex w-full items-center justify-between px-3 py-2 text-left hover:bg-slate-300 hover:text-main-color',
                       {
-                        'bg-cyan-100 font-bold text-main-color': currentLanguage === 'EN',
+                        'cursor-not-allowed bg-cyan-100 font-bold text-main-color': currentLanguage === 'EN',
                         'bg-white text-black': currentLanguage !== 'EN'
                       }
                     )}

@@ -1,4 +1,6 @@
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Helmet } from 'react-helmet-async'
+import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import FacebookBtn from 'src/assets/icons/fb-btn.svg'
@@ -6,9 +8,26 @@ import GoogleBtn from 'src/assets/icons/google-btn.svg'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import path from 'src/constants/path'
+import { Schema, schema } from 'src/utils/rules'
+
+type FormData = Pick<Schema, 'email' | 'password'>
+const LoginSchema = schema.pick(['email', 'password'])
 
 export default function Login() {
   const { t } = useTranslation(['home'])
+  const {
+    handleSubmit,
+    register,
+    watch,
+    formState: { errors }
+  } = useForm<FormData>({ resolver: yupResolver(LoginSchema) })
+
+  const onSubmit = handleSubmit((data) => {
+    console.log(data)
+  })
+  const value = watch()
+  console.log(value)
+
   return (
     <div className='relative flex h-screen w-screen justify-end'>
       <Helmet>
@@ -23,16 +42,24 @@ export default function Login() {
         />
       </div>
       <div className='z-10 flex w-full flex-col gap-4 overflow-auto bg-black/80 px-6 pb-6 pt-8 sm:w-3/4 md:w-[500px] lg:px-12 lg:pb-6 lg:pt-9 '>
-        <form noValidate>
+        <form noValidate onSubmit={onSubmit}>
           <h2 className='mb-4 text-center text-3xl font-bold text-white'>{t('Authentication.login')}</h2>
           <div className='flex flex-col gap-1'>
-            <Input name='username' placeholder={t('Authentication.email')} className='text-base font-semibold' />
+            <Input
+              name='email'
+              placeholder={t('Authentication.email')}
+              className='text-base font-semibold'
+              register={register}
+              errorMessage={errors.email?.message && t(errors.email?.message)}
+            />
             <Input
               name='password'
               placeholder={t('Authentication.password')}
               type='password'
               className='text-base font-semibold'
               classNameEye='absolute top-1/3 right-3 -translate-y-1/2 h5 w-6'
+              register={register}
+              errorMessage={errors.password?.message && t(errors.password?.message)}
             />
             <div className='flex flex-row items-center justify-between'>
               <Button
@@ -62,7 +89,7 @@ export default function Login() {
           </div>
         </div>
         <div className='flex flex-col gap-3'>
-          <h2 className='text-center text-3xl font-bold text-white'>{t('Authentication.login')}</h2>
+          <h2 className='text-center text-3xl font-bold text-white'>{t('Authentication.register')}</h2>
           <div className='rounded border-[1px] border-white px-2 py-1 text-center text-white duration-150 hover:border-yellow-400 hover:text-yellow-400'>
             <span>{t('Authentication.reasonForCreatingAccounto')}</span>
           </div>

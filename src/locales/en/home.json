@@ -9,7 +9,13 @@
     "orloginVia": "Or log in via",
     "createAccount": "Create Account",
     "reasonForCreatingAccounto": "Create an account to manage orders, payment and shipping information more simply.",
-    "backToHome": "Back to Home"
+    "backToHome": "Back to Home",
+    "requiredEmail": "Email is required",
+    "emailInvalidate": "Email invalidate",
+    "requiredPassword": "Password is required",
+    "requiredConfirmPassword": "Password re-entering is required",
+    "lengthRequired": "Length from 5-160 characters",
+    "passwordMismatch": "Password mismatch"
   },
   "Header": {
     "shopSystem": "Shop System",
