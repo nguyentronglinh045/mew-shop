@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
-import { registerAccount } from 'src/apis/auth.api'
+import authApi from 'src/apis/auth.api'
 import FacebookBtn from 'src/assets/icons/fb-btn.svg'
 import GoogleBtn from 'src/assets/icons/google-btn.svg'
 import Button from 'src/components/Button'
@@ -25,9 +25,11 @@ export default function Register() {
     setError,
     formState: { errors }
   } = useForm<FormData>({ resolver: yupResolver(schema) })
+
   const registerAccountMutation = useMutation({
-    mutationFn: (body: Omit<FormData, 'confirm_password'>) => registerAccount(body)
+    mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.registerAccount(body)
   })
+
   const onSubmit = handleSubmit((data) => {
     const body = omit(data, ['confirm_password'])
     registerAccountMutation.mutate(body, {
