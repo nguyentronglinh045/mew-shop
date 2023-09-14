@@ -52,18 +52,12 @@ export default function Login() {
   })
 
   return (
-    <div className='relative flex h-screen w-screen justify-end'>
+    <>
       <Helmet>
         <title>{t('Authentication.login')}</title>
         <meta name='description' content='Đăng nhập vào dự án' />
       </Helmet>
-      <div className='absolute inset-0'>
-        <img
-          src='https://bizweb.dktcdn.net/100/459/533/themes/868331/assets/bg_custom.png?1689838116391'
-          alt='background'
-          className='h-full w-full object-cover'
-        />
-      </div>
+
       <div className='z-10 flex w-full flex-col gap-4 overflow-auto bg-black/80 px-6 pb-6 pt-8 sm:w-3/4 md:w-[500px] lg:px-12 lg:pb-6 lg:pt-9 '>
         <form noValidate onSubmit={onSubmit}>
           <h2 className='mb-4 text-center text-3xl font-bold text-white'>{t('Authentication.login')}</h2>
@@ -130,6 +124,6 @@ export default function Login() {
           </Link>
         </div>
       </div>
-    </div>
+    </>
   )
 }

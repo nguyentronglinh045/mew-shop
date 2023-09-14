@@ -1,7 +1,8 @@
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
 import { Suspense, lazy } from 'react'
-import MainLayout from './layouts/MainLayout'
 import path from './constants/path.ts'
+import MainLayout from './layouts/MainLayout/MainLayout.tsx'
+import RegisterLayout from './layouts/RegisterLayout/RegisterLayout.tsx'
 
 const Home = lazy(() => import('./pages/Home'))
 const NotFound = lazy(() => import('./pages/NotFound'))
@@ -43,20 +44,26 @@ export default function useRouteElement() {
       element: <RejectedRoute />,
       children: [
         {
-          path: path.login,
-          element: (
-            <Suspense>
-              <Login />
-            </Suspense>
-          )
-        },
-        {
-          path: path.register,
-          element: (
-            <Suspense>
-              <Register />
-            </Suspense>
-          )
+          path: '',
+          element: <RegisterLayout />,
+          children: [
+            {
+              path: path.login,
+              element: (
+                <Suspense>
+                  <Login />
+                </Suspense>
+              )
+            },
+            {
+              path: path.register,
+              element: (
+                <Suspense>
+                  <Register />
+                </Suspense>
+              )
+            }
+          ]
         }
       ]
     },
