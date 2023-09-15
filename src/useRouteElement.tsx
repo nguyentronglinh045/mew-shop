@@ -1,9 +1,9 @@
 import { Navigate, Outlet, useRoutes } from 'react-router-dom'
-import { Suspense, lazy } from 'react'
+import { Suspense, lazy, useContext } from 'react'
 import path from './constants/path.ts'
 import MainLayout from './layouts/MainLayout/MainLayout.tsx'
 import RegisterLayout from './layouts/RegisterLayout/RegisterLayout.tsx'
-
+import { AppContext } from './contexts/app.context.tsx'
 const Home = lazy(() => import('./pages/Home'))
 const LoadingScreen = lazy(() => import('./pages/LoadingScreen'))
 const NotFound = lazy(() => import('./pages/NotFound'))
@@ -11,11 +11,12 @@ const Login = lazy(() => import('./pages/Login'))
 const Register = lazy(() => import('./pages/Register'))
 const Profile = lazy(() => import('./pages/User/Profile/index.ts'))
 
-const isAuthenticated = false
 function ProtectedRoute() {
+  const { isAuthenticated } = useContext(AppContext)
   return isAuthenticated ? <Outlet /> : <Navigate to={path.login} />
 }
 function RejectedRoute() {
+  const { isAuthenticated } = useContext(AppContext)
   return !isAuthenticated ? <Outlet /> : <Navigate to={path.home} />
 }
 

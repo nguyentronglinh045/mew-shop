@@ -29,5 +29,9 @@
     "quality": "Chất lượng cam kết",
     "service": "Dịch vụ vượt trội",
     "delivery": "Giao hàng nhanh chóng"
+  },
+  "User": {
+    "profile": "Thông tin người dùng",
+    "logout": "Đăng xuất"
   }
 }

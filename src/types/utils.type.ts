@@ -5,5 +5,5 @@ export interface ErrorResponseApi<Data> {
 
 export interface SuccessResponseApi<Data> {
   message: string
-  data?: Data
+  data: Data
 }

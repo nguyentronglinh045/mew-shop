@@ -29,5 +29,9 @@
     "quality": "Committed quality",
     "service": "Outstanding service",
     "delivery": "Fast delivery"
+  },
+  "User": {
+    "profile": "User profile",
+    "logout": "Log out"
   }
 }

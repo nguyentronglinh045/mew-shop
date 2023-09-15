@@ -1,16 +1,20 @@
+import { useMutation } from '@tanstack/react-query'
 import classNames from 'classnames'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import authApi from 'src/apis/auth.api'
 import Logo from 'src/assets/images/logo.webp'
 import MobiLogo from 'src/assets/images/logo_mobi.webp'
 import path from 'src/constants/path'
+import { AppContext } from 'src/contexts/app.context'
 import { locales } from 'src/i18n/i18n'
 import MobileSideNav from '../MobileSideNav'
 import Popover from '../Popover'
 import PortalComponent from '../PortalComponent'
 
 export default function Header() {
+  const { isAuthenticated, setIsAuthenticated } = useContext(AppContext)
   const { i18n, t } = useTranslation()
   const currentLanguage = locales[i18n.language as keyof typeof locales]
   const [openSideNav, setOpenSideNav] = useState(false)
@@ -18,6 +22,16 @@ export default function Header() {
   const changeLanguage = (language: 'vi' | 'en') => {
     i18n.changeLanguage(language)
   }
+
+  const logoutMutation = useMutation({
+    mutationFn: authApi.logoutAccount,
+    onSuccess: () => setIsAuthenticated(false)
+  })
+
+  const handleLogout = () => {
+    logoutMutation.mutate()
+  }
+
   return (
     <div className='relative bg-gradient-to-r from-red-800 to-main-color px-2 py-2 text-white lg:px-8 lg:py-1'>
       <div className='container flex gap-2 py-1 max-sm:px-0 lg:flex-col lg:gap-3'>
@@ -84,20 +98,41 @@ export default function Header() {
               </svg>
             </div>
             <div className='flex flex-col'>
-              <Link
-                to={path.login}
-                title={t('Authentication.login')}
-                className='font-bold text-white duration-100 hover:text-yellow-400'
-              >
-                <span>{t('Authentication.login')}</span>
-              </Link>
-              <Link
-                to={path.register}
-                title={t('Authentication.register')}
-                className='font-bold text-white duration-100 hover:text-yellow-400'
-              >
-                <span>{t('Authentication.register')}</span>
-              </Link>
+              {!isAuthenticated ? (
+                <>
+                  <Link
+                    to={path.login}
+                    title={t('Authentication.login')}
+                    className='font-bold text-white duration-100 hover:text-yellow-400'
+                  >
+                    <span>{t('Authentication.login')}</span>
+                  </Link>
+                  <Link
+                    to={path.register}
+                    title={t('Authentication.register')}
+                    className='font-bold text-white duration-100 hover:text-yellow-400'
+                  >
+                    <span>{t('Authentication.register')}</span>
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to={path.profile}
+                    title={t('User.profile')}
+                    className='w-fit max-w-[160px] truncate text-base font-semibold text-white duration-100 hover:text-yellow-400'
+                  >
+                    <span>Nguyễn Trọng Linh 045</span>
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    title={t('Authentication.register')}
+                    className='text-left text-sm font-bold text-white underline duration-100 hover:text-yellow-400'
+                  >
+                    <span>{t('User.logout')}</span>
+                  </button>
+                </>
+              )}
             </div>
           </div>
           <Popover
@@ -253,7 +288,7 @@ export default function Header() {
       {openSideNav && (
         <PortalComponent>
           <div
-            className='absolute inset-0 z-10 h-screen w-screen bg-black/50 lg:hidden'
+            className='absolute inset-0 z-10 h-full w-full bg-black/50 lg:hidden'
             onClick={() => setOpenSideNav(false)}
             tabIndex={0}
             role='button'
