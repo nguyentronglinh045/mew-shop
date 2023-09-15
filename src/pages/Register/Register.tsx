@@ -99,6 +99,8 @@ export default function Register() {
                 type='submit'
                 classNameText='font-semibold text-white'
                 className='w-full rounded-full bg-main-color px-5 py-3 duration-300 hover:bg-slate-700 active:bg-blue-500'
+                isLoading={registerAccountMutation.isLoading}
+                disabled={registerAccountMutation.isLoading}
               >
                 {t('Authentication.register')}
               </Button>

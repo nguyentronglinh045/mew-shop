@@ -87,6 +87,8 @@ export default function Login() {
               <Button
                 classNameText='font-semibold text-white'
                 className='rounded-full bg-main-color px-5 py-3 duration-300 hover:bg-slate-700 active:bg-blue-500'
+                isLoading={loginAccountMutation.isLoading}
+                disabled={loginAccountMutation.isLoading}
               >
                 {t('Authentication.login')}
               </Button>
