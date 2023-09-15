@@ -12,7 +12,8 @@ const authApi = {
   },
   loginAccount: (body: { email: string; password: string }) => {
     return http.post<AuthResponse>(URL_LOGIN, body)
-  }
+  },
+  logoutAccount: () => http.post(URL_LOGOUT)
 }
 
 export default authApi
