@@ -12,10 +12,12 @@ import { locales } from 'src/i18n/i18n'
 import MobileSideNav from '../MobileSideNav'
 import Popover from '../Popover'
 import PortalComponent from '../PortalComponent'
+import { getAvatarURL } from 'src/utils/utils'
 
 export default function Header() {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, setIsAuthenticated, setProfile, profile } = useContext(AppContext)
   const { i18n, t } = useTranslation()
+  const avatarURL = profile?.avatar && getAvatarURL(profile.avatar)
   const currentLanguage = locales[i18n.language as keyof typeof locales]
   const [openSideNav, setOpenSideNav] = useState(false)
 
@@ -25,7 +27,10 @@ export default function Header() {
 
   const logoutMutation = useMutation({
     mutationFn: authApi.logoutAccount,
-    onSuccess: () => setIsAuthenticated(false)
+    onSuccess: () => {
+      setIsAuthenticated(false)
+      setProfile(null)
+    }
   })
 
   const handleLogout = () => {
@@ -45,14 +50,14 @@ export default function Header() {
               title='Meo Mobile'
             />
           </Link>
-          <div className='hidden rounded-[10px] bg-white/20 p-2 text-white xl:flex'>
+          <div className='hidden rounded-md bg-white/20 p-2 text-white xl:flex'>
             <Link
               to={'/'}
               className='text-white transition-colors duration-100 hover:text-yellow-400'
               title={t('Header.shopSystem')}
             >
-              <p className='font-normal'>{t('Header.shopSystem')}</p>
-              <span className='font-bold'>(45 {t('Header.brachs')})</span>
+              <p className='text-base font-normal'>{t('Header.shopSystem')}</p>
+              <span className='text-sm font-bold'>(45 {t('Header.brachs')})</span>
             </Link>
           </div>
           <form className='relative flex flex-grow'>
@@ -79,23 +84,27 @@ export default function Header() {
             </button>
           </form>
           <div className='hidden flex-row items-center gap-2 lg:flex'>
-            <div className='inline-block flex-1'>
-              <svg
-                xmlns='http://www.w3.org/2000/svg'
-                width={24}
-                height={24}
-                viewBox='0 0 24 24'
-                fill='none'
-                stroke='white'
-                strokeWidth={2}
-                strokeLinecap='round'
-                strokeLinejoin='round'
-                className='lucide lucide-user-circle-2'
-              >
-                <path d='M18 20a6 6 0 0 0-12 0' />
-                <circle cx={12} cy={10} r={4} />
-                <circle cx={12} cy={12} r={10} />
-              </svg>
+            <div className='inline-block '>
+              {avatarURL ? (
+                <img src={avatarURL} alt={profile.name} className='h-10 w-10 rounded-md object-cover' />
+              ) : (
+                <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width={24}
+                  height={24}
+                  viewBox='0 0 24 24'
+                  fill='none'
+                  stroke='white'
+                  strokeWidth={2}
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  className='lucide lucide-user-circle-2'
+                >
+                  <path d='M18 20a6 6 0 0 0-12 0' />
+                  <circle cx={12} cy={10} r={4} />
+                  <circle cx={12} cy={12} r={10} />
+                </svg>
+              )}
             </div>
             <div className='flex flex-col'>
               {!isAuthenticated ? (
@@ -122,7 +131,7 @@ export default function Header() {
                     title={t('User.profile')}
                     className='w-fit max-w-[160px] truncate text-base font-semibold text-white duration-100 hover:text-yellow-400'
                   >
-                    <span>Nguyễn Trọng Linh 045</span>
+                    <span>{profile?.name || profile?.email}</span>
                   </Link>
                   <button
                     onClick={handleLogout}
@@ -231,7 +240,7 @@ export default function Header() {
           <Link
             to={path.cart}
             title={t('Header.cart')}
-            className='hidden flex-row items-center gap-2 rounded-[10px] bg-white/20 p-2 text-white hover:text-yellow-400 lg:flex '
+            className='hidden flex-row items-center gap-2 rounded-md bg-white/20 p-2 text-white hover:text-yellow-400 lg:flex '
           >
             <div className='self-center'>
               <svg

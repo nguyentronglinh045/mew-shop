@@ -8,17 +8,22 @@ import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import Button from '../Button'
 import SelectLaguage from '../SelectLaguage'
+import { getAvatarURL } from 'src/utils/utils'
 
 interface MobileSideNavProps {
   isOpenSideNav: boolean
   setOpenSideNav: () => void
 }
 export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileSideNavProps) {
-  const { isAuthenticated, setIsAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, setIsAuthenticated, setProfile, profile } = useContext(AppContext)
   const { t } = useTranslation()
+  const avatarURL = profile?.avatar && getAvatarURL(profile.avatar)
   const logoutMutation = useMutation({
     mutationFn: authApi.logoutAccount,
-    onSuccess: () => setIsAuthenticated(false)
+    onSuccess: () => {
+      setIsAuthenticated(false)
+      setProfile(null)
+    }
   })
 
   const handleLogout = () => {
@@ -83,34 +88,38 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
           {!isAuthenticated ? (
             <div className='flex gap-2'>
               <Link to={path.login} className='w-1/2 rounded-md bg-white px-1 py-2 hover:bg-[#E6C2AE]'>
-                <p className='text-center font-bold text-black'>Đăng nhập</p>
+                <p className='text-center font-bold text-black'>{t('Authentication.login')}</p>
               </Link>
               <Link to={path.register} className='w-1/2 rounded-md bg-white px-1 py-2 hover:bg-[#E6C2AE]'>
-                <p className='text-center font-bold text-black'>Đăng ký</p>
+                <p className='text-center font-bold text-black'>{t('Authentication.register')}</p>
               </Link>
             </div>
           ) : (
             <>
               <div className='flex w-full flex-row items-center gap-2'>
-                <div className='h-auto w-6 shrink-0'>
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    width={24}
-                    height={24}
-                    viewBox='0 0 24 24'
-                    fill='none'
-                    stroke='white'
-                    strokeWidth={2}
-                    strokeLinecap='round'
-                    strokeLinejoin='round'
-                    className='lucide lucide-user-circle-2'
-                  >
-                    <path d='M18 20a6 6 0 0 0-12 0' />
-                    <circle cx={12} cy={10} r={4} />
-                    <circle cx={12} cy={12} r={10} />
-                  </svg>
+                <div className='inline-block'>
+                  {avatarURL ? (
+                    <img src={avatarURL} alt={profile.name} className='h-9 w-9 rounded-md object-cover' />
+                  ) : (
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      width={24}
+                      height={24}
+                      viewBox='0 0 24 24'
+                      fill='none'
+                      stroke='white'
+                      strokeWidth={2}
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      className='lucide lucide-user-circle-2'
+                    >
+                      <path d='M18 20a6 6 0 0 0-12 0' />
+                      <circle cx={12} cy={10} r={4} />
+                      <circle cx={12} cy={12} r={10} />
+                    </svg>
+                  )}
                 </div>
-                <div className='block max-w-[70%] overflow-hidden truncate'>Nguyễn Văn Ân</div>
+                <div className='block max-w-[70%] overflow-hidden truncate'>{profile?.name || profile?.email}</div>
               </div>
               <Button
                 className='cursor-pointer rounded-md bg-white px-3 py-2 hover:bg-[#E6C2AE]'
