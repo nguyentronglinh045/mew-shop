@@ -1,46 +1,68 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation } from '@tanstack/react-query'
+import { useContext } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import authApi from 'src/apis/auth.api'
 import FacebookBtn from 'src/assets/icons/fb-btn.svg'
 import GoogleBtn from 'src/assets/icons/google-btn.svg'
 import Button from 'src/components/Button'
 import Input from 'src/components/Input'
 import path from 'src/constants/path'
+import { AppContext } from 'src/contexts/app.context'
+import { ErrorResponseApi } from 'src/types/utils.type'
 import { Schema, schema } from 'src/utils/rules'
+import { isAxiosUnprocessableEntityError } from 'src/utils/utils'
 
 type FormData = Pick<Schema, 'email' | 'password'>
 const LoginSchema = schema.pick(['email', 'password'])
 
 export default function Login() {
+  const { setIsAuthenticated } = useContext(AppContext)
+  const navigate = useNavigate()
   const { t } = useTranslation(['home'])
   const {
     handleSubmit,
     register,
-    watch,
+    setError,
     formState: { errors }
   } = useForm<FormData>({ resolver: yupResolver(LoginSchema) })
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data)
+  const loginAccountMutation = useMutation({
+    mutationFn: (body: Omit<FormData, 'confirm_password'>) => authApi.loginAccount(body)
   })
-  const value = watch()
-  console.log(value)
+
+  const onSubmit = handleSubmit((data) => {
+    loginAccountMutation.mutate(data, {
+      onSuccess: () => {
+        setIsAuthenticated(true)
+        navigate('/')
+      },
+      onError: (error) => {
+        if (isAxiosUnprocessableEntityError<ErrorResponseApi<FormData>>(error)) {
+          const formError = error.response?.data.data
+          if (formError) {
+            Object.keys(formError).forEach((key) => {
+              setError(key as keyof Omit<FormData, 'confirm_password'>, {
+                message: formError[key as keyof Omit<FormData, 'confirm_password'>],
+                type: 'Server'
+              })
+            })
+          }
+        }
+      }
+    })
+  })
 
   return (
-    <div className='relative flex h-screen w-screen justify-end'>
+    <>
       <Helmet>
         <title>{t('Authentication.login')}</title>
         <meta name='description' content='Đăng nhập vào dự án' />
       </Helmet>
-      <div className='absolute inset-0'>
-        <img
-          src='https://bizweb.dktcdn.net/100/459/533/themes/868331/assets/bg_custom.png?1689838116391'
-          alt='background'
-          className='h-full w-full object-cover'
-        />
-      </div>
+
       <div className='z-10 flex w-full flex-col gap-4 overflow-auto bg-black/80 px-6 pb-6 pt-8 sm:w-3/4 md:w-[500px] lg:px-12 lg:pb-6 lg:pt-9 '>
         <form noValidate onSubmit={onSubmit}>
           <h2 className='mb-4 text-center text-3xl font-bold text-white'>{t('Authentication.login')}</h2>
@@ -65,6 +87,8 @@ export default function Login() {
               <Button
                 classNameText='font-semibold text-white'
                 className='rounded-full bg-main-color px-5 py-3 duration-300 hover:bg-slate-700 active:bg-blue-500'
+                isLoading={loginAccountMutation.isLoading}
+                disabled={loginAccountMutation.isLoading}
               >
                 {t('Authentication.login')}
               </Button>
@@ -107,6 +131,6 @@ export default function Login() {
           </Link>
         </div>
       </div>
-    </div>
+    </>
   )
 }

@@ -5,7 +5,7 @@ interface CustomArrowProps {
   onClick?: () => void
 }
 
-const Slider = () => {
+const SliderBanner = () => {
   const { t } = useTranslation(['home'])
 
   const responsive = {
@@ -123,4 +123,4 @@ const Slider = () => {
   )
 }
 
-export default Slider
+export default SliderBanner

@@ -6,13 +6,14 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 export default function Button(props: ButtonProps) {
   const { className, isLoading, disabled, children, classNameText = 'font-medium', ...rest } = props
-  const newClassName = disabled ? className + ' cursor-not-allowed' : className
+  const newClassName =
+    disabled || isLoading ? className + ' centered flex-row gap-1 cursor-not-allowed bg-slate-700' : className
   return (
     <button className={newClassName} disabled={disabled} {...rest}>
       {isLoading && (
         <svg
           aria-hidden='true'
-          className='mr-2 h-4 w-4 animate-spin fill-white text-gray-200'
+          className='mr-2 h-5 w-5 animate-spin fill-white text-gray-200'
           viewBox='0 0 100 101'
           fill='none'
           xmlns='http://www.w3.org/2000/svg'

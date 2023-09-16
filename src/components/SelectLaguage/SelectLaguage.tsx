@@ -16,7 +16,7 @@ export default function SelectLaguage() {
   return (
     <div className='w-full overflow-hidden rounded bg-white font-semibold text-black'>
       <button
-        className='relative flex w-full gap-1 py-2 focus:border-none active:border-none'
+        className='relative flex w-full gap-1 py-2 pl-2 focus:border-none active:border-none'
         onClick={() => setOpenBox(!openBox)}
       >
         <svg
