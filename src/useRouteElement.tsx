@@ -4,6 +4,7 @@ import path from './constants/path.ts'
 import MainLayout from './layouts/MainLayout/MainLayout.tsx'
 import RegisterLayout from './layouts/RegisterLayout/RegisterLayout.tsx'
 import { AppContext } from './contexts/app.context.tsx'
+import UserLayout from './layouts/UserLayout/UserLayout.tsx'
 const Home = lazy(() => import('./pages/Home'))
 const LoadingScreen = lazy(() => import('./pages/LoadingScreen'))
 const NotFound = lazy(() => import('./pages/NotFound'))
@@ -78,12 +79,18 @@ export default function useRouteElement() {
           element: <MainLayout />,
           children: [
             {
-              path: path.profile,
-              element: (
-                <Suspense fallback={<LoadingScreen />}>
-                  <Profile />
-                </Suspense>
-              )
+              path: '',
+              element: <UserLayout />,
+              children: [
+                {
+                  path: path.profile,
+                  element: (
+                    <Suspense fallback={<LoadingScreen />}>
+                      <Profile />
+                    </Suspense>
+                  )
+                }
+              ]
             }
           ]
         }
