@@ -119,7 +119,9 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
                     </svg>
                   )}
                 </div>
-                <div className='block max-w-[70%] overflow-hidden truncate'>{profile?.name || profile?.email}</div>
+                <Link to={path.profile} className='block max-w-[70%] overflow-hidden truncate'>
+                  {profile?.name || profile?.email}
+                </Link>
               </div>
               <Button
                 className='cursor-pointer rounded-md bg-white px-3 py-2 hover:bg-[#E6C2AE]'
