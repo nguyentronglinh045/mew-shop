@@ -32,7 +32,7 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
 
   return (
     <div
-      className={`absolute bottom-0 right-0 top-0 z-50 flex h-screen w-[320px]  max-w-[320px] flex-col bg-main-color transition-all duration-700 lg:hidden ${
+      className={`fixed bottom-0 right-0 top-0 z-50 flex h-screen w-[320px]  max-w-[320px] flex-col bg-main-color transition-all duration-700 lg:hidden ${
         isOpenSideNav ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
       } `}
     >

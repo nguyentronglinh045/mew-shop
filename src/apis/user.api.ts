@@ -15,14 +15,11 @@ const userApi = {
     return http.put<SuccessResponseApi<User>>('user', body)
   },
   uploadAvatar(body: FormData) {
-    return (
-      http.post<SuccessResponseApi<string>>('user/upload-avatar', body),
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+    return http.post<SuccessResponseApi<string>>('user/upload-avatar', body, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
       }
-    )
+    })
   }
 }
 export default userApi

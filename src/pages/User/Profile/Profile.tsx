@@ -63,19 +63,19 @@ export default function Profile() {
   })
 
   return (
-    <div className='col-span-4 p-4 shadow shadow-gray-500/50 md:col-span-8 lg:col-span-9'>
-      <form noValidate className='bg-white p-4 md:px-8 md:py-4' onSubmit={onSubmit}>
+    <div className='col-span-4 p-2 md:col-span-8  md:py-4 lg:col-span-9'>
+      <form noValidate className='b rounded-md bg-white p-4 md:px-8 md:py-4' onSubmit={onSubmit}>
         <h2 className='mb-2 text-center text-2xl font-bold'>Thông tin khách hàng</h2>
 
         <div className='flex flex-col'>
-          <div className='mb-[1.25rem] flex items-center gap-1'>
+          <div className='mb-[1.25rem] flex items-center gap-1 truncate'>
             <span>Email:</span>
             <span>{profile?.email}</span>
           </div>
           <div className='flex flex-col gap-1'>
             <span>Tên</span>
             <Input
-              classNameInput='w-full rounded-md px-3 py-2 text-black outline-none border border-slate-500 focus:border-gray-500 focus:shadow-sm'
+              classNameInput='w-full rounded-md px-3 py-2 text-black outline-none border border-slate-500 focus:border-main-color focus:shadow-sm duration-200 '
               name='name'
               placeholder='Tên'
               register={register}
@@ -89,7 +89,7 @@ export default function Profile() {
               name='phone'
               render={({ field }) => (
                 <InputNumber
-                  classNameInput='w-full rounded-md px-3 py-2 text-black outline-none border border-slate-500 focus:border-gray-500 focus:shadow-sm'
+                  classNameInput='w-full rounded-md px-3 py-2 text-black outline-none border border-slate-500 focus:border-main-color focus:shadow-sm duration-200'
                   placeholder='Số điện thoại'
                   errorMessage={errors.phone?.message}
                   {...field}
@@ -101,7 +101,7 @@ export default function Profile() {
           <div className='flex flex-col gap-1'>
             <span>Địa chỉ</span>
             <Input
-              classNameInput='w-full rounded-md px-3 py-2 text-black outline-none border border-slate-500 focus:border-gray-500 focus:shadow-sm'
+              classNameInput='w-full rounded-md px-3 py-2 text-black outline-none border border-slate-500 focus:border-main-color focus:shadow-sm duration-200'
               name='address'
               placeholder='Địa chỉ'
               register={register}

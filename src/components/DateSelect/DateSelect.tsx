@@ -39,7 +39,7 @@ export default function DateSelect({ value, onChange, errorMessage }: Props) {
           value={value?.getDate() || date.date}
           onChange={handleChange}
           name='date'
-          className='h-10 w-[32%] cursor-pointer rounded-md border border-black/10 px-3 duration-200 hover:border-main-color'
+          className='h-10 w-[32%] cursor-pointer rounded-md border border-slate-500 px-3 duration-200 hover:border-main-color'
         >
           {range(1, 32).map((item) => (
             <option value={item} key={item}>
@@ -51,7 +51,7 @@ export default function DateSelect({ value, onChange, errorMessage }: Props) {
           value={value?.getMonth() || date.month}
           onChange={handleChange}
           name='month'
-          className='h-10 w-[32%] cursor-pointer rounded-md border border-black/10 px-3 duration-200 hover:border-main-color'
+          className='h-10 w-[32%] cursor-pointer rounded-md border border-slate-500 px-3 duration-200 hover:border-main-color'
         >
           {range(0, 12).map((item) => (
             <option value={item} key={item}>
@@ -63,7 +63,7 @@ export default function DateSelect({ value, onChange, errorMessage }: Props) {
           value={value?.getFullYear() || date.year}
           onChange={handleChange}
           name='year'
-          className='h-10 w-[32%] cursor-pointer rounded-md border border-black/10 px-3 duration-200 hover:border-main-color'
+          className='h-10 w-[32%] cursor-pointer rounded-md border border-slate-500 px-3 duration-200 hover:border-main-color'
         >
           {range(1990, 2024).map((item) => (
             <option value={item} key={item}>
