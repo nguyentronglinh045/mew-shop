@@ -2,7 +2,7 @@ import { User } from 'src/types/user.type'
 import { SuccessResponseApi } from 'src/types/utils.type'
 import http from 'src/utils/http'
 
-interface BodyUpdateProfile extends Omit<User, '_id' | 'role' | 'createdAt' | 'updatedAt' | 'email'> {
+interface BodyUpdateProfile extends Omit<User, '_id' | 'roles' | 'createdAt' | 'updatedAt' | 'email'> {
   password?: string
   newPassword?: string
 }
@@ -12,7 +12,7 @@ const userApi = {
     return http.get<SuccessResponseApi<User>>('me')
   },
   updateProfile(body: BodyUpdateProfile) {
-    return http.post<SuccessResponseApi<User>>('user', body)
+    return http.put<SuccessResponseApi<User>>('user', body)
   },
   uploadAvatar(body: FormData) {
     return (

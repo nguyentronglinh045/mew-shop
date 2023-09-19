@@ -2,7 +2,7 @@ import axios, { AxiosError, HttpStatusCode, type AxiosInstance } from 'axios'
 import { toast } from 'react-toastify'
 import { URL_LOGIN, URL_LOGOUT, URL_REGISTER } from 'src/apis/auth.api'
 import { AuthResponse } from 'src/types/auth.type'
-import { clearDataFromLS, getAccessTokenFromLS, setAccessTokenToLS, setProfileFromLS } from './auth'
+import { clearDataFromLS, getAccessTokenFromLS, setAccessTokenToLS, setProfileToLS } from './auth'
 
 export const apiKey = import.meta.env.VITE_API_KEY
 
@@ -38,7 +38,7 @@ class Http {
           const data = response.data as AuthResponse
           this.accessToken = data.data.access_token
           setAccessTokenToLS(this.accessToken)
-          setProfileFromLS(data.data.user)
+          setProfileToLS(data.data.user)
         } else if (url === URL_LOGOUT) {
           this.accessToken = ''
           clearDataFromLS()
