@@ -32,6 +32,18 @@
   },
   "User": {
     "profile": "User profile",
-    "logout": "Log out"
+    "logout": "Log out",
+    "changePassword": "Change password",
+    "email": "Email",
+    "name": "User name",
+    "phoneNumber": "Phone number",
+    "address": "User address",
+    "dayOfBirth": "Date of birth",
+    "save": "Save changes",
+    "selectAvt": "Select photo",
+    "lengthPhoneRequired": "Maximum length is 20 characters",
+    "dateInPast": "Please choose a date in the past",
+    "maxLengthAvtName": "Maximum length is 1000 characters",
+    "maxLengthAvtSize": "Maximum file size is 1 MB. Format: .JPG, .JPEG, .PNG"
   }
 }

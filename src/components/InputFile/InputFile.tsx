@@ -1,4 +1,5 @@
 import { useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 
 interface Props {
@@ -6,12 +7,13 @@ interface Props {
 }
 const avtSize = import.meta.env.VITE_SIZE_AVATAR_FILE
 export default function InputFile({ onChange }: Props) {
+  const { t } = useTranslation()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const onFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const fileFromLocal = event.target.files?.[0]
     fileInputRef.current?.setAttribute('value', '')
     if ((fileFromLocal && fileFromLocal.size >= Number(avtSize)) || !fileFromLocal?.type.includes('image')) {
-      toast.error(`Dung lượng file tối đa 1 MB. Định dạng:.JPEG, .PNG`, {
+      toast.error(`${t('User.maxLengthAvtSize')}`, {
         position: 'top-center'
       })
     } else {
@@ -39,7 +41,7 @@ export default function InputFile({ onChange }: Props) {
         type='button'
         onClick={handleUpload}
       >
-        Chọn ảnh
+        {t('User.selectAvt')}
       </button>
     </div>
   )

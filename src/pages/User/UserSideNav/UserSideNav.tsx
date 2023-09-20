@@ -3,6 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import classNames from 'classnames'
 import { useContext, useEffect, useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { NavLink } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import userApi from 'src/apis/user.api'
@@ -17,6 +18,7 @@ type FormUploadAvt = Pick<UserSchema, 'avatar'>
 const avatarSchema = userSchema.pick(['avatar'])
 
 export default function UserSideNav() {
+  const { t } = useTranslation()
   const { profile, setProfile } = useContext(AppContext)
   const avatarURL = (profile?.avatar && getAvatarURL(profile.avatar)) || ''
   const [file, setFile] = useState<File>()
@@ -108,7 +110,7 @@ export default function UserSideNav() {
                   type='submit'
                   className='grow rounded-md border border-main-color bg-main-color px-4 py-2 font-bold text-white duration-200 hover:bg-red-500 active:bg-red-500'
                 >
-                  Save
+                  {t('User.save')}
                 </button>
               )}
             </div>
@@ -120,25 +122,25 @@ export default function UserSideNav() {
         <NavLink
           to={path.profile}
           className={({ isActive }) =>
-            classNames(`text-base hover:text-main-color`, {
-              'text-main-color': isActive,
-              'text-black': !isActive
+            classNames(`text-base hover:text-main-color md:text-lg`, {
+              'font-bold text-main-color': isActive,
+              'font-medium text-black': !isActive
             })
           }
         >
-          Thông tin người dùng
+          {t('User.profile')}
         </NavLink>
 
         <NavLink
           to={path.changePassword}
           className={({ isActive }) =>
-            classNames(`text-base hover:text-main-color`, {
-              'text-main-color': isActive,
-              'text-black': !isActive
+            classNames(`text-base hover:text-main-color md:text-lg`, {
+              'font-bold text-main-color': isActive,
+              'font-medium text-black': !isActive
             })
           }
         >
-          Đổi mật khẩu
+          {t('User.changePassword')}
         </NavLink>
       </div>
     </div>
