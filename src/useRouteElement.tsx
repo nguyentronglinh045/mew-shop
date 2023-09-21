@@ -10,7 +10,8 @@ const LoadingScreen = lazy(() => import('./pages/LoadingScreen'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 const Login = lazy(() => import('./pages/Login'))
 const Register = lazy(() => import('./pages/Register'))
-const Profile = lazy(() => import('./pages/User/Profile/index.ts'))
+const Profile = lazy(() => import('./pages/User/Profile'))
+const ChangePassword = lazy(() => import('./pages/User/ChangePassword'))
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -87,6 +88,14 @@ export default function useRouteElement() {
                   element: (
                     <Suspense fallback={<LoadingScreen />}>
                       <Profile />
+                    </Suspense>
+                  )
+                },
+                {
+                  path: path.changePassword,
+                  element: (
+                    <Suspense fallback={<LoadingScreen />}>
+                      <ChangePassword />
                     </Suspense>
                   )
                 }
