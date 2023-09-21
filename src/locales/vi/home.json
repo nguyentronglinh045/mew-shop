@@ -32,6 +32,21 @@
   },
   "User": {
     "profile": "Thông tin người dùng",
-    "logout": "Đăng xuất"
+    "logout": "Đăng xuất",
+    "changePassword": "Đổi mật khẩu",
+    "email": "Email",
+    "name": "Tên người dùng",
+    "phoneNumber": "Số điện thoại",
+    "address": "Địa chỉ",
+    "dayOfBirth": "Ngày sinh",
+    "save": "Lưu thay đổi",
+    "selectAvt": "Chọn ảnh",
+    "lengthPhoneRequired": "Độ dài tối đa là 20 ký tự",
+    "dateInPast": "Hãy chọn ngày ở quá khứ",
+    "maxLengthAvtName": "Độ dài tối đa là 1000 kí tự",
+    "maxLengthAvtSize": "Dung lượng file tối đa 1 MB. Định dạng: .JPG,.JPEG, .PNG",
+    "oldPassword": "Mật khẩu cũ",
+    "newPassword": "Mật khẩu mới",
+    "confirmNewPassword": "Xác nhận mật khẩu"
   }
 }
