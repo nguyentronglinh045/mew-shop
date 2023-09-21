@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useContext, useEffect } from 'react'
+import { Helmet } from 'react-helmet-async'
 import { Controller, useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
@@ -10,11 +11,15 @@ import DateSelect from 'src/components/DateSelect'
 import Input from 'src/components/Input'
 import InputNumber from 'src/components/InputNumber'
 import { AppContext } from 'src/contexts/app.context'
+import { ErrorResponseApi } from 'src/types/utils.type'
 import { setProfileToLS } from 'src/utils/auth'
 import { UserSchema, userSchema } from 'src/utils/rules'
+import { isAxiosUnprocessableEntityError } from 'src/utils/utils'
 
 type FormData = Pick<UserSchema, 'name' | 'address' | 'phone' | 'date_of_birth'>
-
+type FormDataError = Omit<FormData, 'date_of_birth'> & {
+  date_of_birth: string
+}
 const profileSchema = userSchema.pick(['name', 'address', 'phone', 'date_of_birth'])
 
 export default function Profile() {
@@ -25,6 +30,7 @@ export default function Profile() {
     formState: { errors },
     control,
     handleSubmit,
+    setError,
     setValue
   } = useForm<FormData>({
     defaultValues: {
@@ -52,18 +58,37 @@ export default function Profile() {
   }, [profile, setValue])
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await updateProfuleMutation.mutateAsync({
-      ...data,
-      date_of_birth: data.date_of_birth?.toISOString()
-    })
-    setProfile(res.data.data)
-    setProfileToLS(res.data.data)
-    refetch()
-    toast.success(res.data.message)
+    try {
+      const res = await updateProfuleMutation.mutateAsync({
+        ...data,
+        date_of_birth: data.date_of_birth?.toISOString()
+      })
+      setProfile(res.data.data)
+      setProfileToLS(res.data.data)
+      refetch()
+      toast.success(res.data.message)
+    } catch (error) {
+      // Bắt lỗi từ server trả về
+      if (isAxiosUnprocessableEntityError<ErrorResponseApi<FormDataError>>(error)) {
+        const formError = error.response?.data.data
+        if (formError) {
+          Object.keys(formError).forEach((key) => {
+            setError(key as keyof FormDataError, {
+              message: formError[key as keyof FormDataError],
+              type: 'Server'
+            })
+          })
+        }
+      }
+    }
   })
 
   return (
     <div className='col-span-4 p-2 md:col-span-8  md:py-4 lg:col-span-9'>
+      <Helmet>
+        <title>{t('User.profile')}</title>
+        <meta name='description' content={t('User.profile')} />
+      </Helmet>
       <form noValidate className='b rounded-md bg-white p-4 md:px-8 md:py-4' onSubmit={onSubmit}>
         <h2 className='mb-2 text-center text-2xl font-bold'>{t('User.profile')}</h2>
 
@@ -123,7 +148,12 @@ export default function Profile() {
             />
           </div>
         </div>
-        <Button type='submit' className='rounded-md bg-main-color px-4 py-2 text-white hover:bg-main-color/80'>
+        <Button
+          type='submit'
+          isLoading={updateProfuleMutation.isLoading}
+          disabled={updateProfuleMutation.isLoading}
+          className='rounded-md bg-main-color px-4 py-2 text-white hover:bg-main-color/80'
+        >
           {t('User.save')}
         </Button>
       </form>
