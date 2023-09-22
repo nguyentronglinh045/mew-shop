@@ -87,9 +87,16 @@ const FlashSale = () => {
         </a>
         <Countdown />
       </div>
-      <Carousel responsive={responsive} infinite autoPlay swipeable draggable containerClass='' itemClass='px-2'
+      <Carousel
+        responsive={responsive}
+        infinite
+        autoPlay
+        swipeable
+        draggable
+        containerClass=''
+        itemClass='px-2'
         customLeftArrow={<CustomPrevArrow />}
-        customRightArrow={<CustomNextArrow />}  
+        customRightArrow={<CustomNextArrow />}
       >
         <Card />
         <Card />
