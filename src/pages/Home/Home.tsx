@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async'
 import FeaturedCategories from 'src/components/FeaturedCategories'
+import FlashSale from 'src/components/FlashSale'
 import SliderBanner from 'src/components/SliderBanner/SliderBanner'
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
       </Helmet>
       <SliderBanner />
       <FeaturedCategories />
+      <FlashSale />
     </>
   )
 }

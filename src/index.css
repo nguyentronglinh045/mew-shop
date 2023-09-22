@@ -11,5 +11,96 @@ body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 400;
   background-color: #f3f3f3;
-  position: relative;
+}
+
+.sale-label {
+  position: absolute;
+  top: 5px;
+  left: -5px;
+  color: #ffffff;
+  background: #d80000;
+  padding: 4px 6px;
+  z-index: 2;
+  font-size: 12px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 13px;
+  border-bottom-right-radius: 13px;
+  box-shadow: 0px 0px 5px 1px #fff;
+  @apply font-bold;
+}
+
+.sale-label::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 5px 5px 0;
+  border-color: transparent #d80000 transparent transparent;
+  bottom: -5px;
+  left: 0px;
+  filter: brightness(0.8);
+}
+
+@keyframes progress_bar_fill {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 30px 0;
+  }
+}
+
+.remain::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-size: 30px 30px;
+  position: absolute;
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.25) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.25) 75%,
+    transparent 75%,
+    transparent
+  );
+  animation: progress_bar_fill 2s linear infinite;
+}
+
+.myDIV {
+  margin: auto;
+  animation: mymove 2s infinite;
+}
+
+@keyframes mymove {
+  0% {
+    transform: rotate(0deg) scale(1) skew(1deg);
+  }
+  10% {
+    transform: rotate(-25deg) scale(1) skew(1deg);
+  }
+  20% {
+    transform: rotate(25deg) scale(1) skew(1deg);
+  }
+  30% {
+    transform: rotate(-25deg) scale(1) skew(1deg);
+  }
+  40% {
+    transform: rotate(25deg) scale(1) skew(1deg);
+  }
+
+  50% {
+    transform: rotate(0deg) scale(1) skew(1deg);
+  }
+  100% {
+    transform: rotate(0deg) scale(1) skew(1deg);
+  }
+}
+
+
+.bg-flash-sale {
+  background-image: linear-gradient(#d70018 0%, #ff8a97);
 }
