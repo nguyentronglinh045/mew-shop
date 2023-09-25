@@ -16,7 +16,7 @@ interface MobileSideNavProps {
 }
 export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileSideNavProps) {
   const { isAuthenticated, setIsAuthenticated, setProfile, profile } = useContext(AppContext)
-  const { t } = useTranslation()
+  const { t } = useTranslation(['home'])
   const avatarURL = profile?.avatar && getAvatarURL(profile.avatar)
   const logoutMutation = useMutation({
     mutationFn: authApi.logoutAccount,
@@ -59,17 +59,17 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
               }`
             }
           >
-            <span>Trang chủ</span>
+            <span>{t('Header.homePage')}</span>
           </NavLink>
           <NavLink
-            to={'/contact'}
+            to={path.productList}
             className={({ isActive }) =>
               `px-2 py-2 font-semibold capitalize duration-100 hover:text-yellow-400 ${
                 isActive ? 'text-yellow-400' : 'text-white'
               }`
             }
           >
-            <span>Liên hệ</span>
+            <span>{t('Header.products')}</span>
           </NavLink>
           <NavLink
             to={'/product'}
@@ -79,7 +79,7 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
               }`
             }
           >
-            <span>Sản phẩm</span>
+            <span>{t('Header.products')}</span>
           </NavLink>
         </div>
         <div className='border-t border-white'></div>

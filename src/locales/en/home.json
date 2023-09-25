@@ -22,7 +22,9 @@
     "keyWord": "Key word",
     "callToBuy": "Call",
     "cart": "Cart",
-    "brachs": "Brachs"
+    "brachs": "Brachs",
+    "homePage": "Home Page",
+    "products": "Products"
   },
   "Policy": {
     "safe": "Safe products",

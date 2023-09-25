@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query'
 import classNames from 'classnames'
 import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import authApi from 'src/apis/auth.api'
 import Logo from 'src/assets/images/logo.webp'
 import MobiLogo from 'src/assets/images/logo_mobi.webp'
@@ -266,11 +266,30 @@ export default function Header() {
           </Link>
         </div>
         <div className='hidden flex-row lg:flex'>
-          {[1, 2, 3, 4].map((index) => (
-            <Link to={'/'} key={index} className='px-4 py-2 font-bold capitalize text-white hover:text-yellow-400'>
-              <span>Trang chủ</span>
-            </Link>
-          ))}
+          <NavLink
+            to={path.home}
+            key={path.home}
+            className={({ isActive }) =>
+              classNames('px-4 py-2 font-bold capitalize transition-all duration-200 hover:text-yellow-300', {
+                'text-yellow-400': isActive,
+                'text-white': isActive
+              })
+            }
+          >
+            <span>{t('Header.homePage')}</span>
+          </NavLink>
+          <NavLink
+            to={path.productList}
+            key={path.productList}
+            className={({ isActive }) =>
+              classNames('px-4 py-2 font-bold capitalize transition-all duration-200 hover:text-yellow-300', {
+                'text-yellow-400': isActive,
+                'text-white': isActive
+              })
+            }
+          >
+            <span>{t('Header.products')}</span>
+          </NavLink>
         </div>
         <button className='centered cursor-pointer text-white lg:hidden' onClick={() => setOpenSideNav(true)}>
           <svg
