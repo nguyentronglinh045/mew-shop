@@ -5,76 +5,87 @@ import { NavLink } from 'react-router-dom'
 import classNames from 'classnames'
 import AsideFilter from './components/AsideFilter'
 import SortProductList from './components/SortProductList'
+import { useQuery } from '@tanstack/react-query'
+import useQueryParams from 'src/hooks/useQueryParams'
+import productApi from 'src/apis/product.api'
 
 interface CustomArrowProps {
   onClick?: () => void
 }
-export default function ProductList() {
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 2
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 768 },
-      items: 2
-    },
-    mobile: {
-      breakpoint: { max: 768, min: 0 },
-      items: 1
-    }
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 2
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 768 },
+    items: 2
+  },
+  mobile: {
+    breakpoint: { max: 768, min: 0 },
+    items: 1
   }
+}
 
-  // eslint-disable-next-line react/prop-types
-  const CustomNextArrow: React.FC<CustomArrowProps> = ({ onClick }) => {
-    return (
-      <button
-        className='group absolute right-2 flex h-[60px] w-[30px] items-center justify-center rounded-[30px_0_0_30px] 
+// eslint-disable-next-line react/prop-types
+const CustomNextArrow: React.FC<CustomArrowProps> = ({ onClick }) => {
+  return (
+    <button
+      className='group absolute right-2 flex h-[60px] w-[30px] items-center justify-center rounded-[30px_0_0_30px] 
         bg-white/50 max-sm:right-0'
-        onClick={onClick}
+      onClick={onClick}
+    >
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        width={24}
+        height={24}
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth={2}
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        className='lucide lucide-chevron-right group-hover:stroke-red-500'
       >
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width={24}
-          height={24}
-          viewBox='0 0 24 24'
-          fill='none'
-          stroke='currentColor'
-          strokeWidth={2}
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          className='lucide lucide-chevron-right group-hover:stroke-red-500'
-        >
-          <path d='m9 18 6-6-6-6' />
-        </svg>
-      </button>
-    )
-  }
-  // eslint-disable-next-line react/prop-types
-  const CustomPrevArrow: React.FC<CustomArrowProps> = ({ onClick }) => {
-    return (
-      <button
-        className='group absolute left-2 flex h-[60px] w-[30px] items-center justify-center rounded-[0_30px_30px_0] 
+        <path d='m9 18 6-6-6-6' />
+      </svg>
+    </button>
+  )
+}
+// eslint-disable-next-line react/prop-types
+const CustomPrevArrow: React.FC<CustomArrowProps> = ({ onClick }) => {
+  return (
+    <button
+      className='group absolute left-2 flex h-[60px] w-[30px] items-center justify-center rounded-[0_30px_30px_0] 
         bg-white/50 max-sm:left-0'
-        onClick={onClick}
+      onClick={onClick}
+    >
+      <svg
+        xmlns='http://www.w3.org/2000/svg'
+        width={24}
+        height={24}
+        viewBox='0 0 24 24'
+        fill='none'
+        stroke='currentColor'
+        strokeWidth={2}
+        strokeLinecap='round'
+        strokeLinejoin='round'
+        className='lucide lucide-chevron-left group-hover:stroke-red-500'
       >
-        <svg
-          xmlns='http://www.w3.org/2000/svg'
-          width={24}
-          height={24}
-          viewBox='0 0 24 24'
-          fill='none'
-          stroke='currentColor'
-          strokeWidth={2}
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          className='lucide lucide-chevron-left group-hover:stroke-red-500'
-        >
-          <path d='m15 18-6-6 6-6' />
-        </svg>
-      </button>
-    )
-  }
+        <path d='m15 18-6-6 6-6' />
+      </svg>
+    </button>
+  )
+}
+export default function ProductList() {
+  const queryParams = useQueryParams()
+  const { data } = useQuery({
+    queryKey: ['products', queryParams],
+    queryFn: () => {
+      return productApi.getProducts(queryParams)
+    }
+  })
+  console.log(data)
 
   return (
     <div className='bg-[#f3f3f3]'>
