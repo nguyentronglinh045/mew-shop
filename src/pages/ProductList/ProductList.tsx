@@ -8,6 +8,7 @@ import SortProductList from './components/SortProductList'
 import { useQuery } from '@tanstack/react-query'
 import useQueryParams from 'src/hooks/useQueryParams'
 import productApi from 'src/apis/product.api'
+import ProductCard from 'src/components/ProductCard'
 
 interface CustomArrowProps {
   onClick?: () => void
@@ -79,14 +80,12 @@ const CustomPrevArrow: React.FC<CustomArrowProps> = ({ onClick }) => {
 }
 export default function ProductList() {
   const queryParams = useQueryParams()
-  const { data } = useQuery({
+  const { data: productData } = useQuery({
     queryKey: ['products', queryParams],
     queryFn: () => {
       return productApi.getProducts(queryParams)
     }
   })
-  console.log(data)
-
   return (
     <div className='bg-[#f3f3f3]'>
       <div className='container p-4'>
@@ -98,7 +97,7 @@ export default function ProductList() {
             swipeable
             draggable
             containerClass='max-w-[1440px] w-full h-full'
-            itemClass='md:px-2 rounded-xl'
+            itemClass='md:px-1 rounded-xl'
             customRightArrow={<CustomNextArrow />}
             customLeftArrow={<CustomPrevArrow />}
           >
@@ -135,6 +134,14 @@ export default function ProductList() {
               <div className='flex flex-col gap-2'>
                 <SortProductList />
                 <div className='my-1 h-[1px] bg-gray-300 px-4' />
+              </div>
+              <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4'>
+                {productData &&
+                  productData.data.data.products.map((product) => (
+                    <div className='col-span-1' key={product._id}>
+                      <ProductCard isFlashSale={false} product={product} />
+                    </div>
+                  ))}
               </div>
             </div>
           </div>

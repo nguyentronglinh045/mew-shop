@@ -70,7 +70,7 @@ body {
   animation: progress_bar_fill 2s linear infinite;
 }
 
-.myDIV {
+.multi-sprin {
   margin: auto;
   animation: mymove 2s infinite;
 }
