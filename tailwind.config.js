@@ -11,6 +11,10 @@ module.exports = {
     extend: {
       colors: {
         'main-color': '#d70018'
+      },
+      boxShadow: {
+        'box_shadow': '0 0px 2px 0 rgba(60,64,67,0.1), 0 0px 6px 0px rgba(60,64,67,0.25)',
+        'box_shadow-hover': '0 0px 2px 0 #d70018,0 0px 6px 0px #d70018'
       }
     }
   },

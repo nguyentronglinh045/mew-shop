@@ -12,7 +12,7 @@ import Payment1Img from 'src/assets/images/payment-1.webp'
 
 export default function Footer() {
   return (
-    <div className='container'>
+    <div className='container mt-8 bg-white p-4'>
       <div className='flex flex-col'>
         <div className='flex flex-wrap max-md:gap-y-4 max-sm:flex-col'>
           <div className='px-2 md:w-1/2'>

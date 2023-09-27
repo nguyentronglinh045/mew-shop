@@ -10,7 +10,7 @@ const Countdown = () => {
 
   // Tính thời gian còn lại
   useEffect(() => {
-    const targetDate = new Date('2023-12-31 00:00:00').getTime() // Thay đổi ngày cần đếm ngược đến
+    const targetDate = new Date('2024-02-10 00:00:00').getTime() // Thay đổi ngày cần đếm ngược đến
     const interval = setInterval(() => {
       const now = new Date().getTime()
       const timeRemaining = targetDate - now
