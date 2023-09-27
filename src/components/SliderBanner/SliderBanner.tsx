@@ -77,7 +77,7 @@ const SliderBanner = () => {
   return (
     <>
       <div className='relative flex justify-center'>
-        <img src='src/assets/images/big_bn_slide.webp' alt='banner' className='w-full max-w-[1440px] max-sm:hidden' />
+        <img src='src/assets/images/big_bn_slide.webp' alt='banner' className='w-full max-sm:hidden' />
         <Carousel
           responsive={responsive}
           infinite
