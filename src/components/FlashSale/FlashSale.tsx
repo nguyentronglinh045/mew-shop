@@ -1,5 +1,5 @@
 import Carousel from 'react-multi-carousel'
-import Card from '../Card/Card'
+import ProductCard from '../ProductCard'
 import Countdown from './Countdown'
 
 interface CustomArrowProps {
@@ -98,13 +98,13 @@ const FlashSale = () => {
         customLeftArrow={<CustomPrevArrow />}
         customRightArrow={<CustomNextArrow />}
       >
-        <Card isFlashSale={true} />
-        <Card isFlashSale={true} />
-        <Card isFlashSale={true} />
-        <Card isFlashSale={true} />
-        <Card isFlashSale={true} />
-        <Card isFlashSale={true} />
-        <Card isFlashSale={true} />
+        <ProductCard isFlashSale={true} />
+        <ProductCard isFlashSale={true} />
+        <ProductCard isFlashSale={true} />
+        <ProductCard isFlashSale={true} />
+        <ProductCard isFlashSale={true} />
+        <ProductCard isFlashSale={true} />
+        <ProductCard isFlashSale={true} />
       </Carousel>
     </div>
   )

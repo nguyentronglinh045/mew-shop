@@ -1,14 +1,14 @@
 import StarRating from './StarRating'
 
-interface CardProps {
-  containerStyles?: string
+interface ProductCardProps {
+  className?: string
   isFlashSale: boolean
 }
 
-const Card = ({ containerStyles, isFlashSale }: CardProps) => {
+const ProductCard = ({ className, isFlashSale }: ProductCardProps) => {
   return (
     <div
-      className={`group relative flex w-full flex-1 flex-col overflow-hidden rounded-xl bg-white p-2 shadow-lg ${containerStyles}`}
+      className={`group relative flex w-full flex-1 flex-col overflow-hidden rounded-xl bg-white p-2 shadow-lg ${className}`}
     >
       <div className='sale-label'>
         <span>Giảm 19%</span>
@@ -87,4 +87,4 @@ const Card = ({ containerStyles, isFlashSale }: CardProps) => {
   )
 }
 
-export default Card
+export default ProductCard

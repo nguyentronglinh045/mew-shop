@@ -1,4 +1,4 @@
-import Card from '../Card/Card'
+import ProductCard from '../ProductCard'
 
 const TabButton = ({ text, icon }: { text: string; icon: string }) => {
   return (
@@ -20,19 +20,19 @@ const TabProducts = () => {
       </div>
       <div className='-m-2 flex flex-wrap'>
         <div className='sm:max-w-1/4 max-w-1/2 w-1/2 p-2 sm:w-1/4'>
-          <Card containerStyles='border-[1px] border-black/10' isFlashSale={false} />
+          <ProductCard className='border-[1px] border-black/10' isFlashSale={false} />
         </div>
         <div className='sm:max-w-1/4 max-w-1/2 w-1/2 p-2 sm:w-1/4'>
-          <Card containerStyles='border-[1px] border-black/10' isFlashSale={false} />
+          <ProductCard className='border-[1px] border-black/10' isFlashSale={false} />
         </div>
         <div className='sm:max-w-1/4 max-w-1/2 w-1/2 p-2 sm:w-1/4'>
-          <Card containerStyles='border-[1px] border-black/10' isFlashSale={false} />
+          <ProductCard className='border-[1px] border-black/10' isFlashSale={false} />
         </div>
         <div className='sm:max-w-1/4 max-w-1/2 w-1/2 p-2 sm:w-1/4'>
-          <Card containerStyles='border-[1px] border-black/10' isFlashSale={false} />
+          <ProductCard className='border-[1px] border-black/10' isFlashSale={false} />
         </div>
         <div className='sm:max-w-1/4 max-w-1/2 w-1/2 p-2 sm:w-1/4'>
-          <Card containerStyles='border-[1px] border-black/10' isFlashSale={false} />
+          <ProductCard className='border-[1px] border-black/10' isFlashSale={false} />
         </div>
       </div>
       <div className='w-full'>
