@@ -12,7 +12,7 @@ interface ProductCardProps {
 const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
   return (
     <div
-      className={`group relative flex w-full flex-1 flex-col gap-1 rounded-xl bg-white px-3 py-3 shadow-lg ${className}`}
+      className={`group relative flex w-full flex-1 flex-col gap-1 overflow-hidden rounded-xl bg-white px-3 py-3 shadow-lg ${className}`}
       title={product.name}
     >
       <div
@@ -34,7 +34,7 @@ const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
           <img src='src/assets/icons/label_img_3.webp' className='mr-1' width={20} height={20} alt='' />
           VNPAY giảm 500K
         </span>
-        <div className='absolute bottom-0 right-0 rounded-full bg-rose-600 p-1 opacity-0 transition-all duration-200 group-hover:right-4 group-hover:opacity-100 max-sm:hidden '>
+        <div className='absolute bottom-0 right-0 rounded-full bg-rose-600 p-1 opacity-0 transition-all duration-200 group-hover:right-1 group-hover:opacity-100 max-sm:hidden '>
           <Link to='/'>
             <svg
               xmlns='http://www.w3.org/2000/svg'
@@ -98,7 +98,7 @@ const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
         <div className='flex'>
           <StarRating rating={product.rating} />
         </div>
-        <p className='text-[10px]'>Đã bán {formatNumberToSocialStyle(product.sold)}</p>
+        <p className='truncate text-[10px]'>{formatNumberToSocialStyle(product.sold)} Đã bán</p>
       </div>
     </div>
   )
