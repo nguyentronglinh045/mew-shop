@@ -45,7 +45,7 @@ const TabProducts = () => {
         {(isFetching || !productData) &&
           Array(6)
             .fill(0)
-            .map((index) => (
+            .map((_, index) => (
               <div className='col-span-1' key={index}>
                 <ProductCardSkeleton />
               </div>
@@ -54,7 +54,7 @@ const TabProducts = () => {
       <div className='w-full'>
         <Link
           to={path.productList}
-          className='flex items-center justify-center rounded-xl border py-2 font-bold text-[#4c4c4c] shadow-box_shadow hover:text-[#d70018] hover:shadow-box_shadow-hover'
+          className='flex items-center justify-center rounded-xl border py-2 font-bold text-[#4c4c4c] shadow-box_shadow duration-200 hover:text-[#d70018] hover:shadow-box_shadow-hover'
         >
           Xem tất cả
         </Link>

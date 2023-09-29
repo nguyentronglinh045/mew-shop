@@ -12,6 +12,7 @@ import Slide2 from '../../assets/images/slide-product2.webp'
 import AsideFilter from './components/AsideFilter'
 import SortProductList from './components/SortProductList'
 import ProductCardSkeleton from 'src/components/ProductCardSkeleton'
+import { Helmet } from 'react-helmet-async'
 
 interface CustomArrowProps {
   onClick?: () => void
@@ -93,6 +94,10 @@ export default function ProductList() {
   })
   return (
     <div className='bg-[#f3f3f3]'>
+      <Helmet>
+        <title>Danh sách sản phẩm</title>
+        <meta name='description' content='Danh sách sản phẩm' />
+      </Helmet>
       <div className='container p-4'>
         <div className='flex flex-col gap-4'>
           <Carousel
@@ -137,7 +142,7 @@ export default function ProductList() {
 
             <div className='col-span-12 p-2 sm:col-span-8 md:col-span-8 lg:col-span-9'>
               <div className='flex flex-col gap-2'>
-                <SortProductList />
+                <SortProductList queryConfig={queryConfig} />
                 <div className='my-1 h-[1px] bg-gray-300 px-4' />
               </div>
               <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
@@ -151,7 +156,7 @@ export default function ProductList() {
                 {(isFetching || !productData) &&
                   Array(6)
                     .fill(0)
-                    .map((index) => (
+                    .map((_, index) => (
                       <div className='col-span-1' key={index}>
                         <ProductCardSkeleton />
                       </div>
