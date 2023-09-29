@@ -11,6 +11,7 @@ import Slide1 from '../../assets/images/slide-product1.webp'
 import Slide2 from '../../assets/images/slide-product2.webp'
 import AsideFilter from './components/AsideFilter'
 import SortProductList from './components/SortProductList'
+import ProductCardSkeleton from 'src/components/ProductCardSkeleton'
 
 interface CustomArrowProps {
   onClick?: () => void
@@ -82,7 +83,7 @@ const CustomPrevArrow: React.FC<CustomArrowProps> = ({ onClick }) => {
 }
 export default function ProductList() {
   const queryConfig = useQueryConfig()
-  const { data: productData } = useQuery({
+  const { data: productData, isFetching } = useQuery({
     queryKey: ['products', queryConfig],
     queryFn: () => {
       return productApi.getProducts(queryConfig as ProductListConfig)
@@ -134,22 +135,32 @@ export default function ProductList() {
               <AsideFilter />
             </div>
 
-            {productData && (
-              <div className='col-span-12 p-2 sm:col-span-8 md:col-span-8 lg:col-span-9'>
-                <div className='flex flex-col gap-2'>
-                  <SortProductList />
-                  <div className='my-1 h-[1px] bg-gray-300 px-4' />
-                </div>
-                <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
-                  {productData.data.data.products.map((product) => (
+            <div className='col-span-12 p-2 sm:col-span-8 md:col-span-8 lg:col-span-9'>
+              <div className='flex flex-col gap-2'>
+                <SortProductList />
+                <div className='my-1 h-[1px] bg-gray-300 px-4' />
+              </div>
+              <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+                {!isFetching &&
+                  productData &&
+                  productData.data.data.products.map((product) => (
                     <div className='col-span-1' key={product._id}>
                       <ProductCard isFlashSale={false} product={product} />
                     </div>
                   ))}
-                </div>
-                <Pagination pageSize={productData.data.data.pagination.page_size} queryConfig={queryConfig} />
+                {(isFetching || !productData) &&
+                  Array(6)
+                    .fill(0)
+                    .map((index) => (
+                      <div className='col-span-1' key={index}>
+                        <ProductCardSkeleton />
+                      </div>
+                    ))}
               </div>
-            )}
+              {productData && (
+                <Pagination pageSize={productData.data.data.pagination.page_size} queryConfig={queryConfig} />
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -7,12 +7,12 @@ export type QueryConfig = {
   [key in keyof ProductListConfig]: string
 }
 
-export default function useQueryConfig() {
+export default function useQueryConfig(itemLimit?: number) {
   const queryParam = useQueryParams()
   const queryConfig: QueryConfig = omitBy(
     {
       page: queryParam.page || '1',
-      limit: queryParam.limit || '20',
+      limit: queryParam.limit || itemLimit || '20',
       sort_by: queryParam.sort_by,
       exclute: queryParam.exclute,
       name: queryParam.name,
