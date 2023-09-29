@@ -1,7 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import classNames from 'classnames'
 import Carousel from 'react-multi-carousel'
-import { NavLink } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import Pagination from 'src/components/Pagination'
 import ProductCard from 'src/components/ProductCard'
@@ -13,6 +11,8 @@ import AsideFilter from './components/AsideFilter'
 import SortProductList from './components/SortProductList'
 import ProductCardSkeleton from 'src/components/ProductCardSkeleton'
 import { Helmet } from 'react-helmet-async'
+import ProductCategory from './components/ProductCategory'
+import categoryAPI from 'src/apis/category.api'
 
 interface CustomArrowProps {
   onClick?: () => void
@@ -92,6 +92,14 @@ export default function ProductList() {
     keepPreviousData: true,
     staleTime: 3 * 60 * 1000
   })
+  const { data: categoryData } = useQuery({
+    queryKey: ['categories'],
+    queryFn: () => {
+      return categoryAPI.getCategory()
+    },
+    keepPreviousData: true,
+    staleTime: 3 * 60 * 1000
+  })
   return (
     <div className='bg-[#f3f3f3]'>
       <Helmet>
@@ -120,21 +128,7 @@ export default function ProductList() {
               <div className='absolute left-0 right-0 top-0 z-10 h-0 w-full origin-top bg-white bg-opacity-60 opacity-100 transition-all duration-700 ease-in-out group-hover:h-full group-hover:opacity-0'></div>
             </div>
           </Carousel>
-          <div className='flex h-14 w-full flex-wrap items-center gap-1 rounded-md bg-[#ffa293] p-2 text-white'>
-            <NavLink
-              to='/'
-              className={({ isActive }) =>
-                classNames(
-                  ' px-2 py-2 text-base font-bold text-white delay-150 duration-200 ease-in-out hover:rounded-full hover:bg-main-color',
-                  {
-                    'rounded-full bg-main-color': isActive
-                  }
-                )
-              }
-            >
-              <span>Điện thoại</span>
-            </NavLink>
-          </div>
+          <ProductCategory queryConfig={queryConfig} categories={categoryData?.data.data || []} />
           <div className='grid grid-cols-12 gap-4'>
             <div className='col-span-12 sm:col-span-4 md:col-span-4 lg:col-span-3'>
               <AsideFilter />
