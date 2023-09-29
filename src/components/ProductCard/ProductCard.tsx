@@ -5,7 +5,7 @@ import { formatCurrency, formatNumberToSocialStyle, rateSale } from 'src/utils/u
 
 interface ProductCardProps {
   className?: string
-  isFlashSale: boolean
+  isFlashSale?: boolean
   product: ProductType
 }
 

@@ -1,4 +1,9 @@
+import { useQuery } from '@tanstack/react-query'
 import Carousel from 'react-multi-carousel'
+import { Link } from 'react-router-dom'
+import productApi from 'src/apis/product.api'
+import useQueryConfig from 'src/hooks/useQueryConfig'
+import { ProductListConfig } from 'src/types/product.type'
 import ProductCard from '../ProductCard'
 import Countdown from './Countdown'
 
@@ -73,39 +78,46 @@ const FlashSale = () => {
     )
   }
 
+  const queryConfig = useQueryConfig()
+  const { data: productData } = useQuery({
+    queryKey: ['products', queryConfig],
+    queryFn: () => {
+      return productApi.getProducts(queryConfig as ProductListConfig)
+    },
+    keepPreviousData: true,
+    staleTime: 3 * 60 * 1000
+  })
   return (
     <div className='bg-flash-sale container flex flex-col p-4'>
       <div className='mb-4 flex items-center justify-between max-lg:flex-col max-lg:gap-y-2'>
         <h2 className='z-[7] text-[22px] font-bold uppercase text-[#ffd641]'>
-          <a href='/' className='flex items-center gap-2 '>
+          <Link to='/' className='flex items-center gap-2 '>
             <img src='src/assets/icons/flash.webp' alt='' width={24} height={24} />
             Flash Sale
-          </a>
+          </Link>
         </h2>
         <a href='/' className='text-center text-white'>
           Giảm ngay 120k (áp dụng cho các đơn hàng trên 500k)
         </a>
         <Countdown />
       </div>
-      <Carousel
-        responsive={responsive}
-        infinite
-        autoPlay
-        swipeable
-        draggable
-        containerClass=''
-        itemClass='px-2'
-        customLeftArrow={<CustomPrevArrow />}
-        customRightArrow={<CustomNextArrow />}
-      >
-        <ProductCard isFlashSale={true} />
-        <ProductCard isFlashSale={true} />
-        <ProductCard isFlashSale={true} />
-        <ProductCard isFlashSale={true} />
-        <ProductCard isFlashSale={true} />
-        <ProductCard isFlashSale={true} />
-        <ProductCard isFlashSale={true} />
-      </Carousel>
+      {productData && (
+        <Carousel
+          responsive={responsive}
+          infinite
+          autoPlay
+          swipeable
+          draggable
+          containerClass=''
+          itemClass='px-2'
+          customLeftArrow={<CustomPrevArrow />}
+          customRightArrow={<CustomNextArrow />}
+        >
+          {productData.data.data.products.map((product) => (
+            <ProductCard isFlashSale key={product._id} product={product} />
+          ))}
+        </Carousel>
+      )}
     </div>
   )
 }
