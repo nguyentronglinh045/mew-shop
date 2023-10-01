@@ -158,13 +158,15 @@ export default function ProductList() {
                         <ProductCardSkeleton />
                       </div>
                     ))}
-                {productData?.data.data.products.length === 0 && (
-                  <NoProduct text='Không có sản phẩm phù hợp' imgS={NoProductImg} />
-                )}
               </div>
-              {productData && productData.data.data.pagination.page_size > 1 && (
-                <Pagination pageSize={productData.data.data.pagination.page_size} queryConfig={queryConfig} />
+              {productData?.data.data.products.length === 0 && (
+                <NoProduct text='Không có sản phẩm phù hợp' imgS={NoProductImg} />
               )}
+              {productData &&
+                productData.data.data.products.length !== 0 &&
+                productData.data.data.pagination.page_size > 1 && (
+                  <Pagination pageSize={productData.data.data.pagination.page_size} queryConfig={queryConfig} />
+                )}
             </div>
           </div>
         </div>

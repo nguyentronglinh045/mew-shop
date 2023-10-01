@@ -8,11 +8,12 @@ import Logo from 'src/assets/images/logo.webp'
 import MobiLogo from 'src/assets/images/logo_mobi.webp'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
+import useSearchProducts from 'src/hooks/useSearchProducts'
 import { locales } from 'src/i18n/i18n'
+import { getAvatarURL } from 'src/utils/utils'
 import MobileSideNav from '../MobileSideNav'
 import Popover from '../Popover'
 import PortalComponent from '../PortalComponent'
-import { getAvatarURL } from 'src/utils/utils'
 
 export default function Header() {
   const { isAuthenticated, setIsAuthenticated, setProfile, profile } = useContext(AppContext)
@@ -20,6 +21,7 @@ export default function Header() {
   const avatarURL = profile?.avatar && getAvatarURL(profile.avatar)
   const currentLanguage = locales[i18n.language as keyof typeof locales]
   const [openSideNav, setOpenSideNav] = useState(false)
+  const { register, onSubmitSearch } = useSearchProducts()
 
   const changeLanguage = (language: 'vi' | 'en') => {
     i18n.changeLanguage(language)
@@ -60,11 +62,12 @@ export default function Header() {
               <span className='text-sm font-bold'>(45 {t('Header.brachs')})</span>
             </Link>
           </div>
-          <form className='relative flex flex-grow'>
+          <form className='relative flex flex-grow' onSubmit={onSubmitSearch}>
             <input
               type='text'
               className='w-full rounded-l-md px-3 py-2 text-black outline-none'
               placeholder={t('Header.keyWord')}
+              {...register('name')}
             />
             <button className='inline-flex cursor-pointer items-center rounded-r-md bg-white stroke-[#474747] px-3 py-2 hover:stroke-yellow-400'>
               <svg
