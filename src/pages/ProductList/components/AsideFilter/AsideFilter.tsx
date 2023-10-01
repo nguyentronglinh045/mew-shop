@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup'
+import omit from 'lodash/omit'
 import { Controller, useForm } from 'react-hook-form'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import Button from 'src/components/Button'
@@ -22,6 +23,7 @@ export default function AsideFilter({ queryConfig }: Props) {
     control,
     handleSubmit,
     trigger,
+    reset,
     formState: { errors }
   } = useForm<FormData>({
     defaultValues: {
@@ -41,6 +43,13 @@ export default function AsideFilter({ queryConfig }: Props) {
       }).toString()
     })
   })
+  const handleRemoveAll = () => {
+    reset()
+    navigate({
+      pathname: path.productList,
+      search: createSearchParams(omit(queryConfig, ['price_max', 'price_min', 'rating_filter'])).toString()
+    })
+  }
   return (
     <div className='p-2'>
       <div className='flex cursor-default items-center gap-1 text-base font-bold text-main-color md:text-lg'>
@@ -116,9 +125,12 @@ export default function AsideFilter({ queryConfig }: Props) {
       <div className='cursor-default text-base font-bold text-main-color md:text-lg'>
         <span>Đánh giá</span>
       </div>
-      <RatingStars />
+      <RatingStars queryConfig={queryConfig} />
       <div className='my-4 h-[1px] bg-gray-300' />
-      <Button className='flex w-full items-center justify-center rounded-md bg-main-color p-2 text-sm uppercase text-white hover:bg-main-color/80'>
+      <Button
+        className='flex w-full items-center justify-center rounded-md bg-main-color p-2 text-sm uppercase text-white hover:bg-main-color/80'
+        onClick={handleRemoveAll}
+      >
         Xóa tất cả
       </Button>
     </div>
