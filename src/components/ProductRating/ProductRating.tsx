@@ -1,4 +1,4 @@
-export default function StarRating({
+export default function ProductRating({
   rating,
   activeClassname = 'h-3 w-3 fill-[#d80000] text-[#d80000]',
   noneActiveClassname = 'h-3 w-3 fill-current text-gray-300'
