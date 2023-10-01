@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
@@ -13,6 +14,7 @@ export default function RatingStars({ queryConfig }: Props) {
       pathname: path.productList,
       search: createSearchParams({
         ...queryConfig,
+        page: '1',
         rating_filter: String(ratingFilter)
       }).toString()
     })
@@ -80,7 +82,16 @@ export default function RatingStars({ queryConfig }: Props) {
                     </svg>
                   )
                 })}
-              {index !== 0 && <span className='text-base font-medium'>Trở lên</span>}
+              {index !== 0 && (
+                <span
+                  className={classNames('text-base duration-200 hover:text-main-color', {
+                    'font-bold text-main-color': queryConfig.rating_filter === String(5 - index),
+                    'font-normal text-black': queryConfig.rating_filter !== String(5 - index)
+                  })}
+                >
+                  Trở lên
+                </span>
+              )}
             </div>
           </li>
         ))}

@@ -32,6 +32,7 @@ export default function ProductCategory({ categories, queryConfig }: Props) {
             pathname: path.productList,
             search: createSearchParams({
               ...queryConfig,
+              page: '1',
               category: categoryItem._id
             }).toString()
           }}

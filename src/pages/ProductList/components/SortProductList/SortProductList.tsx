@@ -21,6 +21,7 @@ export default function SortProductList({ queryConfig }: Props) {
         omit(
           {
             ...queryConfig,
+            page: '1',
             sort_by: sortByValue
           },
           ['order']
@@ -33,6 +34,7 @@ export default function SortProductList({ queryConfig }: Props) {
       pathname: path.productList,
       search: createSearchParams({
         ...queryConfig,
+        page: '1',
         sort_by: sortBy.price,
         order: orderValue
       }).toString()

@@ -38,6 +38,7 @@ export default function AsideFilter({ queryConfig }: Props) {
       pathname: path.productList,
       search: createSearchParams({
         ...queryConfig,
+        page: '1',
         price_max: data.price_max,
         price_min: data.price_min
       }).toString()
