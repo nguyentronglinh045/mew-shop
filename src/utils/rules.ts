@@ -8,7 +8,13 @@ const handleConfirmPasswordYup = (refString: string) => {
     .max(160, 'Authentication.lengthRequired')
     .oneOf([yup.ref(refString)], 'Authentication.passwordMismatch')
 }
-
+function testPriceMinMax(this: yup.TestContext<yup.AnyObject>) {
+  const { price_max, price_min } = this.parent as { price_min: string; price_max: string }
+  if (price_min !== '' && price_max !== '') {
+    return Number(price_max) >= Number(price_min)
+  }
+  return price_min !== '' || price_max !== ''
+}
 export const schema = yup.object({
   email: yup
     .string()
@@ -21,7 +27,17 @@ export const schema = yup.object({
     .required('Authentication.requiredPassword')
     .min(6, 'Authentication.lengthRequired')
     .max(160, 'Authentication.lengthRequired'),
-  confirm_password: handleConfirmPasswordYup('password')
+  confirm_password: handleConfirmPasswordYup('password'),
+  price_min: yup.string().test({
+    name: 'price_not_allowed',
+    message: 'Giá không phù hợp',
+    test: testPriceMinMax
+  }),
+  price_max: yup.string().test({
+    name: 'price_not_allowed',
+    message: 'Giá không phù hợp',
+    test: testPriceMinMax
+  })
 })
 
 export const userSchema = yup.object({

@@ -1,18 +1,20 @@
 import { useQuery } from '@tanstack/react-query'
+import { Helmet } from 'react-helmet-async'
 import Carousel from 'react-multi-carousel'
+import categoryAPI from 'src/apis/category.api'
 import productApi from 'src/apis/product.api'
+import NoProduct from 'src/components/NoProduct'
 import Pagination from 'src/components/Pagination'
 import ProductCard from 'src/components/ProductCard'
+import ProductCardSkeleton from 'src/components/ProductCardSkeleton'
 import useQueryConfig from 'src/hooks/useQueryConfig'
 import { ProductListConfig } from 'src/types/product.type'
+import NoProductImg from '../../assets/images/ProductNotFound.png'
 import Slide1 from '../../assets/images/slide-product1.webp'
 import Slide2 from '../../assets/images/slide-product2.webp'
 import AsideFilter from './components/AsideFilter'
-import SortProductList from './components/SortProductList'
-import ProductCardSkeleton from 'src/components/ProductCardSkeleton'
-import { Helmet } from 'react-helmet-async'
 import ProductCategory from './components/ProductCategory'
-import categoryAPI from 'src/apis/category.api'
+import SortProductList from './components/SortProductList'
 
 interface CustomArrowProps {
   onClick?: () => void
@@ -100,6 +102,7 @@ export default function ProductList() {
     keepPreviousData: true,
     staleTime: 3 * 60 * 1000
   })
+
   return (
     <div className='bg-[#f3f3f3]'>
       <Helmet>
@@ -131,7 +134,7 @@ export default function ProductList() {
           <ProductCategory queryConfig={queryConfig} categories={categoryData?.data.data || []} />
           <div className='grid grid-cols-12 gap-4'>
             <div className='col-span-12 sm:col-span-4 md:col-span-4 lg:col-span-3'>
-              <AsideFilter />
+              <AsideFilter queryConfig={queryConfig} />
             </div>
 
             <div className='col-span-12 p-2 sm:col-span-8 md:col-span-8 lg:col-span-9'>
@@ -155,8 +158,11 @@ export default function ProductList() {
                         <ProductCardSkeleton />
                       </div>
                     ))}
+                {productData?.data.data.products.length === 0 && (
+                  <NoProduct text='Không có sản phẩm phù hợp' imgS={NoProductImg} />
+                )}
               </div>
-              {productData && (
+              {productData && productData.data.data.pagination.page_size > 1 && (
                 <Pagination pageSize={productData.data.data.pagination.page_size} queryConfig={queryConfig} />
               )}
             </div>

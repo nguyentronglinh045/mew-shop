@@ -1,8 +1,46 @@
+import { yupResolver } from '@hookform/resolvers/yup'
+import { Controller, useForm } from 'react-hook-form'
+import { createSearchParams, useNavigate } from 'react-router-dom'
 import Button from 'src/components/Button'
 import InputNumber from 'src/components/InputNumber'
+import path from 'src/constants/path'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
+import { NoUndefinedField } from 'src/types/utils.type'
+import { Schema, schema } from 'src/utils/rules'
+import { ObjectSchema } from 'yup'
 import RatingStars from '../RatingStars'
 
-export default function AsideFilter() {
+interface Props {
+  queryConfig: QueryConfig
+}
+type FormData = NoUndefinedField<Pick<Schema, 'price_max' | 'price_min'>>
+
+const priceSchema = schema.pick(['price_min', 'price_max'])
+
+export default function AsideFilter({ queryConfig }: Props) {
+  const {
+    control,
+    handleSubmit,
+    trigger,
+    formState: { errors }
+  } = useForm<FormData>({
+    defaultValues: {
+      price_min: '',
+      price_max: ''
+    },
+    resolver: yupResolver<FormData>(priceSchema as ObjectSchema<FormData>)
+  })
+  const navigate = useNavigate()
+  const onSubmit = handleSubmit((data) => {
+    navigate({
+      pathname: path.productList,
+      search: createSearchParams({
+        ...queryConfig,
+        price_max: data.price_max,
+        price_min: data.price_min
+      }).toString()
+    })
+  })
   return (
     <div className='p-2'>
       <div className='flex cursor-default items-center gap-1 text-base font-bold text-main-color md:text-lg'>
@@ -22,26 +60,55 @@ export default function AsideFilter() {
         </svg>
         <span>Lọc giá</span>
       </div>
-      <form className='mt-2 flex flex-col gap-2'>
+      <form className='mt-2 flex flex-col gap-2' onSubmit={onSubmit}>
         <div className='flex items-start gap-1'>
-          <InputNumber
-            type='text'
-            className='grow'
-            placeholder='Giá tối thiểu'
-            classNameInput='p-2 w-full outline-none border border-gray-400 focus:border-blue-300 rounded-md focus:shadow-sm'
-            classNameError='hidden'
+          <Controller
+            control={control}
+            name='price_min'
+            render={({ field }) => {
+              return (
+                <InputNumber
+                  type='text'
+                  className='grow'
+                  placeholder='Giá tối thiểu'
+                  classNameInput='p-2 w-full outline-none border border-gray-400 focus:border-blue-300 rounded-md focus:shadow-sm'
+                  classNameError='hidden'
+                  {...field}
+                  onChange={(event) => {
+                    field.onChange(event)
+                    trigger('price_max')
+                  }}
+                />
+              )
+            }}
           />
-
-          <InputNumber
-            type='text'
-            className='grow'
-            placeholder='Giá tối đa'
-            classNameInput='p-2 w-full outline-none border border-gray-400 focus:border-blue-300 rounded-md focus:shadow-sm'
-            classNameError='hidden'
+          <Controller
+            control={control}
+            name='price_max'
+            render={({ field }) => {
+              return (
+                <InputNumber
+                  type='text'
+                  className='grow'
+                  placeholder='Giá tối đa'
+                  classNameInput='p-2 w-full outline-none border border-gray-400 focus:border-blue-300 rounded-md focus:shadow-sm'
+                  classNameError='hidden'
+                  {...field}
+                  onChange={(event) => {
+                    field.onChange(event)
+                    trigger('price_min')
+                  }}
+                />
+              )
+            }}
           />
         </div>
+        <div className='text-sm text-main-color'>{errors.price_min?.message}</div>
         {/* <div className='mt-1 min-h-[1.25rem] text-center text-sm text-red-600'>{errors.price_min?.message}</div> */}
-        <Button className='flex w-full items-center justify-center rounded-md bg-main-color p-2 text-sm uppercase text-white hover:bg-main-color/80'>
+        <Button
+          type='submit'
+          className='flex w-full items-center justify-center rounded-md bg-main-color p-2 text-sm uppercase text-white hover:bg-main-color/80'
+        >
           Áp dụng
         </Button>
       </form>

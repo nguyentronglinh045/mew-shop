@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { Product as ProductType } from 'src/types/product.type'
-import StarRating from './StarRating'
 import { formatCurrency, formatNumberToSocialStyle, rateSale } from 'src/utils/utils'
+import ProductRating from '../ProductRating'
 
 interface ProductCardProps {
   className?: string
@@ -96,7 +96,7 @@ const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
       </div>
       <div className='flex items-center justify-between'>
         <div className='flex'>
-          <StarRating rating={product.rating} />
+          <ProductRating rating={product.rating} />
         </div>
         <p className='truncate text-[10px]'>{formatNumberToSocialStyle(product.sold)} Đã bán</p>
       </div>
