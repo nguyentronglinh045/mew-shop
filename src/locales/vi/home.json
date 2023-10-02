@@ -50,5 +50,23 @@
     "oldPassword": "Mật khẩu cũ",
     "newPassword": "Mật khẩu mới",
     "confirmNewPassword": "Xác nhận mật khẩu"
+  },
+  "ProductList": {
+    "allProducts": "Tất cả sản phẩm",
+    "filterPrices": "Lọc giá",
+    "priceMin": "Giá tối thiểu",
+    "priceMax": "Giá tối đa",
+    "applySort": "Áp dụng",
+    "review": "Đánh giá",
+    "above": "Trở lên",
+    "clearAll": "Xóa tất cả",
+    "sortedBy": "Sắp xếp theo",
+    "sortedBynewest": "Mới nhất",
+    "sortedByView": "Lượt xem",
+    "sortedBySold": "Bán chạy",
+    "sortedByAscendingPrice": "Giá tăng dần",
+    "sortedByDescendingPrice": "Giá giảm dần",
+    "off": "Giảm",
+    "sold": "Đã bán"
   }
 }

@@ -5,10 +5,13 @@ import { sortBy, order as orderConstanst } from 'src/constants/product'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
 import { ProductListConfig } from 'src/types/product.type'
 import omit from 'lodash/omit'
+import { useTranslation } from 'react-i18next'
+
 interface Props {
   queryConfig: QueryConfig
 }
 export default function SortProductList({ queryConfig }: Props) {
+  const { t } = useTranslation()
   const { sort_by = sortBy.createdAt, order } = queryConfig
   const navigate = useNavigate()
   const isActiveSortBy = (sortByValue: Exclude<ProductListConfig['sort_by'], undefined>) => {
@@ -41,15 +44,15 @@ export default function SortProductList({ queryConfig }: Props) {
     })
   }
   return (
-    <div className='flex flex-wrap items-center gap-1'>
-      <span className='text-base font-bold text-gray-700 md:text-lg'>Sắp xếp theo:</span>
+    <div className='flex flex-wrap items-center gap-1 md:gap-2'>
+      <span className='text-base font-bold text-gray-700 md:text-lg'>{t('ProductList.sortedBy')}:</span>
       <button
         className={classNames('rounded border border-gray-500 px-2 py-1 text-base font-semibold text-gray-600', {
           'border-main-color text-main-color': isActiveSortBy(sortBy.createdAt)
         })}
         onClick={() => handleSort(sortBy.createdAt)}
       >
-        Mới nhất
+        {t('ProductList.sortedBynewest')}
       </button>
       <button
         className={classNames('rounded border border-gray-500 px-2 py-1 text-base font-semibold text-gray-600', {
@@ -57,7 +60,7 @@ export default function SortProductList({ queryConfig }: Props) {
         })}
         onClick={() => handleSort(sortBy.view)}
       >
-        Phổ biến
+        {t('ProductList.sortedByView')}
       </button>
 
       <button
@@ -66,7 +69,7 @@ export default function SortProductList({ queryConfig }: Props) {
         })}
         onClick={() => handleSort(sortBy.sold)}
       >
-        Bán chạy
+        {t('ProductList.sortedBySold')}
       </button>
       <button
         className={classNames('rounded border border-gray-500 px-2 py-1 text-base font-semibold text-gray-600', {
@@ -74,7 +77,7 @@ export default function SortProductList({ queryConfig }: Props) {
         })}
         onClick={() => handlePriceOrder('asc')}
       >
-        Giá tăng dần
+        {t('ProductList.sortedByAscendingPrice')}
       </button>
       <button
         className={classNames('rounded border border-gray-500 px-2 py-1 text-base font-semibold text-gray-600', {
@@ -82,7 +85,7 @@ export default function SortProductList({ queryConfig }: Props) {
         })}
         onClick={() => handlePriceOrder('desc')}
       >
-        Giá giảm dần
+        {t('ProductList.sortedByDescendingPrice')}
       </button>
     </div>
   )

@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { useTranslation } from 'react-i18next'
 import { createSearchParams, useNavigate } from 'react-router-dom'
 import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export default function RatingStars({ queryConfig }: Props) {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const handFilterStar = (ratingFilter: number) => {
     navigate({
@@ -89,7 +91,7 @@ export default function RatingStars({ queryConfig }: Props) {
                     'font-normal text-black': queryConfig.rating_filter !== String(5 - index)
                   })}
                 >
-                  Trở lên
+                  {t('ProductList.above')}
                 </span>
               )}
             </div>

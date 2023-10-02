@@ -10,6 +10,7 @@ import { NoUndefinedField } from 'src/types/utils.type'
 import { Schema, schema } from 'src/utils/rules'
 import { ObjectSchema } from 'yup'
 import RatingStars from '../RatingStars'
+import { useTranslation } from 'react-i18next'
 
 interface Props {
   queryConfig: QueryConfig
@@ -19,6 +20,7 @@ type FormData = NoUndefinedField<Pick<Schema, 'price_max' | 'price_min'>>
 const priceSchema = schema.pick(['price_min', 'price_max'])
 
 export default function AsideFilter({ queryConfig }: Props) {
+  const { t } = useTranslation()
   const {
     control,
     handleSubmit,
@@ -68,7 +70,7 @@ export default function AsideFilter({ queryConfig }: Props) {
         >
           <polygon points='22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3' />
         </svg>
-        <span>Lọc giá</span>
+        <span>{t('ProductList.filterPrices')}</span>
       </div>
       <form className='mt-2 flex flex-col gap-2' onSubmit={onSubmit}>
         <div className='flex items-start gap-1'>
@@ -80,7 +82,7 @@ export default function AsideFilter({ queryConfig }: Props) {
                 <InputNumber
                   type='text'
                   className='grow'
-                  placeholder='Giá tối thiểu'
+                  placeholder={t('ProductList.priceMin')}
                   classNameInput='p-2 w-full outline-none border border-gray-400 focus:border-blue-300 rounded-md focus:shadow-sm'
                   classNameError='hidden'
                   {...field}
@@ -100,7 +102,7 @@ export default function AsideFilter({ queryConfig }: Props) {
                 <InputNumber
                   type='text'
                   className='grow'
-                  placeholder='Giá tối đa'
+                  placeholder={t('ProductList.priceMax')}
                   classNameInput='p-2 w-full outline-none border border-gray-400 focus:border-blue-300 rounded-md focus:shadow-sm'
                   classNameError='hidden'
                   {...field}
@@ -119,12 +121,12 @@ export default function AsideFilter({ queryConfig }: Props) {
           type='submit'
           className='flex w-full items-center justify-center rounded-md bg-main-color p-2 text-sm uppercase text-white hover:bg-main-color/80'
         >
-          Áp dụng
+          {t('ProductList.applySort')}
         </Button>
       </form>
       <div className='my-4 h-[1px] bg-gray-300' />
       <div className='cursor-default text-base font-bold text-main-color md:text-lg'>
-        <span>Đánh giá</span>
+        <span>{t('ProductList.review')}</span>
       </div>
       <RatingStars queryConfig={queryConfig} />
       <div className='my-4 h-[1px] bg-gray-300' />
@@ -132,7 +134,7 @@ export default function AsideFilter({ queryConfig }: Props) {
         className='flex w-full items-center justify-center rounded-md bg-main-color p-2 text-sm uppercase text-white hover:bg-main-color/80'
         onClick={handleRemoveAll}
       >
-        Xóa tất cả
+        {t('ProductList.clearAll')}
       </Button>
     </div>
   )

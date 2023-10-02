@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { Product as ProductType } from 'src/types/product.type'
 import { formatCurrency, formatNumberToSocialStyle, rateSale } from 'src/utils/utils'
 import ProductRating from '../ProductRating'
+import { useTranslation } from 'react-i18next'
 
 interface ProductCardProps {
   className?: string
@@ -10,9 +11,10 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
+  const { t } = useTranslation()
   return (
     <div
-      className={`group relative flex w-full flex-1 flex-col gap-1 overflow-hidden rounded-xl bg-white px-3 py-3 shadow-lg ${className}`}
+      className={`group relative flex w-full flex-1 cursor-pointer flex-col gap-1 overflow-hidden rounded-xl bg-white px-3 py-3 shadow-lg ${className}`}
       title={product.name}
     >
       <div
@@ -20,7 +22,9 @@ const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
       after:absolute after:bottom-[-5px] after:left-0 after:h-0 after:w-0 after:border-b-[5px] after:border-l-0 after:border-r-[5px] after:border-t-0 after:border-solid 
       after:border-y-transparent after:border-l-transparent after:border-r-[#d80000] after:brightness-75'
       >
-        <span>Giảm {rateSale(product.price_before_discount, product.price)}</span>
+        <span>
+          {t('ProductList.off')} {rateSale(product.price_before_discount, product.price)}
+        </span>
       </div>
 
       <div className='relative w-full overflow-hidden pt-[100%]'>
@@ -66,7 +70,7 @@ const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
           </Link>
         </div>
       </div>
-      {isFlashSale ? (
+      {isFlashSale && (
         <div className='relative z-[1] mt-2 flex h-[20px] w-full overflow-hidden rounded-xl bg-[#ff9a9a]'>
           <img src='src/assets/icons/hot-sale.webp' alt='' className='absolute left-[2px] z-[3] w-[18px]' />
           <div className='absolute z-[2] flex h-full w-full items-center justify-center text-[12px] uppercase text-white '>
@@ -77,8 +81,6 @@ const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
           rounded-xl bg-gradient-to-r from-[#ec1a17] to-[#ffad00]`}
           ></div>
         </div>
-      ) : (
-        ''
       )}
 
       <Link to='/'>
@@ -98,7 +100,9 @@ const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
         <div className='flex'>
           <ProductRating rating={product.rating} />
         </div>
-        <p className='truncate text-[10px]'>{formatNumberToSocialStyle(product.sold)} Đã bán</p>
+        <p className='truncate text-[10px]'>
+          {formatNumberToSocialStyle(product.sold)} {t('ProductList.sold')}
+        </p>
       </div>
     </div>
   )

@@ -1,4 +1,5 @@
 import classNames from 'classnames'
+import { useTranslation } from 'react-i18next'
 import { Link, createSearchParams } from 'react-router-dom'
 import path from 'src/constants/path'
 import { QueryConfig } from 'src/hooks/useQueryConfig'
@@ -10,6 +11,7 @@ interface Props {
 }
 
 export default function ProductCategory({ categories, queryConfig }: Props) {
+  const { t } = useTranslation()
   const { category } = queryConfig
 
   return (
@@ -23,7 +25,7 @@ export default function ProductCategory({ categories, queryConfig }: Props) {
           }
         )}
       >
-        <span>Tất cả sản phẩm</span>
+        <span>{t('ProductList.allProducts')}</span>
       </Link>
       {categories.map((categoryItem) => (
         <Link

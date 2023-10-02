@@ -50,5 +50,23 @@
     "oldPassword": "Old password",
     "newPassword": "New password",
     "confirmNewPassword": "Confirm new password"
+  },
+  "ProductList": {
+    "allProducts": "All Products",
+    "filterPrices": "Price Range",
+    "priceMin": "Price Min",
+    "priceMax": "Price Max",
+    "applySort": "Apply",
+    "review": "Ratting",
+    "above": "& Up",
+    "clearAll": "Clear All",
+    "sortedBy": "Sort by",
+    "sortedBynewest": "Newest",
+    "sortedByView": "View",
+    "sortedBySold": "Sold",
+    "sortedByAscendingPrice": "Low to High",
+    "sortedByDescendingPrice": "High to Low",
+    "off": "Sale off",
+    "sold": "Sold"
   }
 }
