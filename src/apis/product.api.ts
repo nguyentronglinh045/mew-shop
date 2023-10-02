@@ -1,6 +1,6 @@
-import http from 'src/utils/http'
 import { Product, ProductList, ProductListConfig } from 'src/types/product.type'
 import { SuccessResponseApi } from 'src/types/utils.type'
+import http from 'src/utils/http'
 
 const URL = 'products'
 const productApi = {
@@ -9,7 +9,7 @@ const productApi = {
       params
     })
   },
-  getProductDetails(id: string) {
+  getProductDetail(id: string) {
     return http.get<SuccessResponseApi<Product>>(`${URL}/${id}`)
   }
 }

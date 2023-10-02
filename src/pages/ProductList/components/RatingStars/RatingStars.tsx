@@ -1,11 +1,39 @@
-export default function RatingStars() {
+import classNames from 'classnames'
+import { useTranslation } from 'react-i18next'
+import { createSearchParams, useNavigate } from 'react-router-dom'
+import path from 'src/constants/path'
+import { QueryConfig } from 'src/hooks/useQueryConfig'
+
+interface Props {
+  queryConfig: QueryConfig
+}
+
+export default function RatingStars({ queryConfig }: Props) {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const handFilterStar = (ratingFilter: number) => {
+    navigate({
+      pathname: path.productList,
+      search: createSearchParams({
+        ...queryConfig,
+        page: '1',
+        rating_filter: String(ratingFilter)
+      }).toString()
+    })
+  }
   return (
     <ul className='my-3'>
       {Array(5)
         .fill(0)
         .map((_, index) => (
           <li className='py-1 pl-2' key={index}>
-            <div className='flex cursor-pointer items-center text-sm' tabIndex={0} role='button' aria-hidden='true'>
+            <div
+              className='flex cursor-pointer items-center text-sm'
+              tabIndex={0}
+              role='button'
+              aria-hidden='true'
+              onClick={() => handFilterStar(5 - index)}
+            >
               {Array(5)
                 .fill(0)
                 .map((_, indexStar) => {
@@ -14,8 +42,8 @@ export default function RatingStars() {
                       <svg viewBox='0 0 9.5 8' className='mr-1 h-4 w-4' key={indexStar}>
                         <defs>
                           <linearGradient id='ratingStarGradient' x1='50%' x2='50%' y1='0%' y2='100%'>
-                            <stop offset={0} stopColor='#ffca11' />
-                            <stop offset={1} stopColor='#ffad27' />
+                            <stop offset={0} stopColor='#d70018' />
+                            <stop offset={1} stopColor='#dd3144' />
                           </linearGradient>
                           <polygon
                             id='ratingStar'
@@ -28,7 +56,7 @@ export default function RatingStars() {
                               <g transform='translate(600 29)'>
                                 <g transform='translate(10 239)'>
                                   <g transform='translate(101 10)'>
-                                    <use stroke='#ffa727' strokeWidth='.5' xlinkHref='#ratingStar' />
+                                    <use stroke='#dd3144' strokeWidth='.5' xlinkHref='#ratingStar' />
                                   </g>
                                 </g>
                               </g>
@@ -49,14 +77,23 @@ export default function RatingStars() {
                       <path
                         fill='none'
                         fillRule='evenodd'
-                        stroke='url(#star__hollow)'
+                        stroke='#dd3144'
                         strokeWidth={2}
                         d='M23.226809 28.390899l-1.543364-9.5505903 6.600997-6.8291523-9.116272-1.4059447-4.01304-8.63019038-4.013041 8.63019038-9.116271 1.4059447 6.600997 6.8291523-1.543364 9.5505903 8.071679-4.5038874 8.071679 4.5038874z'
                       />
                     </svg>
                   )
                 })}
-              {index !== 0 && <span>Trở lên</span>}
+              {index !== 0 && (
+                <span
+                  className={classNames('text-base duration-200 hover:text-main-color', {
+                    'font-bold text-main-color': queryConfig.rating_filter === String(5 - index),
+                    'font-normal text-black': queryConfig.rating_filter !== String(5 - index)
+                  })}
+                >
+                  {t('ProductList.above')}
+                </span>
+              )}
             </div>
           </li>
         ))}
