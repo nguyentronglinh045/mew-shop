@@ -3,15 +3,16 @@ import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router-dom'
 import productApi from 'src/apis/product.api'
 import ProductRating from 'src/components/ProductRating'
-import { formatCurrency, formatNumberToSocialStyle, rateSale } from 'src/utils/utils'
+import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
 import DOMPurify from 'dompurify'
 import { useEffect, useMemo, useState } from 'react'
 import { Product } from 'src/types/product.type'
 export default function ProductDetail() {
   const { nameId } = useParams()
+  const id = getIdFromNameId(nameId as string)
   const { data: productDetailData } = useQuery({
-    queryKey: ['product', nameId],
-    queryFn: () => productApi.getProductDetail(nameId as string)
+    queryKey: ['product', id],
+    queryFn: () => productApi.getProductDetail(id as string)
   })
   const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
   const [activeImage, setActiveImage] = useState('')
@@ -54,7 +55,7 @@ export default function ProductDetail() {
       <div className='container bg-white p-4 shadow'>
         <div className='flex flex-col gap-4 md:grid md:grid-cols-12 md:gap-9'>
           <div className='col-span-12 md:col-span-5'>
-            <div className='relative w-full cursor-zoom-in overflow-hidden pt-[100%] shadow'>
+            <div className='relative w-full overflow-hidden pt-[100%] shadow'>
               <img
                 src={activeImage}
                 alt={product.name}

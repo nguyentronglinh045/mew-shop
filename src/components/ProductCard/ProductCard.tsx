@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 import { Product as ProductType } from 'src/types/product.type'
-import { formatCurrency, formatNumberToSocialStyle, rateSale } from 'src/utils/utils'
+import { formatCurrency, formatNumberToSocialStyle, generateNameId, rateSale } from 'src/utils/utils'
 import ProductRating from '../ProductRating'
 
 interface ProductCardProps {
@@ -15,7 +15,7 @@ const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
   const { t } = useTranslation()
   return (
     <Link
-      to={`${path.home}${product._id}`}
+      to={`${path.home}${generateNameId({ name: product.name, id: product._id })}`}
       className={`group relative flex w-full flex-1 cursor-pointer flex-col gap-1 overflow-hidden rounded-xl bg-white px-3 py-3 shadow-lg ${className}`}
       title={product.name}
     >
