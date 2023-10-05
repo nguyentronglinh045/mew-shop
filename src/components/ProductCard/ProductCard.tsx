@@ -1,8 +1,9 @@
+import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
+import path from 'src/constants/path'
 import { Product as ProductType } from 'src/types/product.type'
 import { formatCurrency, formatNumberToSocialStyle, rateSale } from 'src/utils/utils'
 import ProductRating from '../ProductRating'
-import { useTranslation } from 'react-i18next'
 
 interface ProductCardProps {
   className?: string
@@ -13,7 +14,8 @@ interface ProductCardProps {
 const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
   const { t } = useTranslation()
   return (
-    <div
+    <Link
+      to={`${path.home}${product._id}`}
       className={`group relative flex w-full flex-1 cursor-pointer flex-col gap-1 overflow-hidden rounded-xl bg-white px-3 py-3 shadow-lg ${className}`}
       title={product.name}
     >
@@ -39,7 +41,7 @@ const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
           VNPAY giảm 500K
         </span>
         <div className='absolute bottom-0 right-0 rounded-full bg-rose-600 p-1 opacity-0 transition-all duration-200 group-hover:right-1 group-hover:opacity-100 max-sm:hidden '>
-          <Link to='/'>
+          <Link to={`${path.home}${product._id}`}>
             <svg
               xmlns='http://www.w3.org/2000/svg'
               width='32'
@@ -104,7 +106,7 @@ const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
           {formatNumberToSocialStyle(product.sold)} {t('ProductList.sold')}
         </p>
       </div>
-    </div>
+    </Link>
   )
 }
 
