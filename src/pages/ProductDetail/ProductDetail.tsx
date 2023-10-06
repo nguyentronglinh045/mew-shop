@@ -9,6 +9,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Product, ProductListConfig } from 'src/types/product.type'
 import ProductCard from 'src/components/ProductCard'
 import ProductCardSkeleton from 'src/components/ProductCardSkeleton'
+import QuantityController from 'src/components/QuantityController'
 
 export default function ProductDetail() {
   const { nameId } = useParams()
@@ -19,6 +20,7 @@ export default function ProductDetail() {
   })
   const [currentIndexImages, setCurrentIndexImages] = useState([0, 5])
   const [activeImage, setActiveImage] = useState('')
+  const [buyCount, setBuyCount] = useState(1)
   const product = productDetailData?.data.data
   const currentImage = useMemo(
     () => (product ? product.images.slice(...currentIndexImages) : []),
@@ -51,6 +53,9 @@ export default function ProductDetail() {
     if (currentIndexImages[0] > 0) {
       setCurrentIndexImages((prev) => [prev[0] - 1, prev[1] - 1])
     }
+  }
+  const handleBuyCount = (value: number) => {
+    setBuyCount(value)
   }
   if (!product) {
     return null
@@ -144,7 +149,13 @@ export default function ProductDetail() {
             </div>
             <div className='flex items-center gap-3'>
               <div className='text-base capitalize text-gray-500'>Số lượng</div>
-              <input type='number' />
+              <QuantityController
+                onDecrease={handleBuyCount}
+                onIncrease={handleBuyCount}
+                onType={handleBuyCount}
+                value={buyCount}
+                max={product.quantity}
+              />
               <div className='text-sm text-gray-500'>{product.quantity} khả dụng</div>
             </div>
             <div className='flex items-center'>
