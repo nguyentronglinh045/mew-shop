@@ -6,7 +6,10 @@ import ProductRating from 'src/components/ProductRating'
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
 import DOMPurify from 'dompurify'
 import { useEffect, useMemo, useState } from 'react'
-import { Product } from 'src/types/product.type'
+import { Product, ProductListConfig } from 'src/types/product.type'
+import ProductCard from 'src/components/ProductCard'
+import ProductCardSkeleton from 'src/components/ProductCardSkeleton'
+
 export default function ProductDetail() {
   const { nameId } = useParams()
   const id = getIdFromNameId(nameId as string)
@@ -21,6 +24,13 @@ export default function ProductDetail() {
     () => (product ? product.images.slice(...currentIndexImages) : []),
     [currentIndexImages, product]
   )
+  const queryConfig: ProductListConfig = { limit: '12', page: '1', category: product?.category._id }
+  const { data: productsData, isFetching } = useQuery({
+    queryKey: ['products', queryConfig],
+    queryFn: () => productApi.getProducts(queryConfig),
+    staleTime: 3 * 60 * 1000,
+    enabled: Boolean(product)
+  })
 
   useEffect(() => {
     if (product && product.images.length > 0) {
@@ -173,6 +183,28 @@ export default function ProductDetail() {
               __html: DOMPurify.sanitize(product.description)
             }}
           ></div>
+        </div>
+      </div>
+      <div className='mt-4'>
+        <div className='container'>
+          <div className='uppercase text-gray-400'>CÓ THỂ BẠN CŨNG THÍCH</div>
+          <div className='mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6'>
+            {!isFetching &&
+              productsData &&
+              productsData.data.data.products.map((product) => (
+                <div className='col-span-1' key={product._id}>
+                  <ProductCard isFlashSale={false} product={product} />
+                </div>
+              ))}
+            {(isFetching || !productsData) &&
+              Array(6)
+                .fill(0)
+                .map((_, index) => (
+                  <div className='col-span-1' key={index}>
+                    <ProductCardSkeleton />
+                  </div>
+                ))}
+          </div>
         </div>
       </div>
     </div>

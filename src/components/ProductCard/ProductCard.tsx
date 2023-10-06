@@ -85,9 +85,7 @@ const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
         </div>
       )}
 
-      <Link to='/'>
-        <h2 className='mt-1 truncate text-base font-bold'>{product.name}</h2>
-      </Link>
+      <h2 className='mt-1 truncate text-base font-bold'>{product.name}</h2>
       <div className='flex items-center gap-x-2'>
         <div className='text-main-color'>
           <span className='text-xs'>₫</span>

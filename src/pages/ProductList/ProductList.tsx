@@ -86,7 +86,7 @@ const CustomPrevArrow: React.FC<CustomArrowProps> = ({ onClick }) => {
 }
 export default function ProductList() {
   const queryConfig = useQueryConfig()
-  const { data: productData, isFetching } = useQuery({
+  const { data: productsData, isFetching } = useQuery({
     queryKey: ['products', queryConfig],
     queryFn: () => {
       return productApi.getProducts(queryConfig as ProductListConfig)
@@ -144,13 +144,13 @@ export default function ProductList() {
               </div>
               <div className='mt-6 grid grid-cols-2 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
                 {!isFetching &&
-                  productData &&
-                  productData.data.data.products.map((product) => (
+                  productsData &&
+                  productsData.data.data.products.map((product) => (
                     <div className='col-span-1' key={product._id}>
                       <ProductCard isFlashSale={false} product={product} />
                     </div>
                   ))}
-                {(isFetching || !productData) &&
+                {(isFetching || !productsData) &&
                   Array(6)
                     .fill(0)
                     .map((_, index) => (
@@ -159,13 +159,13 @@ export default function ProductList() {
                       </div>
                     ))}
               </div>
-              {productData?.data.data.products.length === 0 && (
+              {productsData?.data.data.products.length === 0 && (
                 <NoProduct text='Không có sản phẩm phù hợp' imgS={NoProductImg} />
               )}
-              {productData &&
-                productData.data.data.products.length !== 0 &&
-                productData.data.data.pagination.page_size > 1 && (
-                  <Pagination pageSize={productData.data.data.pagination.page_size} queryConfig={queryConfig} />
+              {productsData &&
+                productsData.data.data.products.length !== 0 &&
+                productsData.data.data.pagination.page_size > 1 && (
+                  <Pagination pageSize={productsData.data.data.pagination.page_size} queryConfig={queryConfig} />
                 )}
             </div>
           </div>
