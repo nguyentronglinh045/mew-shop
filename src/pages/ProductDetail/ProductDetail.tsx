@@ -1,19 +1,26 @@
-import { useQuery } from '@tanstack/react-query'
-import { Helmet } from 'react-helmet-async'
-import { useParams } from 'react-router-dom'
-import productApi from 'src/apis/product.api'
-import ProductRating from 'src/components/ProductRating'
-import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import DOMPurify from 'dompurify'
-import { useEffect, useMemo, useState } from 'react'
-import { Product, ProductListConfig } from 'src/types/product.type'
+import { useContext, useEffect, useMemo, useState } from 'react'
+import { Helmet } from 'react-helmet-async'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import productApi from 'src/apis/product.api'
+import purchaseApi from 'src/apis/purchase.api'
 import ProductCard from 'src/components/ProductCard'
 import ProductCardSkeleton from 'src/components/ProductCardSkeleton'
+import ProductRating from 'src/components/ProductRating'
 import QuantityController from 'src/components/QuantityController'
+import path from 'src/constants/path'
+import { AppContext } from 'src/contexts/app.context'
+import { Product, ProductListConfig } from 'src/types/product.type'
+import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
 
 export default function ProductDetail() {
+  const { isAuthenticated } = useContext(AppContext)
   const { nameId } = useParams()
   const id = getIdFromNameId(nameId as string)
+  const navigate = useNavigate()
+  const location = useLocation()
   const { data: productDetailData } = useQuery({
     queryKey: ['product', id],
     queryFn: () => productApi.getProductDetail(id as string)
@@ -33,6 +40,8 @@ export default function ProductDetail() {
     staleTime: 3 * 60 * 1000,
     enabled: Boolean(product)
   })
+
+  const addToCartMutation = useMutation(purchaseApi.addToCart)
 
   useEffect(() => {
     if (product && product.images.length > 0) {
@@ -56,6 +65,24 @@ export default function ProductDetail() {
   }
   const handleBuyCount = (value: number) => {
     setBuyCount(value)
+  }
+
+  const addToCart = () => {
+    const { pathname } = location
+    const currentLocation = { pathname }
+
+    if (isAuthenticated) {
+      addToCartMutation.mutate(
+        { buy_count: buyCount, product_id: id },
+        {
+          onSuccess: () => {
+            toast.success('Thêm vào giỏ hàng thành công')
+          }
+        }
+      )
+    } else {
+      navigate(path.login, { state: { from: currentLocation } })
+    }
   }
   if (!product) {
     return null
@@ -141,7 +168,7 @@ export default function ProductDetail() {
               </div>
             </div>
             <div className='mt-3 flex items-center bg-gray-100 px-5 py-4'>
-              <div className='text-main-color line-through'>₫{formatCurrency(product.price_before_discount)}</div>
+              <div className='text-gray-500 line-through'>₫{formatCurrency(product.price_before_discount)}</div>
               <div className='ml-3 text-3xl font-medium text-main-color'>₫{formatCurrency(product.price)}</div>
               <div className='ml-4 rounded-md bg-main-color px-1 py-[2px] text-xs font-semibold uppercase text-white'>
                 {rateSale(product.price_before_discount, product.price)} giảm
@@ -159,7 +186,10 @@ export default function ProductDetail() {
               <div className='text-sm text-gray-500'>{product.quantity} khả dụng</div>
             </div>
             <div className='flex items-center'>
-              <button className='flex h-12 items-center justify-center rounded-md border border-main-color bg-main-color/10 px-2 capitalize text-main-color shadow-sm hover:bg-main-color/5 md:px-5'>
+              <button
+                className='flex h-12 items-center justify-center rounded-md border border-main-color bg-main-color/10 px-2 capitalize text-main-color shadow-sm hover:bg-main-color/5 md:px-5'
+                onClick={addToCart}
+              >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'
                   width={24}
