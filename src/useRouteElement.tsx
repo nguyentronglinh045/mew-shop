@@ -12,6 +12,7 @@ const NotFound = lazy(() => import('./pages/NotFound'))
 const Login = lazy(() => import('./pages/Login'))
 const Register = lazy(() => import('./pages/Register'))
 const ProductList = lazy(() => import('./pages/ProductList'))
+const ProductDetail = lazy(() => import('./pages/ProductDetail'))
 const Profile = lazy(() => import('./pages/User/Profile'))
 const ChangePassword = lazy(() => import('./pages/User/ChangePassword'))
 
@@ -51,6 +52,14 @@ export default function useRouteElement() {
           element: (
             <Suspense fallback={<LoadingScreen />}>
               <ProductList />
+            </Suspense>
+          )
+        },
+        {
+          path: path.productDetail,
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <ProductDetail />
             </Suspense>
           )
         }

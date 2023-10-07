@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import authApi from 'src/apis/auth.api'
 import FacebookBtn from 'src/assets/icons/fb-btn.svg'
 import GoogleBtn from 'src/assets/icons/google-btn.svg'
@@ -22,6 +22,7 @@ const LoginSchema = schema.pick(['email', 'password'])
 export default function Login() {
   const { setIsAuthenticated, setProfile } = useContext(AppContext)
   const navigate = useNavigate()
+  const location = useLocation()
   const { t } = useTranslation(['home'])
   const {
     handleSubmit,
@@ -39,7 +40,8 @@ export default function Login() {
       onSuccess: (data) => {
         setIsAuthenticated(true)
         setProfile(data.data.data.user)
-        navigate('/')
+        const previousLocation = location.state?.from || '/'
+        navigate(previousLocation)
       },
       onError: (error) => {
         if (isAxiosUnprocessableEntityError<ErrorResponseApi<FormData>>(error)) {
