@@ -91,7 +91,7 @@ export default function ProductDetail() {
     <div className='bg-[#f3f3f3] py-2 md:py-6'>
       <Helmet>
         <title>{product.name}</title>
-        <meta name='description' />
+        <meta name='description' content='Giỏ hàng của tôi ' />
       </Helmet>
 
       <div className='container bg-white p-4 shadow'>

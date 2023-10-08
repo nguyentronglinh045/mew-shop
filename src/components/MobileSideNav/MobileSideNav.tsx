@@ -72,14 +72,14 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
             <span>{t('Header.products')}</span>
           </NavLink>
           <NavLink
-            to={'/product'}
+            to={path.cart}
             className={({ isActive }) =>
               `px-2 py-2 font-semibold capitalize duration-100 hover:text-yellow-400 ${
                 isActive ? 'text-yellow-400' : 'text-white'
               }`
             }
           >
-            <span>{t('Header.products')}</span>
+            <span>Giỏ hàng</span>
           </NavLink>
         </div>
         <div className='border-t border-white'></div>
