@@ -96,9 +96,9 @@ const FlashSale = () => {
             Flash Sale
           </Link>
         </h2>
-        <a href='/' className='text-center text-white'>
+        {/* <a href='/' className='text-center text-white'>
           Giảm ngay 120k (áp dụng cho các đơn hàng trên 500k)
-        </a>
+        </a> */}
         <Countdown />
       </div>
       {productData && (
