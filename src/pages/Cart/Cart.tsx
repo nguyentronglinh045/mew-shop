@@ -26,7 +26,7 @@ export default function Cart() {
                   <img
                     src='https://api-ecom.duthanhduoc.com/images/aa374023-7a5b-46ea-aca3-dad1b29fb015.jpg'
                     alt=''
-                    className='h-auto w-auto md:h-20 md:w-20'
+                    className='h-16 w-16 md:h-20 md:w-20'
                   />
                 </Link>
                 <div className='flex w-full justify-between max-sm:flex-col max-sm:items-start sm:items-center'>
