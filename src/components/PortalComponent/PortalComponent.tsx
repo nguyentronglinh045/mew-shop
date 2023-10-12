@@ -7,6 +7,11 @@ interface Props {
 // Component này sẽ đưa childrent ra ngoài body
 export default function PortalComponent({ children }: Props) {
   const portalContainer = document.createElement('div')
+  portalContainer.style.position = 'absolute'
+  portalContainer.style.top = '0'
+  portalContainer.style.right = '0'
+  portalContainer.style.bottom = '0'
+  portalContainer.style.left = '0'
   useEffect(() => {
     document.body.appendChild(portalContainer)
 
