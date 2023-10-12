@@ -6,12 +6,14 @@ interface Props extends InputNumberProps {
   onDecrease?: (value: number) => void
   onType?: (value: number) => void
   classNameWrapper?: string
+  classNameButtonControl?: string
 }
 export default function QuantityController({
   max,
   onIncrease,
   onDecrease,
   classNameWrapper,
+  classNameButtonControl = 'flex h-8 w-8 items-center justify-center border border-gray-300 text-gray-600',
   onType,
   value,
   ...rest
@@ -41,14 +43,11 @@ export default function QuantityController({
   }
   return (
     <div className={'flex items-center ' + classNameWrapper}>
-      <button
-        className='flex h-8 w-8 items-center justify-center rounded-l-md border border-gray-300 text-gray-600'
-        onClick={decrease}
-      >
+      <button className={`rounded-l-md ${classNameButtonControl}`} onClick={decrease}>
         <svg
           xmlns='http://www.w3.org/2000/svg'
-          width={24}
-          height={24}
+          width={20}
+          height={20}
           viewBox='0 0 24 24'
           fill='none'
           stroke='currentColor'
@@ -67,14 +66,11 @@ export default function QuantityController({
         onChange={handleChange}
         {...rest}
       />
-      <button
-        className='flex h-8 w-8 items-center justify-center rounded-r-md border border-gray-300 text-gray-600'
-        onClick={increase}
-      >
+      <button className={`rounded-r-md ${classNameButtonControl}`} onClick={increase}>
         <svg
           xmlns='http://www.w3.org/2000/svg'
-          width={24}
-          height={24}
+          width={20}
+          height={20}
           viewBox='0 0 24 24'
           fill='none'
           stroke='currentColor'
