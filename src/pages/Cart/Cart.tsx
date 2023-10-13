@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { produce } from 'immer'
 import keyBy from 'lodash/keyBy'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
 import purchaseApi from 'src/apis/purchase.api'
@@ -12,6 +12,7 @@ import { purchasesStatus } from 'src/constants/purchase'
 import { Purchase } from 'src/types/purchase.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import NoProductInCart from '../../assets/images/ProductNotFound.png'
+import { toast } from 'react-toastify'
 
 interface extendedPurchases extends Purchase {
   disabled: boolean
@@ -26,12 +27,45 @@ export default function Cart() {
   })
   const purchasesInCart = purchasesInCartData?.data.data
   const isAllChecked = extendedPurchases.every((purchase) => purchase.checked)
+  const checkedPurchases = extendedPurchases.filter((purchase) => purchase.checked)
+  const checkedPurchasesCount = checkedPurchases.length
+  const totalCheckedPurchasePrice = useMemo(
+    () =>
+      checkedPurchases.reduce((result, current) => {
+        return result + current.product.price * current.buy_count
+      }, 0),
+    [checkedPurchases]
+  )
+  const totalCheckedPurchaseSavingPrice = useMemo(
+    () =>
+      checkedPurchases.reduce((result, current) => {
+        return result + (current.product.price_before_discount - current.product.price) * current.buy_count
+      }, 0),
+    [checkedPurchases]
+  )
+
   const updatePurchaseMutation = useMutation({
     mutationFn: purchaseApi.updatePurchase,
     onSuccess: () => {
       refetch()
     }
   })
+
+  const buyPurchaseMutation = useMutation({
+    mutationFn: purchaseApi.buyProducts,
+    onSuccess: (data) => {
+      refetch()
+      toast.success(data.data.message, { autoClose: 2000 })
+    }
+  })
+  const deletePurchaseMutation = useMutation({
+    mutationFn: purchaseApi.deletePurchase,
+    onSuccess: (data) => {
+      refetch()
+      toast.success(data.data.message, { autoClose: 2000 })
+    }
+  })
+
   useEffect(() => {
     setExtendedPurchases((prev) => {
       const extendedPurchasesObject = keyBy(prev, '_id')
@@ -80,6 +114,26 @@ export default function Cart() {
       })
     )
   }
+
+  // const handleDelete = (purchaseIndex: number) => () => {
+  //   const purchaseId = extendedPurchases[purchaseIndex]._id
+  //   deletePurchaseMutation.mutate([purchaseId])
+  // }
+  const handleDeleteManyPurchases = () => {
+    const purchaseIds = checkedPurchases.map((purchase) => purchase._id)
+    deletePurchaseMutation.mutate(purchaseIds)
+  }
+
+  const handleBuyProducts = () => {
+    if (checkedPurchases.length > 0) {
+      const body = checkedPurchases.map((purchase) => ({
+        product_id: purchase.product._id,
+        buy_count: purchase.buy_count
+      }))
+      buyPurchaseMutation.mutate(body)
+    }
+  }
+
   return (
     <div className='bg-[#f3f3f3] py-2 md:py-6'>
       <Helmet>
@@ -173,25 +227,29 @@ export default function Cart() {
                       Chọn tất cả {extendedPurchases.length}
                     </button>
                   </div>
-                  <button className='mx-3 border-none bg-none text-main-color'>Xóa</button>
+                  <button className='mx-3 border-none bg-none text-main-color' onClick={handleDeleteManyPurchases}>
+                    Xóa
+                  </button>
                 </div>
 
                 <div className='mt-2 flex flex-col sm:mt-0 sm:flex-row sm:items-center'>
                   <div>
                     <div className='flex items-center max-sm:flex-col max-sm:items-start'>
-                      <div>Tổng thanh toán (5 sản phẩm):</div>
+                      <div>Tổng thanh toán ({checkedPurchasesCount} sản phẩm):</div>
                       <div className='ml-2 text-2xl text-main-color max-sm:ml-0 md:text-xl lg:text-2xl'>
-                        ₫20.000.000
+                        ₫{formatCurrency(totalCheckedPurchasePrice)}
                       </div>
                     </div>
                     <div className='flex items-center text-sm sm:justify-end'>
                       <div className='text-gray-500'>Tiết kiệm:</div>
-                      <div className='ml-2 text-main-color'>₫230.000</div>
+                      <div className='ml-2 text-main-color'>₫{formatCurrency(totalCheckedPurchaseSavingPrice)}</div>
                     </div>
                   </div>
                   <Button
                     className='mx-auto mt-2 flex h-10 w-full items-center justify-center rounded-md bg-main-color text-sm font-bold uppercase text-white hover:bg-main-color/80 sm:ml-4 sm:mt-0 sm:w-32 lg:w-48'
                     classNameText='font-semibold'
+                    onClick={handleBuyProducts}
+                    disabled={buyPurchaseMutation.isLoading}
                   >
                     Mua hàng
                   </Button>
