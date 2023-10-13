@@ -79,7 +79,7 @@ const SliderBanner = () => {
       <div className='relative flex justify-center'>
         <img src='src/assets/images/big_bn_slide.webp' alt='banner' className='w-full max-sm:hidden' />
       </div>
-      <div className='mx-auto -mt-16 h-auto w-full max-sm:mt-0'>
+      <div className='mx-auto -mt-16 flex h-auto w-full justify-center max-sm:mt-0'>
         <Carousel
           responsive={responsive}
           infinite
