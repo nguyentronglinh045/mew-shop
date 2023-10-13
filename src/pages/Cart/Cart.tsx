@@ -1,5 +1,6 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { produce } from 'immer'
+import keyBy from 'lodash/keyBy'
 import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { Link } from 'react-router-dom'
@@ -19,27 +20,37 @@ interface extendedPurchases extends Purchase {
 
 export default function Cart() {
   const [extendedPurchases, setExtendedPurchases] = useState<extendedPurchases[]>([])
-  const { data: purchasesInCartData } = useQuery({
+  const { data: purchasesInCartData, refetch } = useQuery({
     queryKey: ['purchases', { status: purchasesStatus.inCart }],
     queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart })
   })
   const purchasesInCart = purchasesInCartData?.data.data
   const isAllChecked = extendedPurchases.every((purchase) => purchase.checked)
-
+  const updatePurchaseMutation = useMutation({
+    mutationFn: purchaseApi.updatePurchase,
+    onSuccess: () => {
+      refetch()
+    }
+  })
   useEffect(() => {
-    setExtendedPurchases(
-      purchasesInCart?.map((purchase) => ({
-        ...purchase,
-        disabled: false,
-        checked: false
-      })) || []
-    )
+    setExtendedPurchases((prev) => {
+      const extendedPurchasesObject = keyBy(prev, '_id')
+      console.log(extendedPurchasesObject)
+
+      return (
+        purchasesInCart?.map((purchase) => ({
+          ...purchase,
+          disabled: false,
+          checked: Boolean(extendedPurchasesObject[purchase._id]?.checked)
+        })) || []
+      )
+    })
   }, [purchasesInCart])
 
-  const handleChecked = (productIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChecked = (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setExtendedPurchases(
       produce((draf) => {
-        draf[productIndex].checked = event.target.checked
+        draf[purchaseIndex].checked = event.target.checked
       })
     )
   }
@@ -51,8 +62,23 @@ export default function Cart() {
       }))
     )
   }
-  const handleBuyCount = () => {
-    console.log(extendedPurchases)
+  const handleQuantity = (purchaseIndex: number, value: number, enable: boolean) => {
+    if (enable) {
+      const purchase = extendedPurchases[purchaseIndex]
+      setExtendedPurchases(
+        produce((draf) => {
+          draf[purchaseIndex].disabled = true
+        })
+      )
+      updatePurchaseMutation.mutate({ product_id: purchase.product._id, buy_count: value })
+    }
+  }
+  const handleTypeQuantity = (purchaseIndex: number) => (value: number) => {
+    setExtendedPurchases(
+      produce((draf) => {
+        draf[purchaseIndex].buy_count = value
+      })
+    )
   }
   return (
     <div className='bg-[#f3f3f3] py-2 md:py-6'>
@@ -67,56 +93,67 @@ export default function Cart() {
         {extendedPurchases && extendedPurchases.length > 0 ? (
           <>
             <div className='flex flex-col gap-2'>
-              {extendedPurchases.map((product, index) => (
+              {extendedPurchases.map((purchase, index) => (
                 <div
                   className='flex items-center gap-4 border-b bg-white p-4 max-sm:items-start md:p-5'
-                  key={product.product._id}
+                  key={purchase.product._id}
                 >
                   <div className=''>
                     <input
                       type='checkbox'
                       className='h-5 w-5 accent-main-color'
-                      checked={product.checked}
+                      checked={purchase.checked}
                       onChange={handleChecked(index)}
                     />
                   </div>
                   <div className='flex max-w-full items-center gap-2 truncate max-sm:items-start'>
                     <Link
-                      to={`${path.home}${generateNameId({ name: product.product.name, id: product.product._id })}`}
+                      to={`${path.home}${generateNameId({ name: purchase.product.name, id: purchase.product._id })}`}
                       className='shrink-0 border border-gray-200'
                     >
                       <img
-                        src={product.product.image}
-                        alt={product.product.name}
+                        src={purchase.product.image}
+                        alt={purchase.product.name}
                         className='h-20 w-20 md:h-24 md:w-24'
                       />
                     </Link>
                     <div className='flex flex-col truncate max-sm:items-start'>
                       <Link
-                        to={`${path.home}${generateNameId({ name: product.product.name, id: product.product._id })}`}
+                        to={`${path.home}${generateNameId({ name: purchase.product.name, id: purchase.product._id })}`}
                         className='truncate text-base font-medium uppercase text-black md:text-base'
                       >
-                        {product.product.name}
+                        {purchase.product.name}
                       </Link>
                       <div className='flex items-center gap-x-4 gap-y-2 max-sm:flex-col max-sm:items-start'>
                         <div className='flex gap-1 md:gap-2'>
                           <span className='text-base text-gray-500 line-through md:text-base'>
-                            ₫{formatCurrency(product.price_before_discount)}
+                            ₫{formatCurrency(purchase.price_before_discount)}
                           </span>
                           <span className='text-base font-bold text-main-color md:text-base'>
-                            ₫{formatCurrency(product.price)}
+                            ₫{formatCurrency(purchase.price)}
                           </span>
                         </div>
                         <QuantityController
                           classNameWrapper='h-8'
-                          onDecrease={handleBuyCount}
-                          onIncrease={handleBuyCount}
-                          value={product.buy_count}
-                          max={product.product.quantity}
+                          value={purchase.buy_count}
+                          max={purchase.product.quantity}
+                          onIncrease={(value) => handleQuantity(index, value, value <= purchase.product.quantity)}
+                          onDecrease={(value) => handleQuantity(index, value, value >= 1)}
+                          onType={handleTypeQuantity(index)}
+                          onFocusOut={(value) =>
+                            handleQuantity(
+                              index,
+                              value,
+                              value >= 1 &&
+                                value <= purchase.product.quantity &&
+                                value !== (purchasesInCart as Purchase[])[index].buy_count
+                            )
+                          }
+                          disabled={purchase.disabled}
                         />
-                        <div className='flex gap-1'>{product.product.quantity} kha dung</div>
+                        <div className='flex gap-1'>{purchase.product.quantity} kha dung</div>
                         <div className='text-base font-bold text-main-color md:text-base'>
-                          <span>₫{formatCurrency(product.price * product.buy_count)}</span>
+                          <span>₫{formatCurrency(purchase.price * purchase.buy_count)}</span>
                         </div>
                       </div>
                     </div>
