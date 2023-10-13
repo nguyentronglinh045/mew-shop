@@ -18,18 +18,18 @@ export default function Footer() {
           <div className='px-2 md:w-1/2'>
             <img src={FooterLogo} alt='footer logo' className='h-[36px] max-w-full' title='Meo Mobile' />
             <div className='flex gap-1'>
-              <h3 className='font-bold'>Trụ sở chính: </h3>
-              <p className='text-[14px] text-[#4c4c4c]'>
-                Ladeco Building, 266 Doi Can Street, Ba Dinh District, Hanoi.
+              <h3 className='font-bold leading-5'>Trụ sở chính: </h3>
+              <p className='flex-1 text-[14px] leading-5 text-[#4c4c4c]'>
+                Ladeco Building, 2366 Doi Can Street, Ba Dinh District, Hanoi.
               </p>
             </div>
             <div className='flex gap-1'>
-              <h3 className='font-bold'>Email: </h3>
-              <p className='text-[14px] text-[#4c4c4c]'>support@sapo.vn</p>
+              <h3 className='font-bold leading-5'>Email: </h3>
+              <p className='text-[14px] leading-5 text-[#4c4c4c]'>support@sapo.vn</p>
             </div>
             <div className='flex gap-1'>
-              <h3 className='font-bold'>Hotline: </h3>
-              <p className='text-[14px] text-[#4c4c4c]'>1900 6750</p>
+              <h3 className='font-bold leading-5'>Hotline: </h3>
+              <p className='text-[14px] leading-5 text-[#4c4c4c]'>1900 6750</p>
             </div>
             <p className='text-[14px] text-[#4c4c4c]'>
               Giấy chứng nhận Đăng ký Kinh doanh số 0309532xxx do Sở Kế hoạch và Đầu tư Thành phố Hà Nội cấp ngày
