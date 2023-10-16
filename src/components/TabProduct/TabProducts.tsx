@@ -6,6 +6,7 @@ import productApi from 'src/apis/product.api'
 import { Link } from 'react-router-dom'
 import path from 'src/constants/path'
 import ProductCardSkeleton from '../ProductCardSkeleton'
+import { useTranslation } from 'react-i18next'
 
 const TabButton = ({ text, icon }: { text: string; icon: string }) => {
   return (
@@ -17,6 +18,7 @@ const TabButton = ({ text, icon }: { text: string; icon: string }) => {
 }
 
 const TabProducts = () => {
+  const { t } = useTranslation()
   const queryConfig = useQueryConfig(12)
   const { data: productData, isFetching } = useQuery({
     queryKey: ['products', queryConfig],
@@ -29,10 +31,10 @@ const TabProducts = () => {
   return (
     <section className='container mt-8 flex flex-col gap-y-4 bg-white p-4'>
       <div className='flex max-w-full gap-2 overflow-x-auto pb-2'>
-        <TabButton text='Gợi ý cho bạn' icon='src/assets/icons/goiy-1.webp' />
-        <TabButton text='Xả hàng giảm sốc' icon='src/assets/icons/icon-xa-hang-50-50x50-2.webp' />
-        <TabButton text='Sale cuối hè' icon='src/assets/icons/chigiamonlinedesk-50x54-1.webp' />
-        <TabButton text='Deal ngon bổ rẻ' icon='src/assets/icons/icon-desk-51x50-2.webp' />
+        <TabButton text={t('ProductList.suggestion')} icon='src/assets/icons/goiy-1.webp' />
+        <TabButton text={t('ProductList.dicount')} icon='src/assets/icons/icon-xa-hang-50-50x50-2.webp' />
+        <TabButton text={t('ProductList.sale')} icon='src/assets/icons/chigiamonlinedesk-50x54-1.webp' />
+        <TabButton text={t('ProductList.deal')} icon='src/assets/icons/icon-desk-51x50-2.webp' />
       </div>
       <div className='grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6'>
         {!isFetching &&
@@ -56,7 +58,7 @@ const TabProducts = () => {
           to={path.productList}
           className='flex items-center justify-center rounded-xl border py-2 font-bold text-[#4c4c4c] shadow-box_shadow duration-200 hover:text-[#d70018] hover:shadow-box_shadow-hover'
         >
-          Xem tất cả
+          {t('ProductList.allProducts')}
         </Link>
       </div>
     </section>

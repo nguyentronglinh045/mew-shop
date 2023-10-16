@@ -1,9 +1,12 @@
 import { categoryList } from 'src/constants/categoryList'
+import { useTranslation } from 'react-i18next'
 
 const FeaturedCategories = () => {
+  const { t } = useTranslation()
+
   return (
     <div className='container rounded bg-white p-2'>
-      <h1 className='text-2xl font-bold'>DANH MỤC NỔI BẬT</h1>
+      <h1 className='text-2xl font-bold'>{t('FeaturedCategories.featuredCategories')}</h1>
       <div className='mt-4 flex flex-wrap gap-2 p-2 max-sm:mt-2 max-sm:flex-nowrap max-sm:overflow-x-auto'>
         {categoryList.map((item) => (
           <a
@@ -16,7 +19,7 @@ const FeaturedCategories = () => {
               xl:min-w-[9%] xl:max-w-[12%]'
           >
             <img src={item.image} alt={item.name} className='h-[60px] w-[60px]' />
-            <span className='text-center text-[14px]'>{item.name}</span>
+            <span className='text-center text-[14px]'>{t(`FeaturedCategories.${item.name}`)}</span>
           </a>
         ))}
       </div>

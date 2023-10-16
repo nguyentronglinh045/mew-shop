@@ -26,6 +26,39 @@
     "homePage": "Trang chủ",
     "products": "Sản phẩm"
   },
+  "Footer": {
+    "headquarters": "Trụ sở chính",
+    "certificate": "Giấy chứng nhận Đăng ký Kinh doanh số 0309532xxx do Sở Kế hoạch và Đầu tư Thành phố Hà Nội cấp ngày 01/04/2002",
+    "policy": "Chính sách",
+    "policy-1": "Chính sách mua hàng",
+    "policy-2": "Chính sách đổi trả",
+    "policy-3": "Chính sách bảo hành",
+    "policy-4": "Gửi hóp ý, khiếu nại",
+    "contact": "Kết nối với chúng tôi",
+    "payment": "Phương thức thanh toán"
+  },
+  "FeaturedCategories": {
+    "featuredCategories": "Danh mục nổi bật",
+    "smartphone": "Điện thoại",
+    "laptop": "Laptop",
+    "networkDevices": "Thiết bị mạng",
+    "earphone": "Tai nghe",
+    "loudspeaker": "Loa",
+    "chargerCable": "Cáp sạc, củ sạc",
+    "computerMouse": "Chuột",
+    "gamingAccessories": "Phụ kiện gaming",
+    "printer": "Máy in",
+    "smartHome": "Thiết bị nhà thông minh",
+    "smartWatch": "Smart watch",
+    "tablet": "Máy tính bảng",
+    "television": "Tivi",
+    "phoneCase": "Óp lưng, bao da",
+    "portableCharger": "Pin dự phòng",
+    "screen": "Màn hình",
+    "keyboard": "Bàn phím",
+    "camera": "Camera, Webcam",
+    "barcodeScanners": "Máy quét mã vạch"
+  },
   "Policy": {
     "safe": "Sản phẩm an toàn",
     "quality": "Chất lượng cam kết",
@@ -67,6 +100,10 @@
     "sortedByAscendingPrice": "Giá tăng dần",
     "sortedByDescendingPrice": "Giá giảm dần",
     "off": "Giảm",
-    "sold": "Đã bán"
+    "sold": "Đã bán",
+    "suggestion": "Gợi ý cho bạn",
+    "dicount": "Xả hàng giảm sốc",
+    "sale": "Sale cuối hè",
+    "deal": "Deal ngon bổ rẻ"
   }
 }
