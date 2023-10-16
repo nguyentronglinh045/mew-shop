@@ -1,33 +1,36 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { produce } from 'immer'
 import keyBy from 'lodash/keyBy'
-import { useEffect, useMemo, useState } from 'react'
+import { useContext, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { toast } from 'react-toastify'
 import purchaseApi from 'src/apis/purchase.api'
 import Button from 'src/components/Button'
 import QuantityController from 'src/components/QuantityController'
 import path from 'src/constants/path'
 import { purchasesStatus } from 'src/constants/purchase'
+import { AppContext } from 'src/contexts/app.context'
 import { Purchase } from 'src/types/purchase.type'
 import { formatCurrency, generateNameId } from 'src/utils/utils'
 import NoProductInCart from '../../assets/images/ProductNotFound.png'
-import { toast } from 'react-toastify'
-
-interface extendedPurchases extends Purchase {
-  disabled: boolean
-  checked: boolean
-}
 
 export default function Cart() {
-  const [extendedPurchases, setExtendedPurchases] = useState<extendedPurchases[]>([])
-  const { data: purchasesInCartData, refetch } = useQuery({
+  const { extendedPurchases, setExtendedPurchases } = useContext(AppContext)
+  const {
+    data: purchasesInCartData,
+    refetch,
+    isLoading
+  } = useQuery({
     queryKey: ['purchases', { status: purchasesStatus.inCart }],
     queryFn: () => purchaseApi.getPurchases({ status: purchasesStatus.inCart })
   })
+  const location = useLocation()
+  const choosenPurchaseIdFromLocation = (location.state as { purchaseId: string } | null)?.purchaseId
+
   const purchasesInCart = purchasesInCartData?.data.data
-  const isAllChecked = extendedPurchases.every((purchase) => purchase.checked)
-  const checkedPurchases = extendedPurchases.filter((purchase) => purchase.checked)
+  const isAllChecked = useMemo(() => extendedPurchases.every((purchase) => purchase.checked), [extendedPurchases])
+  const checkedPurchases = useMemo(() => extendedPurchases.filter((purchase) => purchase.checked), [extendedPurchases])
   const checkedPurchasesCount = checkedPurchases.length
   const totalCheckedPurchasePrice = useMemo(
     () =>
@@ -69,17 +72,24 @@ export default function Cart() {
   useEffect(() => {
     setExtendedPurchases((prev) => {
       const extendedPurchasesObject = keyBy(prev, '_id')
-      console.log(extendedPurchasesObject)
-
       return (
-        purchasesInCart?.map((purchase) => ({
-          ...purchase,
-          disabled: false,
-          checked: Boolean(extendedPurchasesObject[purchase._id]?.checked)
-        })) || []
+        purchasesInCart?.map((purchase) => {
+          const isChoosenPurchaseFromLocation = choosenPurchaseIdFromLocation === purchase._id
+          return {
+            ...purchase,
+            disabled: false,
+            checked: isChoosenPurchaseFromLocation || Boolean(extendedPurchasesObject[purchase._id]?.checked)
+          }
+        }) || []
       )
     })
-  }, [purchasesInCart])
+  }, [choosenPurchaseIdFromLocation, purchasesInCart, setExtendedPurchases])
+
+  useEffect(() => {
+    return () => {
+      history.replaceState(null, '')
+    }
+  }, [])
 
   const handleChecked = (purchaseIndex: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
     setExtendedPurchases(
@@ -144,7 +154,30 @@ export default function Cart() {
         <div className='mb-2 text-lg font-bold md:text-2xl'>
           <h2>Giỏ hàng</h2>
         </div>
-        {extendedPurchases && extendedPurchases.length > 0 ? (
+
+        {isLoading && (
+          <div className='flex animate-pulse items-center gap-4 border-b bg-white p-4 max-sm:items-start md:p-5'>
+            <div className='h-5 w-5 bg-slate-200'></div>
+            <div className='flex max-w-full grow items-center gap-2 truncate max-sm:items-start'>
+              <div className='shrink-0 border border-gray-200 bg-slate-200'>
+                <div className='h-20 w-20 md:h-24 md:w-24' />
+              </div>
+              <div className='flex w-full flex-col gap-2 max-sm:items-start'>
+                <div className='h-6 w-1/2 grow bg-slate-200'></div>
+                <div className='flex items-center gap-x-4 gap-y-2 max-sm:flex-col max-sm:items-start'>
+                  <div className='flex gap-1 md:gap-2'>
+                    <div className='h-5 w-12 bg-slate-200'></div>
+                    <div className='h-5 w-12 bg-slate-200'></div>
+                  </div>
+                  <div className='h-8 w-[120px] bg-slate-200' />
+                  <div className='h-5 w-12 bg-slate-200'></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {!isLoading && extendedPurchases && extendedPurchases.length > 0 && (
           <>
             <div className='flex flex-col gap-2'>
               {extendedPurchases.map((purchase, index) => (
@@ -205,7 +238,7 @@ export default function Cart() {
                           }
                           disabled={purchase.disabled}
                         />
-                        <div className='flex gap-1'>{purchase.product.quantity} kha dung</div>
+
                         <div className='text-base font-bold text-main-color md:text-base'>
                           <span>₫{formatCurrency(purchase.price * purchase.buy_count)}</span>
                         </div>
@@ -214,7 +247,7 @@ export default function Cart() {
                   </div>
                 </div>
               ))}
-              <div className='sticky bottom-0 z-10 mt-8 flex flex-col gap-1 rounded-sm border border-gray-100 bg-white p-5 shadow sm:flex-row sm:justify-between'>
+              <div className='sticky bottom-0 z-10 mt-4 flex flex-col gap-1 rounded-sm border border-gray-100 bg-white p-5 shadow sm:flex-row sm:justify-between md:mt-8'>
                 <div className='flex flex-wrap items-center justify-between'>
                   <div className='flex flex-shrink-0 items-center justify-center'>
                     <input
@@ -257,7 +290,9 @@ export default function Cart() {
               </div>
             </div>
           </>
-        ) : (
+        )}
+
+        {!isLoading && extendedPurchases.length === 0 && (
           <div className='flex flex-col justify-center gap-2'>
             <img className='mx-auto h-1/2 w-1/2' src={NoProductInCart} alt='no-purchase' />
             <span className='text-center text-lg font-bold text-gray-500'>Giỏ hàng trống</span>
