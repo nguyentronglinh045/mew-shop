@@ -1,4 +1,4 @@
-import FooterLogo from 'src/assets/images/logo_foo.webp'
+import FooterLogo from '../../assets/logo/logo_foo.webp'
 import FacebookIcon from 'src/assets/icons/facebook.webp'
 import TwitterIcon from 'src/assets/icons/twitter.webp'
 import InstagramIcon from 'src/assets/icons/instagram.webp'
@@ -16,7 +16,7 @@ export default function Footer() {
       <div className='flex flex-col'>
         <div className='flex flex-wrap max-md:gap-y-4 max-sm:flex-col'>
           <div className='px-2 md:w-1/2'>
-            <img src={FooterLogo} alt='footer logo' className='h-[36px] max-w-full' title='Meo Mobile' />
+            <img src={FooterLogo} alt='footer logo' className='h-[36px] max-w-full' title='Mew Shop' />
             <div className='flex gap-1'>
               <h3 className='font-bold leading-5'>Trụ sở chính: </h3>
               <p className='flex-1 text-[14px] leading-5 text-[#4c4c4c]'>
