@@ -4,6 +4,7 @@ import path from 'src/constants/path'
 import { Product as ProductType } from 'src/types/product.type'
 import { formatCurrency, formatNumberToSocialStyle, generateNameId, rateSale } from 'src/utils/utils'
 import ProductRating from '../ProductRating'
+import VNPayIcon from 'src/assets/icons/label_img_3.webp'
 
 interface ProductCardProps {
   className?: string
@@ -37,8 +38,8 @@ const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
         />
 
         <span className='absolute bottom-0 left-0 z-[9] flex items-center gap-[5px] rounded-xl bg-gradient-to-r from-[#3bacf0] to-[#1b6dc1] pr-2 text-[10px] text-white'>
-          <img src='src/assets/icons/label_img_3.webp' className='mr-1' width={20} height={20} alt='' />
-          VNPAY giảm 500K
+          <img src={VNPayIcon} alt='VNPAY giảm 500K' className='mr-1' width={20} height={20} />
+          {t('ProductCard.reduced.0')}
         </span>
         <div className='absolute bottom-0 right-0 rounded-full bg-rose-600 p-1 opacity-0 transition-all duration-200 group-hover:right-1 group-hover:opacity-100 max-sm:hidden '>
           <svg
@@ -74,7 +75,7 @@ const ProductCard = ({ className, isFlashSale, product }: ProductCardProps) => {
         <div className='relative z-[1] mt-2 flex h-[20px] w-full overflow-hidden rounded-xl bg-[#ff9a9a]'>
           <img src='src/assets/icons/hot-sale.webp' alt='' className='absolute left-[2px] z-[3] w-[18px]' />
           <div className='absolute z-[2] flex h-full w-full items-center justify-center text-[12px] uppercase text-white '>
-            <span>Sắp cháy hàng</span>
+            <span>{t('ProductCard.aboutToSellOut')}</span>
           </div>
           <div
             className={`remain absolute left-0 top-0 z-[1] h-full w-3/4

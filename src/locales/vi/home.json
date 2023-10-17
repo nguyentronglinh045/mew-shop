@@ -58,7 +58,10 @@
     "screen": "Màn hình",
     "keyboard": "Bàn phím",
     "camera": "Camera, Webcam",
-    "barcodeScanners": "Máy quét mã vạch"
+    "barcodeScanners": "Máy quét mã vạch",
+    "shirt": "Áo thun",
+    "watch": "Đồng hồ",
+    "phone": "Điện thoại"
   },
   "Policy": {
     "safe": "Sản phẩm an toàn",
@@ -106,7 +109,9 @@
     "dicount": "Xả hàng giảm sốc",
     "sale": "Sale cuối hè",
     "deal": "Deal ngon bổ rẻ",
-    "days": "Ngày"
+    "days": "Ngày",
+    "aboutToSellOut": "Sắp cháy hàng",
+    "reduced": ["VNPay giảm 500k"]
   },
   "Cart": {
     "cartTitle": "Giỏ hàng của tôi",
@@ -131,5 +136,14 @@
     "send": "Gửi",
     "nameRequired": "Tên không được trống",
     "lengthRequired": "Tối thiểu 20 kí tự"
+  },
+  "NotFounded": {
+    "pageNotFounded": ["Không Tìm Thấy Trang", "Xin lỗi, trang bạn đang tìm kiếm không tồn tại."],
+    "returnHome": "Quay về Trang chủ"
+  },
+  "ProductCard": {
+    "aboutToSellOut": "Sắp cháy hàng",
+    "sold": "Đã bán",
+    "reduced": ["VNPay giảm 500k"]
   }
 }

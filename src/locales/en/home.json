@@ -64,7 +64,9 @@
     "screen": "Screen",
     "keyboard": "Keyboard",
     "camera": "Camera, Webcam",
-    "barcodeScanners": "Barcode scanners"
+    "barcodeScanners": "Barcode scanners",
+    "shirt": "T-shirt",
+    "watch": "Watch"
   },
   "User": {
     "profile": "User profile",
@@ -131,5 +133,14 @@
     "send": "Send",
     "nameRequired": "Name Required",
     "lengthRequired": "Min length required 20 characters"
+  },
+  "NotFounded": {
+    "pageNotFounded": ["Page Not Founded", "Sorry, the page you are looking for could not be found."],
+    "returnHome": "Return Home"
+  },
+  "ProductCard": {
+    "aboutToSellOut": "About to sell out",
+    "sold": "Sold",
+    "reduced": ["VNPay reduced by 500k"]
   }
 }
