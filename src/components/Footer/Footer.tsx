@@ -20,8 +20,8 @@ export default function Footer() {
           <div className='px-2 md:w-1/2'>
             <img src={FooterLogo} alt='footer logo' className='h-[36px] max-w-full' title='Mew Shop' />
             <div className='flex gap-1'>
-              <h3 className='font-bold'>{t('Footer.headquarters')}:</h3>
-              <p className='text-[14px] text-[#4c4c4c]'>
+              <h3 className='font-bold leading-5'>{t('Footer.headquarters')}:</h3>
+              <p className='text-[14px] leading-5 text-[#4c4c4c]'>
                 Ladeco Building, 266 Doi Can Street, Ba Dinh District, Hanoi.
               </p>
             </div>
