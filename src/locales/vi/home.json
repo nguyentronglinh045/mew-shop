@@ -24,7 +24,8 @@
     "cart": "Giỏ hàng",
     "brachs": "Chi nhánh",
     "homePage": "Trang chủ",
-    "products": "Sản phẩm"
+    "products": "Sản phẩm",
+    "contact": "Liên hệ"
   },
   "Policy": {
     "safe": "Sản phẩm an toàn",
@@ -68,5 +69,17 @@
     "sortedByDescendingPrice": "Giá giảm dần",
     "off": "Giảm",
     "sold": "Đã bán"
+  },
+  "Cart": {
+    "cartTitle": "Giỏ hàng của tôi",
+    "cartDescription": "Giỏ hàng của tôi",
+    "products": "Sản phẩm",
+    "selectAllProducts": "Chọn tất cả",
+    "deleteProducts": "Xóa",
+    "totalPayment": "Tổng thanh toán",
+    "saving": "Tiết kiệm",
+    "buyProducts": "Mua",
+    "buyNow": "Mua ngay",
+    "cartEmpty": "Giỏ hàng trống"
   }
 }

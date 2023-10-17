@@ -3,6 +3,7 @@ import { produce } from 'immer'
 import keyBy from 'lodash/keyBy'
 import { useContext, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet-async'
+import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import purchaseApi from 'src/apis/purchase.api'
@@ -16,6 +17,7 @@ import { formatCurrency, generateNameId } from 'src/utils/utils'
 import NoProductInCart from '../../assets/images/ProductNotFound.png'
 
 export default function Cart() {
+  const { t } = useTranslation(['home'])
   const { extendedPurchases, setExtendedPurchases } = useContext(AppContext)
   const {
     data: purchasesInCartData,
@@ -147,12 +149,12 @@ export default function Cart() {
   return (
     <div className='bg-[#f3f3f3] py-2 md:py-6'>
       <Helmet>
-        <title>Giỏ hàng</title>
-        <meta name='description' content='Giỏ hàng của tôi ' />
+        <title>{t('Cart.cartTitle')}</title>
+        <meta name='description' content={t('Header.cartDescription')} />
       </Helmet>
       <div className='container p-2 shadow md:p-4 '>
         <div className='mb-2 text-lg font-bold md:text-2xl'>
-          <h2>Giỏ hàng</h2>
+          <h2>{t('Cart.cartTitle')}</h2>
         </div>
 
         {isLoading && (
@@ -200,6 +202,7 @@ export default function Cart() {
                     >
                       <img
                         src={purchase.product.image}
+                        title={purchase.product.image}
                         alt={purchase.product.name}
                         className='h-20 w-20 md:h-24 md:w-24'
                       />
@@ -257,24 +260,26 @@ export default function Cart() {
                       onChange={handleCheckAll}
                     />
                     <button className='mx-3 border-none bg-none' onClick={handleCheckAll}>
-                      Chọn tất cả {extendedPurchases.length}
+                      {t('Cart.selectAllProducts')} {extendedPurchases.length}
                     </button>
                   </div>
                   <button className='mx-3 border-none bg-none text-main-color' onClick={handleDeleteManyPurchases}>
-                    Xóa
+                    {t('Cart.deleteProducts')}
                   </button>
                 </div>
 
                 <div className='mt-2 flex flex-col sm:mt-0 sm:flex-row sm:items-center'>
                   <div>
                     <div className='flex items-center max-sm:flex-col max-sm:items-start'>
-                      <div>Tổng thanh toán ({checkedPurchasesCount} sản phẩm):</div>
+                      <div>
+                        {t('Cart.totalPayment')} ({checkedPurchasesCount} {t('Cart.products')}):
+                      </div>
                       <div className='ml-2 text-2xl text-main-color max-sm:ml-0 md:text-xl lg:text-2xl'>
                         ₫{formatCurrency(totalCheckedPurchasePrice)}
                       </div>
                     </div>
                     <div className='flex items-center text-sm sm:justify-end'>
-                      <div className='text-gray-500'>Tiết kiệm:</div>
+                      <div className='text-gray-500'>{t('Cart.saving')}:</div>
                       <div className='ml-2 text-main-color'>₫{formatCurrency(totalCheckedPurchaseSavingPrice)}</div>
                     </div>
                   </div>
@@ -284,7 +289,7 @@ export default function Cart() {
                     onClick={handleBuyProducts}
                     disabled={buyPurchaseMutation.isLoading}
                   >
-                    Mua hàng
+                    {t('Cart.buyProducts')}
                   </Button>
                 </div>
               </div>
@@ -294,13 +299,13 @@ export default function Cart() {
 
         {!isLoading && extendedPurchases.length === 0 && (
           <div className='flex flex-col justify-center gap-2'>
-            <img className='mx-auto h-1/2 w-1/2' src={NoProductInCart} alt='no-purchase' />
-            <span className='text-center text-lg font-bold text-gray-500'>Giỏ hàng trống</span>
+            <img className='mx-auto h-1/2 w-1/2' src={NoProductInCart} alt={t('Cart.cartEmpty')} />
+            <span className='text-center text-lg font-bold text-gray-500'>{t('Cart.cartEmpty')}</span>
             <Link
-              to={path.home}
+              to={path.productList}
               className='w-fit self-center rounded-md bg-main-color px-10 py-3 font-bold uppercase text-white transition-all hover:bg-main-color/80'
             >
-              Mua Ngay
+              {t('Cart.buyNow')}
             </Link>
           </div>
         )}

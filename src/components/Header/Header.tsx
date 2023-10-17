@@ -283,7 +283,6 @@ export default function Header() {
           </NavLink>
           <NavLink
             to={path.productList}
-            key={path.productList}
             className={({ isActive }) =>
               classNames('px-4 py-2 font-bold capitalize transition-all duration-200 hover:text-yellow-300', {
                 'text-yellow-400': isActive,
@@ -292,6 +291,17 @@ export default function Header() {
             }
           >
             <span>{t('Header.products')}</span>
+          </NavLink>
+          <NavLink
+            to={path.contact}
+            className={({ isActive }) =>
+              classNames('px-4 py-2 font-bold capitalize transition-all duration-200 hover:text-yellow-300', {
+                'text-yellow-400': isActive,
+                'text-white': isActive
+              })
+            }
+          >
+            <span>{t('Header.contact')}</span>
           </NavLink>
         </div>
         <button className='centered cursor-pointer text-white lg:hidden' onClick={() => setOpenSideNav(true)}>
