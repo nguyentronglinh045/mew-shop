@@ -81,5 +81,15 @@
     "buyProducts": "Mua",
     "buyNow": "Mua ngay",
     "cartEmpty": "Giỏ hàng trống"
+  },
+  "Contact": {
+    "contactInfo": "Thông tin liên hệ",
+    "address": ["Địa chỉ", "70 Lữ Gia, Phường 15, Quận 11, TP.HCM"],
+    "workingTime": ["Thời gian làm việc", "8h - 22h Từ thứ 2 đến chủ nhật"],
+    "contactUs": "Liên hệ với chúng tôi",
+    "anyQuestions": "Nếu bạn có thắc mắc gì, có thể gửi yêu cầu cho chúng tôi, và chúng tôi sẽ liên lạc lại với bạn sớm nhất có thể.",
+    "fullName": "Họ và tên",
+    "message": "Thắc mắc",
+    "send": "Gửi"
   }
 }

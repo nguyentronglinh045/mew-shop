@@ -52,7 +52,7 @@ export default function Contact() {
             <div className='col-span-2 flex flex-col gap-5 lg:col-span-1'>
               <div className='rounded-md border border-solid border-main-color pb-2'>
                 <h4 className='rounded-t-md bg-main-color px-3 py-1 text-base font-bold text-white md:text-lg'>
-                  Thông tin liên hệ
+                  {t('Contact.contactInfo')}
                 </h4>
                 <div className='grid gap-2 p-2 md:grid-cols-2'>
                   <div className='flex items-center gap-2 max-sm:gap-2 md:col-span-1'>
@@ -70,8 +70,8 @@ export default function Contact() {
                       </svg>
                     </div>
                     <div className='flex flex-col gap-1 text-sm max-sm:gap-0'>
-                      <b>Địa chỉ</b>
-                      <p>70 Lữ Gia, Phường 15, Quận 11, TP.HCM</p>
+                      <b>{t(`Contact.address.0`)}</b>
+                      <p>{t(`Contact.address.1`)}</p>
                     </div>
                   </div>
                   <div className='flex items-center gap-2 max-sm:gap-2 md:col-span-1'>
@@ -89,8 +89,8 @@ export default function Contact() {
                       </svg>
                     </div>
                     <div className='flex flex-col gap-1 text-sm max-sm:gap-0'>
-                      <b>Thời gian làm việc</b>
-                      <p>8h - 22h Từ thứ 2 đến chủ nhật</p>
+                      <b>{t(`Contact.workingTime.0`)}</b>
+                      <p>{t(`Contact.workingTime.1`)}</p>
                     </div>
                   </div>
                   <div className='flex items-center gap-2 max-sm:gap-2 md:col-span-1'>
@@ -136,16 +136,13 @@ export default function Contact() {
               </div>
               <div className='rounded-md border border-solid border-main-color pb-2'>
                 <h4 className='rounded-t-md bg-main-color px-3 py-1 text-base font-bold text-white md:text-lg'>
-                  Liên hệ với chúng tôi
+                  {t('Contact.contactUs')}
                 </h4>
-                <div className='my-2 px-3 py-1 text-sm text-gray-500'>
-                  Nếu bạn có thắc mắc gì, có thể gửi yêu cầu cho chúng tôi, và chúng tôi sẽ liên lạc lại với bạn sớm
-                  nhất có thể .
-                </div>
+                <div className='my-2 px-3 py-1 text-sm text-gray-500'>{t('Contact.anyQuestions')}</div>
                 <form className='flex flex-col gap-3 px-3 py-1' onSubmit={onSubmit}>
                   <Input
                     name='name'
-                    placeholder='Họ tên'
+                    placeholder={t('Contact.fullName')}
                     classNameInput='w-full rounded-md border border-gray-300 py-2 px-3 outline-none focus:border-gray-500 focus:shadow-sm'
                     errorMessage={errors.name?.message}
                     classNameError='text-main-color text-sm'
@@ -161,13 +158,13 @@ export default function Contact() {
                   />
                   <textarea
                     name='message'
-                    placeholder='Message'
+                    placeholder={t('Contact.message')}
                     rows={6}
                     className='rounded-lg border p-4 outline-none focus:border-gray-500 focus:shadow-sm'
                     required
                   />
                   <Button type='submit' className='w-1/3 rounded-md bg-main-color px-3 py-2 font-semibold text-white'>
-                    Send
+                    {t('Contact.send')}
                   </Button>
                 </form>
               </div>
