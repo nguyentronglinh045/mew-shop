@@ -9,8 +9,10 @@ import Payment4Img from 'src/assets/images/payment-4.webp'
 import Payment3Img from 'src/assets/images/payment-3.webp'
 import Payment2Img from 'src/assets/images/payment-2.webp'
 import Payment1Img from 'src/assets/images/payment-1.webp'
+import { useTranslation } from 'react-i18next'
 
 export default function Footer() {
+  const { t } = useTranslation()
   return (
     <div className='container mt-4 bg-white p-4 md:mt-8'>
       <div className='flex flex-col'>
@@ -18,9 +20,9 @@ export default function Footer() {
           <div className='px-2 md:w-1/2'>
             <img src={FooterLogo} alt='footer logo' className='h-[36px] max-w-full' title='Mew Shop' />
             <div className='flex gap-1'>
-              <h3 className='font-bold leading-5'>Trụ sở chính: </h3>
-              <p className='flex-1 text-[14px] leading-5 text-[#4c4c4c]'>
-                Ladeco Building, 2366 Doi Can Street, Ba Dinh District, Hanoi.
+              <h3 className='font-bold'>{t('Footer.headquarters')}:</h3>
+              <p className='text-[14px] text-[#4c4c4c]'>
+                Ladeco Building, 266 Doi Can Street, Ba Dinh District, Hanoi.
               </p>
             </div>
             <div className='flex gap-1'>
@@ -31,38 +33,35 @@ export default function Footer() {
               <h3 className='font-bold leading-5'>Hotline: </h3>
               <p className='text-[14px] leading-5 text-[#4c4c4c]'>1900 6750</p>
             </div>
-            <p className='text-[14px] text-[#4c4c4c]'>
-              Giấy chứng nhận Đăng ký Kinh doanh số 0309532xxx do Sở Kế hoạch và Đầu tư Thành phố Hà Nội cấp ngày
-              01/04/2002
-            </p>
+            <p className='text-[14px] text-[#4c4c4c]'>{t('Footer.certificate')}</p>
           </div>
           <div className='px-2 sm:w-1/2 md:w-1/4'>
-            <h1 className='text-[20px] font-bold text-[#4c4c4c]'>Chính sách</h1>
+            <h1 className='text-[20px] font-bold text-[#4c4c4c]'>{t('Footer.policy')}</h1>
             <ul className='mt-3'>
               <li>
                 <a className='text-[14px] text-[#4c4c4c] hover:text-[#d70018]' href='/'>
-                  Chính sách mua hàng
+                  {t('Footer.policy-1')}
                 </a>
               </li>
               <li>
                 <a className='text-[14px] text-[#4c4c4c] hover:text-[#d70018]' href='/'>
-                  Chính sách đổi trả
+                  {t('Footer.policy-2')}
                 </a>
               </li>
               <li>
                 <a className='text-[14px] text-[#4c4c4c] hover:text-[#d70018]' href='/'>
-                  Chính sách bảo hành
+                  {t('Footer.policy-3')}
                 </a>
               </li>
               <li>
                 <a className='text-[14px] text-[#4c4c4c] hover:text-[#d70018]' href='/'>
-                  Gửi góp ý, khiếu nại
+                  {t('Footer.policy-4')}
                 </a>
               </li>
             </ul>
           </div>
           <div className='px-2 sm:w-1/2 md:w-1/4'>
-            <h1 className='text-[20px] font-bold text-[#4c4c4c]'>Kết nối với chúng tôi</h1>
+            <h1 className='text-[20px] font-bold text-[#4c4c4c]'>{t('Footer.contact')}</h1>
             <div className='mt-2 flex flex-wrap gap-2'>
               <img src={FacebookIcon} alt='facebook' className='h-[32px] w-[32px] rounded-full' />
               <img src={TwitterIcon} alt='twitter' className='h-[32px] w-[32px] rounded-full' />
@@ -71,7 +70,7 @@ export default function Footer() {
               <img src={ShoppeIcon} alt='shoppe' className='h-[32px] w-[32px] rounded-full' />
               <img src={LazadaIcon} alt='lazada' className='h-[32px] w-[32px] rounded-full' />
             </div>
-            <p className='mt-4'>Phương thức thanh toán</p>
+            <p className='mt-4'>{t('Footer.payment')}</p>
             <div className='mt-2 flex flex-wrap gap-2'>
               <img src={Payment1Img} alt='payment' className='h-[30px] w-[45px]' />
               <img src={Payment2Img} alt='payment' className='h-[30px] w-[45px]' />

@@ -27,11 +27,44 @@
     "products": "Products",
     "contact": "Contact"
   },
+  "Footer": {
+    "headquarters": "Headquarters",
+    "certificate": "Business Registration Certificate No. 0309532xxx issued by Hanoi Department of Planning and Investment on April 1, 2002",
+    "policy": "Policy",
+    "policy-1": "Purchasing Policy",
+    "policy-2": "Return Policy",
+    "policy-3": "Warranty Policy",
+    "policy-4": "Send comments and complaints",
+    "contact": "Contact with us",
+    "payment": "Payment methods"
+  },
   "Policy": {
     "safe": "Safe products",
     "quality": "Committed quality",
     "service": "Outstanding service",
     "delivery": "Fast delivery"
+  },
+  "FeaturedCategories": {
+    "featuredCategories": "Featured Categories",
+    "smartphone": "Smartphone",
+    "laptop": "Laptop",
+    "networkDevices": "Network devices",
+    "earphone": "Earphone",
+    "loudspeaker": "Loudspeaker",
+    "chargerCable": "Charger cable",
+    "computerMouse": "Computer mouse",
+    "gamingAccessories": "Gaming Accessories",
+    "printer": "Printer",
+    "smartHome": "Smart home devices",
+    "smartWatch": "Smart watch",
+    "tablet": "Tablet",
+    "television": "Television",
+    "phoneCase": "Phone case",
+    "portableCharger": "Portable charger",
+    "screen": "Screen",
+    "keyboard": "Keyboard",
+    "camera": "Camera, Webcam",
+    "barcodeScanners": "Barcode scanners"
   },
   "User": {
     "profile": "User profile",
@@ -68,7 +101,12 @@
     "sortedByAscendingPrice": "Low to High",
     "sortedByDescendingPrice": "High to Low",
     "off": "Sale off",
-    "sold": "Sold"
+    "sold": "Sold",
+    "suggestion": "Suggestions for you",
+    "dicount": "Sales at shocking discounts",
+    "sale": "End of summer sale",
+    "deal": "Delicious and cheap deal",
+    "days": "Days"
   },
   "Cart": {
     "cartTitle": "My Cart",
