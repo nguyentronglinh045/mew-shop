@@ -53,14 +53,18 @@ export const userSchema = yup.object({
 })
 
 export const contactSchema = yup.object({
-  name: yup.string().max(160, 'Authentication.lengthRequired').required('Tên không được để trống'),
+  name: yup
+    .string()
+    .min(5, 'Authentication.lengthRequired')
+    .max(160, 'Authentication.lengthRequired')
+    .required('Contact.nameRequired'),
   email: yup
     .string()
     .required('Authentication.requiredEmail')
     .email('Authentication.emailInvalidate')
     .min(5, 'Authentication.lengthRequired')
     .max(160, 'Authentication.lengthRequired'),
-  message: yup.string().trim().min(20, 'Không dưới 20 kí tự').required('Không được để trống')
+  message: yup.string().trim().min(20, 'Contact.lengthRequired').required('Không được để trống')
 })
 
 export type UserSchema = yup.InferType<typeof userSchema>

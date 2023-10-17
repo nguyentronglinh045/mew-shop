@@ -144,7 +144,7 @@ export default function Contact() {
                     name='name'
                     placeholder={t('Contact.fullName')}
                     classNameInput='w-full rounded-md border border-gray-300 py-2 px-3 outline-none focus:border-gray-500 focus:shadow-sm'
-                    errorMessage={errors.name?.message}
+                    errorMessage={errors.name?.message && t(errors.name?.message)}
                     classNameError='text-main-color text-sm'
                     register={register}
                   />

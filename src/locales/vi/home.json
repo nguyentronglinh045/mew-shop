@@ -90,6 +90,8 @@
     "anyQuestions": "Nếu bạn có thắc mắc gì, có thể gửi yêu cầu cho chúng tôi, và chúng tôi sẽ liên lạc lại với bạn sớm nhất có thể.",
     "fullName": "Họ và tên",
     "message": "Thắc mắc",
-    "send": "Gửi"
+    "send": "Gửi",
+    "nameRequired": "Tên không được trống",
+    "lengthRequired": "Tối thiểu 20 kí tự"
   }
 }

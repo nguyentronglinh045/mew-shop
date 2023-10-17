@@ -90,6 +90,8 @@
     "anyQuestions": "If you have any questions, you can send us a request, and we will contact you as soon as possible.",
     "fullName": "Full Name",
     "message": "Message",
-    "send": "Send"
+    "send": "Send",
+    "nameRequired": "Name Required",
+    "lengthRequired": "Min length required 20 characters"
   }
 }
