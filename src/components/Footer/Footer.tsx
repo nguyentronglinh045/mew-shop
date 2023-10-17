@@ -27,7 +27,7 @@ export default function Footer() {
             </div>
             <div className='flex gap-1'>
               <h3 className='font-bold leading-5'>Email: </h3>
-              <p className='text-[14px] leading-5 text-[#4c4c4c]'>support@sapo.vn</p>
+              <p className='text-[14px] leading-5 text-[#4c4c4c]'>support@localhost</p>
             </div>
             <div className='flex gap-1'>
               <h3 className='font-bold leading-5'>Hotline: </h3>
