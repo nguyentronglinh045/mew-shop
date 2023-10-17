@@ -68,5 +68,15 @@
     "sortedByDescendingPrice": "High to Low",
     "off": "Sale off",
     "sold": "Sold"
+  },
+  "Contact": {
+    "contactInfo": "Contact Info",
+    "address": ["Address", "70 Lu Gia, Ward 15, District 11, Ho Chi Minh City"],
+    "workingTime": ["Working time", "8am - 10pm From Monday to Sunday"],
+    "contactUs": "Contact us",
+    "anyQuestions": "If you have any questions, you can send us a request, and we will contact you as soon as possible.",
+    "fullName": "Full Name",
+    "message": "Message",
+    "send": "Send"
   }
 }
