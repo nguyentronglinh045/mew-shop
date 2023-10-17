@@ -1,12 +1,16 @@
-import useQueryConfig from 'src/hooks/useQueryConfig'
-import ProductCard from '../ProductCard'
 import { useQuery } from '@tanstack/react-query'
-import { ProductListConfig } from 'src/types/product.type'
-import productApi from 'src/apis/product.api'
-import { Link } from 'react-router-dom'
-import path from 'src/constants/path'
-import ProductCardSkeleton from '../ProductCardSkeleton'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
+import productApi from 'src/apis/product.api'
+import path from 'src/constants/path'
+import useQueryConfig from 'src/hooks/useQueryConfig'
+import { ProductListConfig } from 'src/types/product.type'
+import ProductCard from '../ProductCard'
+import ProductCardSkeleton from '../ProductCardSkeleton'
+import SuggestionIcon from '../../assets/icons/goiy-1.webp'
+import DicountIcon from '../../assets/icons/icon-xa-hang-50-50x50-2.webp'
+import SaleIcon from '../../assets/icons/chigiamonlinedesk-50x54-1.webp'
+import DealIcon from '../../assets/icons/icon-desk-51x50-2.webp'
 
 const TabButton = ({ text, icon }: { text: string; icon: string }) => {
   return (
@@ -31,10 +35,10 @@ const TabProducts = () => {
   return (
     <section className='container mt-8 flex flex-col gap-y-4 bg-white p-4'>
       <div className='flex max-w-full gap-2 overflow-x-auto pb-2'>
-        <TabButton text={t('ProductList.suggestion')} icon='src/assets/icons/goiy-1.webp' />
-        <TabButton text={t('ProductList.dicount')} icon='src/assets/icons/icon-xa-hang-50-50x50-2.webp' />
-        <TabButton text={t('ProductList.sale')} icon='src/assets/icons/chigiamonlinedesk-50x54-1.webp' />
-        <TabButton text={t('ProductList.deal')} icon='src/assets/icons/icon-desk-51x50-2.webp' />
+        <TabButton text={t('ProductList.suggestion')} icon={SuggestionIcon} />
+        <TabButton text={t('ProductList.dicount')} icon={DicountIcon} />
+        <TabButton text={t('ProductList.sale')} icon={SaleIcon} />
+        <TabButton text={t('ProductList.deal')} icon={DealIcon} />
       </div>
       <div className='grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6'>
         {!isFetching &&
