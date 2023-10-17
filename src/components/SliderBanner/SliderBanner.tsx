@@ -1,5 +1,12 @@
 import Carousel from 'react-multi-carousel'
 import { useTranslation } from 'react-i18next'
+import Slide1 from '../../assets/images/slide-img1.webp'
+import Slide2 from '../../assets/images/slide-img2.webp'
+import Banner from '../../assets/images/big_bn_slide.webp'
+import Poli1 from '../../assets/icons/img_poli_1.webp'
+import Poli2 from '../../assets/icons/img_poli_2.webp'
+import Poli3 from '../../assets/icons/img_poli_3.webp'
+import Poli4 from '../../assets/icons/img_poli_4.webp'
 
 interface CustomArrowProps {
   onClick?: () => void
@@ -77,7 +84,7 @@ const SliderBanner = () => {
   return (
     <>
       <div className='relative flex justify-center'>
-        <img src='src/assets/images/big_bn_slide.webp' alt='banner' className='w-full max-sm:hidden' />
+        <img src={Banner} alt='banner' title='Mew Shop' className='w-full max-sm:hidden' />
       </div>
       <div className='mx-auto -mt-16 flex h-auto w-full justify-center max-sm:mt-0'>
         <Carousel
@@ -91,32 +98,32 @@ const SliderBanner = () => {
           customRightArrow={<CustomNextArrow />}
           customLeftArrow={<CustomPrevArrow />}
         >
-          <img src='src/assets/images/slide-img1.webp' alt='img' className='cursor-pointer' />
-          <img src='src/assets/images/slide-img2.webp' alt='img' className='cursor-pointer' />
+          <img src={Slide1} alt='img' className='cursor-pointer' />
+          <img src={Slide2} alt='img' className='cursor-pointer' />
         </Carousel>
       </div>
       <div className='container my-1 flex flex-wrap md:my-2 lg:my-4'>
         <div className='flex flex-1 px-2 py-2 max-sm:flex-[0_0_50%]'>
           <div className='flex h-16 w-full items-center gap-4 rounded-xl border-dotted border-red-600 bg-white px-2 max-sm:border-2'>
-            <img src='src/assets/icons/img_poli_1.webp' alt='' />
+            <img src={Poli1} alt={t('Policy.safe')} />
             <p>{t('Policy.safe')}</p>
           </div>
         </div>
         <div className='flex flex-1 px-2 py-2 max-sm:flex-[0_0_50%]'>
           <div className='flex h-16 w-full items-center gap-4 rounded-xl border-dotted border-red-600 bg-white px-2 max-sm:border-2'>
-            <img src='src/assets/icons/img_poli_2.webp' alt='' />
+            <img src={Poli2} alt={t('Policy.quality')} />
             <p>{t('Policy.quality')}</p>
           </div>
         </div>
         <div className='flex flex-1 px-2 py-2 max-sm:flex-[0_0_50%]'>
           <div className='flex h-16 w-full items-center gap-4 rounded-xl border-dotted border-red-600 bg-white px-2 max-sm:border-2'>
-            <img src='src/assets/icons/img_poli_3.webp' alt='' />
+            <img src={Poli3} alt={t('Policy.service')} />
             <p>{t('Policy.service')}</p>
           </div>
         </div>
         <div className='flex flex-1 px-2 py-2 max-sm:flex-[0_0_50%]'>
           <div className='flex h-16 w-full items-center gap-4 rounded-xl border-dotted border-red-600 bg-white px-2 max-sm:border-2'>
-            <img src='src/assets/icons/img_poli_4.webp' alt='' />
+            <img src={Poli4} alt={t('Policy.delivery')} />
             <p>{t('Policy.delivery')}</p>
           </div>
         </div>
