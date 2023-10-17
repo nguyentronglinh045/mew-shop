@@ -24,7 +24,8 @@
     "cart": "Giỏ hàng",
     "brachs": "Chi nhánh",
     "homePage": "Trang chủ",
-    "products": "Sản phẩm"
+    "products": "Sản phẩm",
+    "contact": "Liên hệ"
   },
   "Footer": {
     "headquarters": "Trụ sở chính",
@@ -104,6 +105,31 @@
     "suggestion": "Gợi ý cho bạn",
     "dicount": "Xả hàng giảm sốc",
     "sale": "Sale cuối hè",
-    "deal": "Deal ngon bổ rẻ"
+    "deal": "Deal ngon bổ rẻ",
+    "days": "Ngày"
+  },
+  "Cart": {
+    "cartTitle": "Giỏ hàng của tôi",
+    "cartDescription": "Giỏ hàng của tôi",
+    "products": "Sản phẩm",
+    "selectAllProducts": "Chọn tất cả",
+    "deleteProducts": "Xóa",
+    "totalPayment": "Tổng thanh toán",
+    "saving": "Tiết kiệm",
+    "buyProducts": "Mua",
+    "buyNow": "Mua ngay",
+    "cartEmpty": "Giỏ hàng trống"
+  },
+  "Contact": {
+    "contactInfo": "Thông tin liên hệ",
+    "address": ["Địa chỉ", "70 Lữ Gia, Phường 15, Quận 11, TP.HCM"],
+    "workingTime": ["Thời gian làm việc", "8h - 22h Từ thứ 2 đến chủ nhật"],
+    "contactUs": "Liên hệ với chúng tôi",
+    "anyQuestions": "Nếu bạn có thắc mắc gì, có thể gửi yêu cầu cho chúng tôi, và chúng tôi sẽ liên lạc lại với bạn sớm nhất có thể.",
+    "fullName": "Họ và tên",
+    "message": "Lời nhắn",
+    "send": "Gửi",
+    "nameRequired": "Tên không được trống",
+    "lengthRequired": "Tối thiểu 20 kí tự"
   }
 }

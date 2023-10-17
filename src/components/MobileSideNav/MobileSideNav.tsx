@@ -3,12 +3,12 @@ import { useContext } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, NavLink } from 'react-router-dom'
 import authApi from 'src/apis/auth.api'
-import Logo from 'src/assets/images/logo.webp'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
+import { getAvatarURL } from 'src/utils/utils'
+import Logo from '../../assets/logo/logo.webp'
 import Button from '../Button'
 import SelectLaguage from '../SelectLaguage'
-import { getAvatarURL } from 'src/utils/utils'
 
 interface MobileSideNavProps {
   isOpenSideNav: boolean
@@ -47,12 +47,12 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
      > */}
       <div className='flex w-full flex-col gap-4 px-4 py-2'>
         <div className='w-full px-2 py-2'>
-          <img src={Logo} alt='Logo' title='Logo' className='h-auto w-3/4 text-center' />
+          <img src={Logo} alt='Logo' title='Mew Shop' className='h-auto w-3/4 text-center' />
         </div>
 
         <div className='flex flex-col'>
           <NavLink
-            to={'/'}
+            to={path.home}
             className={({ isActive }) =>
               `px-2 py-2 font-semibold capitalize duration-100 hover:text-yellow-400 ${
                 isActive ? 'text-yellow-400' : 'text-white'
@@ -72,14 +72,24 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
             <span>{t('Header.products')}</span>
           </NavLink>
           <NavLink
-            to={'/product'}
+            to={path.cart}
             className={({ isActive }) =>
               `px-2 py-2 font-semibold capitalize duration-100 hover:text-yellow-400 ${
                 isActive ? 'text-yellow-400' : 'text-white'
               }`
             }
           >
-            <span>{t('Header.products')}</span>
+            <span>{t('Header.cart')}</span>
+          </NavLink>
+          <NavLink
+            to={path.contact}
+            className={({ isActive }) =>
+              `px-2 py-2 font-semibold capitalize duration-100 hover:text-yellow-400 ${
+                isActive ? 'text-yellow-400' : 'text-white'
+              }`
+            }
+          >
+            <span>{t('Header.contact')}</span>
           </NavLink>
         </div>
         <div className='border-t border-white'></div>

@@ -1,4 +1,4 @@
-import FooterLogo from 'src/assets/images/logo_foo.webp'
+import FooterLogo from '../../assets/logo/logo_foo.webp'
 import FacebookIcon from 'src/assets/icons/facebook.webp'
 import TwitterIcon from 'src/assets/icons/twitter.webp'
 import InstagramIcon from 'src/assets/icons/instagram.webp'
@@ -18,7 +18,7 @@ export default function Footer() {
       <div className='flex flex-col'>
         <div className='flex flex-wrap max-md:gap-y-4 max-sm:flex-col'>
           <div className='px-2 md:w-1/2'>
-            <img src={FooterLogo} alt='footer logo' className='h-[36px] max-w-full' title='Meo Mobile' />
+            <img src={FooterLogo} alt='footer logo' className='h-[36px] max-w-full' title='Mew Shop' />
             <div className='flex gap-1'>
               <h3 className='font-bold'>{t('Footer.headquarters')}:</h3>
               <p className='text-[14px] text-[#4c4c4c]'>
@@ -26,12 +26,12 @@ export default function Footer() {
               </p>
             </div>
             <div className='flex gap-1'>
-              <h3 className='font-bold'>Email: </h3>
-              <p className='text-[14px] text-[#4c4c4c]'>support@sapo.vn</p>
+              <h3 className='font-bold leading-5'>Email: </h3>
+              <p className='text-[14px] leading-5 text-[#4c4c4c]'>support@sapo.vn</p>
             </div>
             <div className='flex gap-1'>
-              <h3 className='font-bold'>Hotline: </h3>
-              <p className='text-[14px] text-[#4c4c4c]'>1900 6750</p>
+              <h3 className='font-bold leading-5'>Hotline: </h3>
+              <p className='text-[14px] leading-5 text-[#4c4c4c]'>1900 6750</p>
             </div>
             <p className='text-[14px] text-[#4c4c4c]'>{t('Footer.certificate')}</p>
           </div>

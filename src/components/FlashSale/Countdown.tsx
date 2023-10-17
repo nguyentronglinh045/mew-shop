@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const Countdown = () => {
+  const { t } = useTranslation()
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
     hours: 0,
@@ -45,7 +47,9 @@ const Countdown = () => {
   return (
     <div className='flex gap-1'>
       <div className='border-2 border-white p-2'>
-        <span className='font-semibold uppercase text-white'>{timeLeft.days}&nbsp;ngày</span>
+        <span className='font-semibold uppercase text-white'>
+          {timeLeft.days}&nbsp;{t('ProductList.days')}
+        </span>
       </div>
       <div className='border-2 border-white p-2'>
         <span className='font-semibold uppercase text-white'>

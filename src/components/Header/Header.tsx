@@ -4,7 +4,7 @@ import { useContext, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, NavLink } from 'react-router-dom'
 import authApi from 'src/apis/auth.api'
-import Logo from 'src/assets/images/logo.webp'
+import Logo from '../../assets/logo/logo.webp'
 import MobiLogo from 'src/assets/images/logo_mobi.webp'
 import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
@@ -44,12 +44,12 @@ export default function Header() {
       <div className='container flex gap-2 py-1 max-sm:px-0 lg:flex-col lg:gap-3'>
         <div className='flex grow flex-row items-center gap-2 lg:gap-3'>
           <Link to={'/'} className='flex'>
-            <img src={Logo} alt='Logo' className='hidden h-[32px] max-w-full md:block' title='Meo Mobile' />
+            <img src={Logo} alt='Logo' className='hidden h-[32px] max-w-full md:block' title='Mew Shop' />
             <img
               src={MobiLogo}
               alt='Logo'
               className='block h-[32px] w-full max-w-full shrink-0 md:hidden'
-              title='Meo Mobile'
+              title='Mew Shop'
             />
           </Link>
           <div className='hidden rounded-md bg-white/20 p-2 text-white xl:flex'>
@@ -283,7 +283,6 @@ export default function Header() {
           </NavLink>
           <NavLink
             to={path.productList}
-            key={path.productList}
             className={({ isActive }) =>
               classNames('px-4 py-2 font-bold capitalize transition-all duration-200 hover:text-yellow-300', {
                 'text-yellow-400': isActive,
@@ -292,6 +291,17 @@ export default function Header() {
             }
           >
             <span>{t('Header.products')}</span>
+          </NavLink>
+          <NavLink
+            to={path.contact}
+            className={({ isActive }) =>
+              classNames('px-4 py-2 font-bold capitalize transition-all duration-200 hover:text-yellow-300', {
+                'text-yellow-400': isActive,
+                'text-white': isActive
+              })
+            }
+          >
+            <span>{t('Header.contact')}</span>
           </NavLink>
         </div>
         <button className='centered cursor-pointer text-white lg:hidden' onClick={() => setOpenSideNav(true)}>

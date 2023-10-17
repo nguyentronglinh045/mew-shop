@@ -24,7 +24,8 @@
     "cart": "Cart",
     "brachs": "Brachs",
     "homePage": "Home Page",
-    "products": "Products"
+    "products": "Products",
+    "contact": "Contact"
   },
   "Footer": {
     "headquarters": "Headquarters",
@@ -104,6 +105,31 @@
     "suggestion": "Suggestions for you",
     "dicount": "Sales at shocking discounts",
     "sale": "End of summer sale",
-    "deal": "Delicious and cheap deal"
+    "deal": "Delicious and cheap deal",
+    "days": "Days"
+  },
+  "Cart": {
+    "cartTitle": "My Cart",
+    "cartDescription": "My shopping cart",
+    "products": "Products",
+    "selectAllProducts": "Select all products",
+    "deleteProducts": "Delete",
+    "totalPayment": "Total Payment",
+    "saving": "Saving",
+    "buyProducts": "Buy",
+    "buyNow": "Buy Now",
+    "cartEmpty": "Cart is empty"
+  },
+  "Contact": {
+    "contactInfo": "Contact Info",
+    "address": ["Address", "70 Lu Gia, Ward 15, District 11, Ho Chi Minh City"],
+    "workingTime": ["Working time", "8am - 10pm From Monday to Sunday"],
+    "contactUs": "Contact us",
+    "anyQuestions": "If you have any questions, you can send us a request, and we will contact you as soon as possible.",
+    "fullName": "Full Name",
+    "message": "Message",
+    "send": "Send",
+    "nameRequired": "Name Required",
+    "lengthRequired": "Min length required 20 characters"
   }
 }

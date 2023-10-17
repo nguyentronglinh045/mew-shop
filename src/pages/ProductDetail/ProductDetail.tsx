@@ -21,6 +21,7 @@ export default function ProductDetail() {
   const id = getIdFromNameId(nameId as string)
   const navigate = useNavigate()
   const location = useLocation()
+
   const { data: productDetailData } = useQuery({
     queryKey: ['product', id],
     queryFn: () => productApi.getProductDetail(id as string)
@@ -73,7 +74,7 @@ export default function ProductDetail() {
 
     if (isAuthenticated) {
       addToCartMutation.mutate(
-        { buy_count: buyCount, product_id: id },
+        { buy_count: buyCount, product_id: id as string },
         {
           onSuccess: () => {
             toast.success('Thêm vào giỏ hàng thành công')
@@ -84,6 +85,15 @@ export default function ProductDetail() {
       navigate(path.login, { state: { from: currentLocation } })
     }
   }
+  const buyProduct = async () => {
+    const res = await addToCartMutation.mutateAsync({ buy_count: buyCount, product_id: id as string })
+    const purchase = res.data.data
+    navigate(path.cart, {
+      state: {
+        purchaseId: purchase._id
+      }
+    })
+  }
   if (!product) {
     return null
   }
@@ -91,7 +101,7 @@ export default function ProductDetail() {
     <div className='bg-[#f3f3f3] py-2 md:py-6'>
       <Helmet>
         <title>{product.name}</title>
-        <meta name='description' />
+        <meta name='description' content='Giỏ hàng của tôi ' />
       </Helmet>
 
       <div className='container bg-white p-4 shadow'>
@@ -208,7 +218,10 @@ export default function ProductDetail() {
                 </svg>
                 Thêm vào giỏ hàng
               </button>
-              <button className='ml-4 flex h-12 items-center justify-center rounded-md bg-main-color px-2 capitalize text-white shadow-sm outline-none hover:bg-main-color/90 md:px-5'>
+              <button
+                onClick={buyProduct}
+                className='ml-4 flex h-12 items-center justify-center rounded-md bg-main-color px-2 capitalize text-white shadow-sm outline-none hover:bg-main-color/90 md:px-5'
+              >
                 Mua ngay
               </button>
             </div>

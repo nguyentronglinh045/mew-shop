@@ -9,7 +9,8 @@ const path = {
   logout: '/logout',
   productDetail: ':nameId',
   cart: '/cart',
-  productList: '/products'
+  productList: '/products',
+  contact: '/contact'
 } as const
 
 export default path

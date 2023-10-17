@@ -52,5 +52,21 @@ export const userSchema = yup.object({
   confirm_password: handleConfirmPasswordYup('new_password')
 })
 
+export const contactSchema = yup.object({
+  name: yup
+    .string()
+    .min(5, 'Authentication.lengthRequired')
+    .max(160, 'Authentication.lengthRequired')
+    .required('Contact.nameRequired'),
+  email: yup
+    .string()
+    .required('Authentication.requiredEmail')
+    .email('Authentication.emailInvalidate')
+    .min(5, 'Authentication.lengthRequired')
+    .max(160, 'Authentication.lengthRequired'),
+  message: yup.string().trim().min(20, 'Contact.lengthRequired').required('Không được để trống')
+})
+
 export type UserSchema = yup.InferType<typeof userSchema>
 export type Schema = yup.InferType<typeof schema>
+export type ContactSchema = yup.InferType<typeof contactSchema>
