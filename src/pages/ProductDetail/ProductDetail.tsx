@@ -14,6 +14,7 @@ import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { Product, ProductListConfig } from 'src/types/product.type'
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
+import Logo from '../../assets/logo/logo_foo.webp'
 
 export default function ProductDetail() {
   const { isAuthenticated } = useContext(AppContext)
@@ -101,7 +102,11 @@ export default function ProductDetail() {
     <div className='bg-[#f3f3f3] py-2 md:py-6'>
       <Helmet>
         <title>{product.name}</title>
-        <meta name='description' content='Giỏ hàng của tôi ' />
+        <meta name='description' content={product.name} />
+        <meta property='og:title' content={product.name} />
+        <meta property='og:description' content='Dự án cá nhân về ReactJS và Vite' />
+        <meta property='og:image' content={Logo} />
+        <meta property='og:type' content='website' />
       </Helmet>
 
       <div className='container bg-white p-4 shadow'>
