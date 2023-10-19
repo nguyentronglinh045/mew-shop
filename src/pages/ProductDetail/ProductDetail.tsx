@@ -14,7 +14,6 @@ import path from 'src/constants/path'
 import { AppContext } from 'src/contexts/app.context'
 import { Product, ProductListConfig } from 'src/types/product.type'
 import { formatCurrency, formatNumberToSocialStyle, getIdFromNameId, rateSale } from 'src/utils/utils'
-import Logo from '../../assets/logo/logo_foo.webp'
 
 export default function ProductDetail() {
   const { isAuthenticated } = useContext(AppContext)
@@ -105,7 +104,7 @@ export default function ProductDetail() {
         <meta name='description' content={product.name} />
         <meta property='og:title' content={product.name} />
         <meta property='og:description' content='Dự án cá nhân về ReactJS và Vite' />
-        <meta property='og:image' content={Logo} />
+        <meta property='og:image' content='https://mew-shop.vercel.app/assets/logo_foo-65dac725.webp' />
         <meta property='og:type' content='website' />
       </Helmet>
 
