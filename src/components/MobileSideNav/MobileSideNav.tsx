@@ -52,6 +52,7 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
 
         <div className='flex flex-col'>
           <NavLink
+            onClick={setOpenSideNav}
             to={path.home}
             className={({ isActive }) =>
               `px-2 py-2 font-semibold capitalize duration-100 hover:text-yellow-400 ${
@@ -62,6 +63,7 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
             <span>{t('Header.homePage')}</span>
           </NavLink>
           <NavLink
+            onClick={setOpenSideNav}
             to={path.productList}
             className={({ isActive }) =>
               `px-2 py-2 font-semibold capitalize duration-100 hover:text-yellow-400 ${
@@ -72,6 +74,7 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
             <span>{t('Header.products')}</span>
           </NavLink>
           <NavLink
+            onClick={setOpenSideNav}
             to={path.cart}
             className={({ isActive }) =>
               `px-2 py-2 font-semibold capitalize duration-100 hover:text-yellow-400 ${
@@ -82,6 +85,7 @@ export default function MobileSideNav({ isOpenSideNav, setOpenSideNav }: MobileS
             <span>{t('Header.cart')}</span>
           </NavLink>
           <NavLink
+            onClick={setOpenSideNav}
             to={path.contact}
             className={({ isActive }) =>
               `px-2 py-2 font-semibold capitalize duration-100 hover:text-yellow-400 ${
