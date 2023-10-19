@@ -8,6 +8,7 @@ import ErrorBoundary from './components/ErrorBoundary'
 import { AppContext } from './contexts/app.context'
 import useRouteElement from './useRouteElement'
 import { localStorageEventsTarget } from './utils/auth'
+import BackToTopButton from './components/BackToTopButton'
 
 function App() {
   const routeElements = useRouteElement()
@@ -24,6 +25,7 @@ function App() {
     <HelmetProvider>
       <ErrorBoundary>
         {routeElements}
+        <BackToTopButton />
         <ToastContainer />
       </ErrorBoundary>
       <ReactQueryDevtools initialIsOpen={false} />
