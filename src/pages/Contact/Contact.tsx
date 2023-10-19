@@ -6,45 +6,31 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { Helmet } from 'react-helmet-async'
+import { toast } from 'react-toastify'
 
-type FormData = Pick<ContactSchema, 'email' | 'message' | 'name'>
-const contactFormSchema = contactSchema.pick(['email', 'message', 'name'])
+type FormData = Pick<ContactSchema, 'email' | 'name'>
+const contactFormSchema = contactSchema.pick(['email', 'name'])
 
 export default function Contact() {
   const { t } = useTranslation(['home'])
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors }
   } = useForm<FormData>({ resolver: yupResolver(contactFormSchema) })
 
-  const onSubmit = handleSubmit(() => {
-    // const body = omit(data, ['confirm_password'])
-    // registerAccountMutation.mutate(body, {
-    //   onSuccess: () => {
-    //     toast.success("Success")
-    //   },
-    //   onError: (error) => {
-    //     if (isAxiosUnprocessableEntityError<ErrorResponseApi<Omit<FormData, 'confirm_password'>>>(error)) {
-    //       const formError = error.response?.data.data
-    //       if (formError) {
-    //         Object.keys(formError).forEach((key) => {
-    //           setError(key as keyof Omit<FormData, 'confirm_password'>, {
-    //             message: formError[key as keyof Omit<FormData, 'confirm_password'>],
-    //             type: 'Server'
-    //           })
-    //         })
-    //       }
-    //     }
-    //   }
-    // })
+  const onSubmit = handleSubmit((data) => {
+    toast.success(t('Contact.sendRequestSuccess'))
+    reset()
+    console.log(data)
   })
 
   return (
     <>
       <Helmet>
-        <title>{'Liên hệ với chúng tôi'}</title>
-        <meta name='description' content='Liên hệ' />
+        <title>{t('Contact.contactUs')}</title>
+        <meta name='description' content={t('Contact.contactUs')} />
       </Helmet>
       <div className='bg-[#f3f3f3]'>
         <div className='container bg-transparent p-2 md:p-5'>

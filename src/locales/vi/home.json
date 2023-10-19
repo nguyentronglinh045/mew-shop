@@ -135,7 +135,8 @@
     "message": "Lời nhắn",
     "send": "Gửi",
     "nameRequired": "Tên không được trống",
-    "lengthRequired": "Tối thiểu 20 kí tự"
+    "lengthRequired": "Tối thiểu 20 kí tự",
+    "sendRequestSuccess": "Gửi yêu cầu thành công"
   },
   "NotFounded": {
     "pageNotFounded": ["Không Tìm Thấy Trang", "Xin lỗi, trang bạn đang tìm kiếm không tồn tại."],

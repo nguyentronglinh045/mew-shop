@@ -132,7 +132,8 @@
     "message": "Message",
     "send": "Send",
     "nameRequired": "Name Required",
-    "lengthRequired": "Min length required 20 characters"
+    "lengthRequired": "Min length required 20 characters",
+    "sendRequestSuccess": "Send request success"
   },
   "NotFounded": {
     "pageNotFounded": ["Page Not Founded", "Sorry, the page you are looking for could not be found."],
