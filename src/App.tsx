@@ -9,6 +9,7 @@ import { AppContext } from './contexts/app.context'
 import useRouteElement from './useRouteElement'
 import { localStorageEventsTarget } from './utils/auth'
 import BackToTopButton from './components/BackToTopButton'
+import ScrollToTop from './scrollToTop'
 
 function App() {
   const routeElements = useRouteElement()
@@ -26,6 +27,7 @@ function App() {
       <ErrorBoundary>
         {routeElements}
         <BackToTopButton />
+        <ScrollToTop />
         <ToastContainer />
       </ErrorBoundary>
       <ReactQueryDevtools initialIsOpen={false} />
