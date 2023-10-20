@@ -15,6 +15,7 @@ import Slide2 from '../../assets/images/slide-product2.webp'
 import AsideFilter from './components/AsideFilter'
 import ProductCategory from './components/ProductCategory'
 import SortProductList from './components/SortProductList'
+import { useTranslation } from 'react-i18next'
 
 interface CustomArrowProps {
   onClick?: () => void
@@ -85,6 +86,7 @@ const CustomPrevArrow: React.FC<CustomArrowProps> = ({ onClick }) => {
   )
 }
 export default function ProductList() {
+  const { t } = useTranslation()
   const queryConfig = useQueryConfig()
   const { data: productsData, isFetching } = useQuery({
     queryKey: ['products', queryConfig],
@@ -106,7 +108,7 @@ export default function ProductList() {
   return (
     <div className='bg-[#f3f3f3]'>
       <Helmet>
-        <title>Danh sách sản phẩm</title>
+        <title>{t('Header.products')}</title>
         <meta name='description' content='Danh sách sản phẩm' />
       </Helmet>
       <div className='container p-4'>
