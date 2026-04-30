@@ -1,12 +1,8 @@
-import { Category } from 'src/types/category.type'
-import { SuccessResponseApi } from 'src/types/utils.type'
-import http from 'src/utils/http'
-
-const URL = 'categories'
+import { categoryRepo } from 'src/db/repositories/category.repo'
 
 const categoryAPI = {
   getCategory() {
-    return http.get<SuccessResponseApi<Category[]>>(URL)
+    return categoryRepo.list()
   }
 }
 

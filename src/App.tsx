@@ -9,6 +9,7 @@ import { AppContext } from './contexts/app.context'
 import useRouteElement from './useRouteElement'
 import { localStorageEventsTarget } from './utils/auth'
 import BackToTopButton from './components/BackToTopButton'
+import DevResetButton from './components/DevResetButton'
 import ScrollToTop from './scrollToTop'
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <BackToTopButton />
         <ScrollToTop />
         <ToastContainer />
+        {import.meta.env.DEV && <DevResetButton />}
       </ErrorBoundary>
       <ReactQueryDevtools initialIsOpen={false} />
     </HelmetProvider>

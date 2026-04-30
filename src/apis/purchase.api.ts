@@ -1,28 +1,27 @@
-import { Purchase, PurchaseListStatus } from 'src/types/purchase.type'
-import { SuccessResponseApi } from 'src/types/utils.type'
-import http from 'src/utils/http'
+import { purchaseRepo } from 'src/db/repositories/purchase.repo'
+import type { PurchaseListStatus } from 'src/types/purchase.type'
+import { getProfileFromLS } from 'src/utils/auth'
 
-const URL = 'purchases'
+const currentUserId = (): string | null => {
+  const profile = getProfileFromLS() as { _id?: string } | null
+  return profile?._id ?? null
+}
 
 const purchaseApi = {
   addToCart(body: { product_id: string; buy_count: number }) {
-    return http.post<SuccessResponseApi<Purchase>>(`${URL}/add-to-cart`, body)
+    return purchaseRepo.addToCart(currentUserId(), body)
   },
   getPurchases(params: { status: PurchaseListStatus }) {
-    return http.get<SuccessResponseApi<Purchase[]>>(`${URL}`, {
-      params
-    })
+    return purchaseRepo.getPurchases(currentUserId(), params)
   },
   buyProducts(body: { product_id: string; buy_count: number }[]) {
-    return http.post<SuccessResponseApi<Purchase[]>>(`${URL}/buy-products`, body)
+    return purchaseRepo.buyProducts(currentUserId(), body)
   },
   updatePurchase(body: { product_id: string; buy_count: number }) {
-    return http.put<SuccessResponseApi<Purchase>>(`${URL}/update-purchase`, body)
+    return purchaseRepo.updatePurchase(currentUserId(), body)
   },
   deletePurchase(purchaseIds: string[]) {
-    return http.delete<SuccessResponseApi<{ delete_count: number }>>(`${URL}`, {
-      data: purchaseIds
-    })
+    return purchaseRepo.deletePurchase(currentUserId(), purchaseIds)
   }
 }
 

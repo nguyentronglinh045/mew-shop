@@ -1,16 +1,12 @@
-import { Product, ProductList, ProductListConfig } from 'src/types/product.type'
-import { SuccessResponseApi } from 'src/types/utils.type'
-import http from 'src/utils/http'
+import { productRepo } from 'src/db/repositories/product.repo'
+import type { ProductListConfig } from 'src/types/product.type'
 
-const URL = 'products'
 const productApi = {
   getProducts(params: ProductListConfig) {
-    return http.get<SuccessResponseApi<ProductList>>(URL, {
-      params
-    })
+    return productRepo.list(params)
   },
   getProductDetail(id: string) {
-    return http.get<SuccessResponseApi<Product>>(`${URL}/${id}`)
+    return productRepo.getById(id)
   }
 }
 

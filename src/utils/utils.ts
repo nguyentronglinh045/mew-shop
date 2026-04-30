@@ -1,5 +1,4 @@
 import axios, { AxiosError, HttpStatusCode } from 'axios'
-import { apiKey } from './http'
 import { ErrorResponseApi } from 'src/types/utils.type'
 
 //type predicate function
@@ -23,7 +22,9 @@ export function isAxiosExpiredTokenError<UnauthorizedError>(error: unknown): err
 }
 
 export function getAvatarURL(avtID: string | undefined) {
-  return avtID ? `${apiKey}images/${avtID}` : null
+  if (!avtID) return null
+  if (/^https?:\/\//.test(avtID)) return avtID
+  return null
 }
 
 export function formatCurrency(currency: number) {
