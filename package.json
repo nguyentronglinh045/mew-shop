@@ -4,9 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently -n FE,BE -c cyan,magenta \"yarn dev:fe\" \"yarn dev:be\"",
+    "dev": "concurrently -n FE,BE -c cyan,magenta \"yarn dev:fe\" \"yarn dev:be:local\"",
     "dev:fe": "vite",
     "dev:be": "cd api-ecom-main && yarn start",
+    "dev:be:local": "cd api-ecom-main && yarn start:local",
+    "dev:docker": "concurrently -n FE,BE -c cyan,magenta \"yarn dev:fe\" \"yarn dev:be\"",
+    "doctor": "node scripts/doctor.js",
     "dev:db": "docker compose up -d",
     "dev:db:down": "docker compose down",
     "install:all": "yarn install && cd api-ecom-main && yarn install",

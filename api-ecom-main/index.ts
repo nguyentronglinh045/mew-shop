@@ -13,8 +13,8 @@ import { isProduction } from './utils/helper'
 require('dotenv').config()
 
 const app: express.Application = express()
-connectMongoDB()
-const routes = [{ ...commonRoutes }, { ...userRoutes }, { ...adminRoutes }]
+connectMongoDB().then(() => {
+  const routes = [{ ...commonRoutes }, { ...userRoutes }, { ...adminRoutes }]
 app.use(helmet())
 app.use(cors())
 app.use(express.json())
@@ -41,6 +41,7 @@ app.use(function (err: any, req: any, res: any, next: any) {
   responseError(res, err)
 })
 
-app.listen(process.env.PORT, function () {
-  console.log(chalk.greenBright(`API listening on port ${process.env.PORT}!`))
+  app.listen(process.env.PORT, function () {
+    console.log(chalk.greenBright(`API listening on port ${process.env.PORT}!`))
+  })
 })
