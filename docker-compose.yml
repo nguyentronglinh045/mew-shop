@@ -1,0 +1,19 @@
+services:
+  mongo:
+    image: mongo:6
+    container_name: mew-shop-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: main
+    volumes:
+      - mongo_data:/data/db
+      - ./api-ecom-main/seed/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro
+      - ./api-ecom-main/main.categories.json:/seed-data/main.categories.json:ro
+      - ./api-ecom-main/main.products.json:/seed-data/main.products.json:ro
+
+volumes:
+  mongo_data:

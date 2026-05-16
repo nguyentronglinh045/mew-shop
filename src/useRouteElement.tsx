@@ -17,6 +17,7 @@ const Profile = lazy(() => import('./pages/User/Profile'))
 const ChangePassword = lazy(() => import('./pages/User/ChangePassword'))
 const Cart = lazy(() => import('./pages/Cart'))
 const Contact = lazy(() => import('./pages/Contact'))
+const Search = lazy(() => import('./pages/Search'))
 
 function ProtectedRoute() {
   const { isAuthenticated } = useContext(AppContext)
@@ -62,6 +63,14 @@ export default function useRouteElement() {
           element: (
             <Suspense fallback={<LoadingScreen />}>
               <ProductDetail />
+            </Suspense>
+          )
+        },
+        {
+          path: path.search,
+          element: (
+            <Suspense fallback={<LoadingScreen />}>
+              <Search />
             </Suspense>
           )
         },

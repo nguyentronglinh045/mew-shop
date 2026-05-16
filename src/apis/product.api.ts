@@ -11,6 +11,11 @@ const productApi = {
   },
   getProductDetail(id: string) {
     return http.get<SuccessResponseApi<Product>>(`${URL}/${id}`)
+  },
+  searchProducts(searchText: string) {
+    return http.get<SuccessResponseApi<ProductList>>(URL, {
+      params: { name: searchText, limit: '20', page: '1' }
+    })
   }
 }
 

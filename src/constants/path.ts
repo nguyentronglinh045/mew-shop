@@ -10,6 +10,7 @@ const path = {
   productDetail: ':nameId',
   cart: '/cart',
   productList: '/products',
+  search: '/search',
   contact: '/contact'
 } as const
 
