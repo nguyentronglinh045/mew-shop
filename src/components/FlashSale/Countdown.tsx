@@ -12,31 +12,41 @@ const Countdown = () => {
 
   // Tính thời gian còn lại
   useEffect(() => {
-    const targetDate = new Date('2024-02-10 00:00:00').getTime() // Thay đổi ngày cần đếm ngược đến
+    let targetDate = new Date('2024-02-10T00:00:00').getTime() // Ngày bắt đầu gốc
+
+    const updateTargetDate = () => {
+      const now = new Date().getTime()
+      while (targetDate <= now) {
+        const d = new Date(targetDate)
+        d.setMonth(d.getMonth() + 1)
+        targetDate = d.getTime()
+      }
+    }
+
+    // Cập nhật ngay targetDate cho tương lai gần nhất
+    updateTargetDate()
+
     const interval = setInterval(() => {
       const now = new Date().getTime()
-      const timeRemaining = targetDate - now
-      if (timeRemaining <= 0) {
-        clearInterval(interval)
-        setTimeLeft({
-          days: 0,
-          hours: 0,
-          minutes: 0,
-          seconds: 0
-        })
-      } else {
-        const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24))
-        const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-        const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60))
-        const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000)
+      let timeRemaining = targetDate - now
 
-        setTimeLeft({
-          days,
-          hours,
-          minutes,
-          seconds
-        })
+      // Nếu đã hết thời gian, tự động tăng thêm 1 tháng
+      if (timeRemaining <= 0) {
+        updateTargetDate()
+        timeRemaining = targetDate - now
       }
+
+      const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24))
+      const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+      const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60))
+      const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000)
+
+      setTimeLeft({
+        days,
+        hours,
+        minutes,
+        seconds
+      })
     }, 1000)
 
     return () => {
